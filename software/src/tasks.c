@@ -46,13 +46,15 @@ void key_scan_task(void *pvParameters) {
 
             for(int i = 0; i < size; i++) {
                 kbuf_pop(kbuf, &d);
-
+                
+                menu(kbuf->buffer[0]);
                 #ifdef CONFIG_DEBUG
                     send_hex(USART3, d);
                     send_uart(USART3, " ", 1);
                 #endif
+                
             }
-            xTaskNotifyGive(xTaskHandle_menu);
+    
             kbuf->ready = 0;
         } else {
             kbuf_reset(kbuf);
