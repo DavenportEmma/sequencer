@@ -4,6 +4,7 @@
 #include "midi.h"
 #include "w25q128jv.h"
 #include "keyboard.h"
+#include "menu.h"
 
 void setup() {
     /*
@@ -88,6 +89,9 @@ void setup() {
     }
 
     kbuf_free(kbuf);
+
+    // initialise menu state machine
+    menu(E_MAIN_MENU);
 
     send_uart(USART3, "Finished initialisation\n", 24);
 }
