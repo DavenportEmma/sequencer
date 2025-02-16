@@ -24,7 +24,7 @@ ST_DEL      = 0x57
 
 /*
 the order of the elements in this enum MUST be in the same order as the the 
-elements in state_machine. I am dumb
+elements in state_machine[] defined in menu.c. I am dumb
 */
 typedef enum {
     S_MAIN_MENU,
@@ -84,28 +84,6 @@ typedef struct {
     MenuState_t state;
     void (*func)(uint8_t key);
 } StateMachine_t;
-
-void main_menu(uint8_t key);
-void sq_select(uint8_t key);
-void sq_menu(uint8_t key);
-void sq_en(uint8_t key);
-void st_landing(uint8_t key);
-void st_select(uint8_t key);
-void st_menu(uint8_t key);
-
-/*
-the order of the elements in this array MUST be in the same order as the the 
-elements in MenuState_t enum. I am dumb
-*/
-StateMachine_t state_machine[] = {
-    { S_MAIN_MENU, main_menu },
-    { S_SQ_SELECT, sq_select },
-    { S_SQ_MENU, sq_menu },
-    { S_SQ_EN, sq_en },
-    { S_ST_LANDING, st_landing },
-    { S_ST_SELECT, st_select },
-    { S_ST_MENU, st_menu },
-};
 
 MenuEvent_t decode_key(MenuState_t current, uint8_t key);
 void menu(uint8_t key);
