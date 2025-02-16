@@ -21,24 +21,43 @@ MenuEvent_t decode_key(MenuState_t current, uint8_t key) {
     return key;
 }
 
-void main_menu() {
+static uint8_t ACTIVE_SQ; 
+static uint8_t ACTIVE_ST; 
+
+void main_menu(uint8_t key) {
     send_uart(USART3, "main_menu\n", 10);
 }
 
-void sq_menu() {
+void sq_select(uint8_t key) {
+    ACTIVE_SQ = key;
+    send_uart(USART3, "sq_select ", 10);
+    send_hex(USART3, key);
+    send_uart(USART3, "\n", 1);
+}
+
+void sq_menu(uint8_t key) {
     send_uart(USART3, "sq_menu\n", 8);
 }
 
-void st_landing() {
+void sq_en(uint8_t key) {
+    send_uart(USART3, "sq_en ", 6);
+    send_hex(USART3, ACTIVE_SQ);
+    send_uart(USART3, "\n", 1);
+}
+
+void st_landing(uint8_t key) {
     send_uart(USART3, "st_landing\n", 11);
 }
 
-void st_menu() {
-    send_uart(USART3, "st_menu\n", 8);
+void st_select(uint8_t key) {
+    ACTIVE_ST = key;
+    send_uart(USART3, "st_select ", 10);
+    send_hex(USART3, key);
+    send_uart(USART3, "\n", 1);
 }
 
-void st_edit() {
-    send_uart(USART3, "st_edit\n", 8);
+void st_menu(uint8_t key) {
+    send_uart(USART3, "st_menu\n", 8);
 }
 
 void menu(uint8_t key) {
@@ -50,7 +69,7 @@ void menu(uint8_t key) {
             state_table[i].event == event
         ) {
             current = state_table[i].next;
-            (state_machine[current].func)();
+            (state_machine[current].func)(key);
         }
     }
 }

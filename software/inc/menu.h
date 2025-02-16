@@ -76,14 +76,16 @@ static const MenuTransition_t state_table[] = {
 
 typedef struct {
     MenuState_t state;
-    void (*func)();
+    void (*func)(uint8_t key);
 } StateMachine_t;
 
-void main_menu();
-void sq_menu();
-void st_landing();
-void st_menu();
-void st_edit();
+void main_menu(uint8_t key);
+void sq_select(uint8_t key);
+void sq_menu(uint8_t key);
+void sq_en(uint8_t key);
+void st_landing(uint8_t key);
+void st_select(uint8_t key);
+void st_menu(uint8_t key);
 
 StateMachine_t state_machine[] = {
     { S_MAIN_MENU, main_menu },
