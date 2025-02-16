@@ -9,8 +9,6 @@
 #include "keyboard.h"
 #include "menu.h"
 
-extern TaskHandle_t xTaskHandle_menu;
-
 MIDISequence_TypeDef sequences[CONFIG_MAX_SEQUENCES];
 
 void sq_play_task(void *pvParameters) {
