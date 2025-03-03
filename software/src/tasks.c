@@ -17,7 +17,7 @@ void sq_play_task(void *pvParameters) {
     while(1) {
         lastWakeTime = xTaskGetTickCount();
 
-
+        play_sequences();
 
         vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(TEMPO_PERIOD_MS));
     }
