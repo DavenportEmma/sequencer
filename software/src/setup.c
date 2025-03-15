@@ -81,8 +81,7 @@ void setup() {
                     (2 << (ROW_INPUT_4_PIN * 2)) | (2 << (ROW_INPUT_5_PIN * 2)) |
                     (2 << (ROW_INPUT_6_PIN * 2)) | (2 << (ROW_INPUT_7_PIN * 2));
 
-    uint8_t buffer[CONFIG_ROLLOVER];
-    kbuf_handle_t kbuf = kbuf_init(buffer, CONFIG_ROLLOVER);
+    kbuf_handle_t kbuf = kbuf_init(CONFIG_ROLLOVER, sizeof(uint8_t));
     kbuf_reset(kbuf);
     if(!kbuf_empty(kbuf)) {
         send_uart(USART3, "Start up key press\n", 19);
