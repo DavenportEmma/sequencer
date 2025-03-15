@@ -12,6 +12,16 @@ extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 void toggle_sequence(uint8_t seq) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         sq_states[seq].enabled ^= 1;
+        if(!sq_states[seq].enabled) {
+            MIDICC_t p = {
+                .status = CONTROLLER,
+                .channel = sq_states[seq].channel,
+                .control = ALL_NOTES_OFF,
+                .value = 0,
+            };
+
+            send_midi_control(USART1, &p);
+        }
         xSemaphoreGive(sq_mutex);
     }
 }
