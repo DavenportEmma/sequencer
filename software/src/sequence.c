@@ -9,9 +9,19 @@
 extern SemaphoreHandle_t sq_mutex;
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
+static MIDIChannel_t get_channel(uint8_t sq_index) {
+    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+    uint8_t tx[1] = {0};
+    uint8_t rx[1] = {0};
+    SPIRead(sq_base_addr, tx, rx, 1);
+
+    return (MIDIChannel_t)rx[0];
+}
+
 void toggle_sequence(uint8_t seq) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         sq_states[seq].enabled ^= 1;
+
         if(!sq_states[seq].enabled) {
             MIDICC_t p = {
                 .status = CONTROLLER,
@@ -21,7 +31,10 @@ void toggle_sequence(uint8_t seq) {
             };
 
             send_midi_control(USART1, &p);
+        } else {
+            sq_states[seq].channel = get_channel(seq);
         }
+
         xSemaphoreGive(sq_mutex);
     }
 }
