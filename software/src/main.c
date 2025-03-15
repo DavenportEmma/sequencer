@@ -21,8 +21,8 @@ int main(void) {
 
     all_channels_off(USART1);
 
-    // xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, configMAX_PRIORITIES-1, NULL);
-    xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 2, NULL);
+    xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, 2, NULL);
+    xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 1, NULL);
     vTaskStartScheduler();
     while(1){
 
