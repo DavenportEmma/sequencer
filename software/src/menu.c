@@ -59,6 +59,9 @@ static void sq_en(uint8_t key) {
 
 static void st_landing(uint8_t key) {
     send_uart(USART3, "st_landing\n", 11);
+    if(load_sq_for_edit(ACTIVE_SQ)) {
+        send_uart(USART3, "error loading sequence\n", 23);
+    }
 }
 
 static void st_select(uint8_t key) {
