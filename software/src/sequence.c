@@ -89,7 +89,7 @@ static void play_step(uint8_t sq_index) {
     uint32_t current_step_addr = steps_base_addr + sq->counter;
 
     // see MEMORY.md
-    int8_t buffer_max = 3+(3*CONFIG_MAX_POLYPHONY);
+    int8_t buffer_max = STEP_MAX_BYTES;
     uint8_t* step_buffer = (uint8_t*)pvPortCalloc(buffer_max, sizeof(uint8_t));
 
     // traverse memory and load the step info until and end of step or end of
