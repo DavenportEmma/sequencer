@@ -6,13 +6,13 @@
 #include "uart.h"
 #include "w25q128jv.h"
 #include "common.h"
+#include "step_edit.h"
 #include <string.h>
 
 extern SemaphoreHandle_t sq_mutex;
-extern SemaphoreHandle_t edit_buffer_mutex;
+
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
-static uint8_t step_edit_buffer[BYTES_PER_SEQ];
 extern uint8_t ACTIVE_SQ;
 extern uint8_t SQ_EDIT_READY;
 
@@ -155,20 +155,4 @@ void play_sequences() {
         }
         xSemaphoreGive(sq_mutex);
     }
-}
-
-void reset_step_edit_buffer() {
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        memset(&step_edit_buffer, 0xFF, sizeof(step_edit_buffer));
-        
-        xSemaphoreGive(edit_buffer_mutex);
-    }
-}
-
-int load_sq_for_edit(uint8_t seq) {
-    load_step_edit_buffer(seq);
-
-    SQ_EDIT_READY = 1;
-
-    return 0;
 }
