@@ -83,9 +83,15 @@ void setup() {
 
     uint8_t buffer[CONFIG_ROLLOVER];
     kbuf_handle_t kbuf = kbuf_init(buffer, CONFIG_ROLLOVER);
+    
     kbuf_reset(kbuf);
+    
+    scan(kbuf);
+
     if(!kbuf_empty(kbuf)) {
         send_uart(USART3, "Start up key press\n", 19);
+        send_uart(USART3, "Erasing flash\n", 14);
+        eraseChip();
     }
 
     kbuf_free(kbuf);
