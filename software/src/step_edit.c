@@ -81,7 +81,7 @@ static void update_step(uint16_t addr, MIDINote_t note) {
 
         addr = get_next_step_addr(addr, step_edit_buffer);
 
-        while(step_edit_buffer[addr] != NOTE_ON) { addr++; }
+        while(step_edit_buffer[addr] != NOTE_OFF) { addr++; }
 
         addr++;
 
