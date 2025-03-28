@@ -21,6 +21,16 @@ MenuEvent_t decode_key(MenuState_t current, uint8_t key) {
     return key;
 }
 
+// converts a key to a sequence or step number
+// this is needed as the key representing the first step/sequence is not key 0
+static uint8_t key_to_sq_st(uint8_t key) {
+    if(key > 0x0F && key < 0x50) {
+        return key - 0x10;
+    }
+
+    return -1;
+}
+
 static uint8_t ACTIVE_SQ; 
 static uint8_t ACTIVE_ST; 
 
