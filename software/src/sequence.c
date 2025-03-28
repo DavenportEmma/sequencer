@@ -25,13 +25,7 @@ static MIDIChannel_t get_channel(uint8_t sq_index) {
     return (MIDIChannel_t)rx[0];
 }
 
-static void read_step_edit_buffer(uint8_t addr, uint8_t* data, uint16_t num_bytes) {
-    for(int i = 0; i < num_bytes; i++) {
-        data[i] = step_edit_buffer[i + addr];
-    }
-}
-
-static void parse_step_buffer(MIDIChannel_t c, uint8_t* step_buffer, int8_t len) {
+static void play_step_notes(MIDIChannel_t c, uint8_t* step_buffer, int8_t len) {
     int byte_index = 0;
 
     // hopefully we never run into the case where NOTE_OFF isn't the first byte
@@ -68,61 +62,45 @@ static void parse_step_buffer(MIDIChannel_t c, uint8_t* step_buffer, int8_t len)
     }
 }
 
-static void load_step_buffer(MIDISequence_t* sq, uint8_t sq_index, uint8_t* step_buffer) {
+static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t* data, uint16_t len) {
+    // get the address for the step pointer in flash memory
+    // read MEMORY.md for more info
+    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+    uint32_t steps_base_addr = sq_base_addr + 0x1000;
+    uint32_t current_step_addr = steps_base_addr + sq->counter;
+
+    SPIRead(current_step_addr, data, data, len);
+}
+
+// load step from flash or from the edit buffer
+static int load_step(MIDISequence_t* sq, uint8_t sq_index, uint8_t* data) {
     if(ACTIVE_SQ == sq_index && SQ_EDIT_READY == 1) {
-        if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-            read_step_edit_buffer(sq->counter, step_buffer, (uint16_t)BYTES_PER_STEP);
-            
-            xSemaphoreGive(edit_buffer_mutex);
-        }
+        edit_buffer_read(sq->counter, data, BYTES_PER_STEP);
     } else {
-        // get the address for the step pointer in flash memory
-        // read MEMORY.md for more info
-        uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-        uint32_t steps_base_addr = sq_base_addr + 0x1000;
-        uint32_t current_step_addr = steps_base_addr + sq->counter;
-    
-        // traverse memory and load the step info until and end of step or end of
-        // sequence byte is hit
-        uint8_t tx[BYTES_PER_STEP] = {0};
-        SPIRead(current_step_addr, tx, step_buffer, (uint16_t)BYTES_PER_STEP);
+        read_step_from_memory(sq, sq_index, data, BYTES_PER_STEP);
     }
+
+    for(int i = 0; i < BYTES_PER_STEP; i++) {
+        send_hex(USART3, data[i]);
+        send_uart(USART3, "\n\r", 2);
+    }
+    send_uart(USART3, "\n\r", 2);
+
+    return data[BYTES_PER_STEP-1];
 }
 
 static void play_step(uint8_t sq_index) {
     MIDISequence_t* sq = &sq_states[sq_index];
-
-    // see MEMORY.md
-    uint8_t* step_buffer = (uint8_t*)pvPortCalloc(BYTES_PER_STEP, sizeof(uint8_t));
-
-    load_step_buffer(sq, sq_index, step_buffer);
+    uint8_t data[BYTES_PER_STEP];
 
     // if the end of sequence byte is hit then put the counter back to the start
-    if(step_buffer[BYTES_PER_STEP-1] == 0xFF) {
+    if(load_step(sq, sq_index, data) == 0xFF) {
         sq->counter = 0;
     } else {
         sq->counter += BYTES_PER_STEP;
     }
 
-    for(int i = 0; i < BYTES_PER_STEP; i++) {
-        send_hex(USART3, step_buffer[i]);
-        send_uart(USART3, "\n\r", 2);
-    }
-    send_uart(USART3, "\n\r", 2);
-
-    parse_step_buffer(sq->channel, step_buffer, BYTES_PER_STEP);
-
-    vPortFree(step_buffer);
-}
-
-static void load_step_edit_buffer(uint8_t sq_index) {
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint32_t steps_base_addr = sq_base_addr + 0x1000;
-
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        SPIRead(steps_base_addr, step_edit_buffer, step_edit_buffer, (uint16_t)BYTES_PER_SEQ);
-        xSemaphoreGive(edit_buffer_mutex);
-    }
+    play_step_notes(sq->channel, data, BYTES_PER_STEP);
 }
 
 void toggle_sequence(uint8_t seq) {
