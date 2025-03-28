@@ -91,7 +91,7 @@ static void play_step(uint8_t sq_index) {
 
     // traverse memory and load the step info until and end of step or end of
     // sequence byte is hit
-    int8_t num_bytes = readStep(current_step_addr, step_buffer, buffer_max);
+    int8_t num_bytes = readSteps(current_step_addr, step_buffer, 1, buffer_max);
 
     // if the end of sequence byte is hit then put the counter back to the start
     if(step_buffer[num_bytes] == 0xFF) {
