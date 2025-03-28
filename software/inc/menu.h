@@ -37,16 +37,16 @@ typedef enum {
 } MenuState_t;
 
 typedef enum {
-    E_MAIN_MENU = 0x09,
-    E_SQ_EN = 0x00,
+    E_MAIN_MENU = 0x01,
+    E_SQ_EN = 0x08,
     E_SQ_SELECT,
-    E_SQ_EDIT = 0x04,
+    E_SQ_EDIT = 0x0C,
     E_ST_SELECT,
-    E_ST_EDIT = 0x54,
-    E_ST_PITCH = 0x61,
-    E_ST_EN = 0x52,
-    E_ST_MUTE = 0x53,
-    E_ST_DEL = 0x57,
+    E_ST_EDIT = 0x5C,
+    E_ST_PITCH = 0x69,
+    E_ST_EN = 0x5A,
+    E_ST_MUTE = 0x5B,
+    E_ST_DEL = 0x5F,
     E_AUTO = 0xFFFF,
 } MenuEvent_t;
 
