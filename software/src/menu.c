@@ -126,6 +126,8 @@ static void st_landing(uint8_t key) {
 
     if(edit_buffer_load(ACTIVE_SQ)) {
         send_uart(USART3, "error loading sequence\n\r", 24);
+    } else {
+        SQ_EDIT_READY = 1;
     }
 }
 
