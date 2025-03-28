@@ -78,6 +78,8 @@ static void st_menu(uint8_t key) {
     send_uart(USART3, "st_menu\n\r", 9);
 }
 
+static void prev(uint8_t key) { }
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -90,10 +92,13 @@ StateMachine_t state_machine[] = {
     { S_ST_LANDING, st_landing },
     { S_ST_SELECT, st_select },
     { S_ST_MENU, st_menu },
+    { S_PREV, prev },
 };
 
 void menu(uint8_t key) {
     static MenuState_t current = S_MAIN_MENU;
+    static MenuState_t previous = S_MAIN_MENU;
+
     MenuEvent_t event = decode_key(current, key);
     
     for(uint8_t i = 0; i < STATE_TABLE_SIZE; i++) {

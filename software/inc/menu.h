@@ -34,6 +34,7 @@ typedef enum {
     S_ST_LANDING,
     S_ST_SELECT,
     S_ST_MENU,
+    S_PREV,
 } MenuState_t;
 
 typedef enum {
