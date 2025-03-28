@@ -5,6 +5,7 @@
 #include "autoconf.h"
 #include "uart.h"
 #include "w25q128jv.h"
+#include <string.h>
 
 extern SemaphoreHandle_t sq_mutex;
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
