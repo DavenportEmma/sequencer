@@ -119,6 +119,14 @@ void play_sequences() {
     }
 }
 
+void reset_step_edit_buffer() {
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        memset(&step_edit_buffer, 0xFF, sizeof(step_edit_buffer));
+        
+        xSemaphoreGive(edit_buffer_mutex);
+    }
+}
+
 static int load_step_edit_buffer(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint32_t steps_base_addr = sq_base_addr + 0x1000;
