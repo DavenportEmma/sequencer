@@ -32,8 +32,8 @@ static uint8_t key_to_sq_st(uint8_t key) {
     return -1;
 }
 
-static uint8_t ACTIVE_SQ; 
-static uint8_t ACTIVE_ST; 
+volatile uint8_t ACTIVE_SQ; 
+volatile uint8_t ACTIVE_ST; 
 
 static void main_menu(uint8_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
