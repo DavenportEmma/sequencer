@@ -30,7 +30,6 @@ void key_scan_task(void *pvParameters) {
     kbuf_handle_t kbuf = kbuf_init(buffer, CONFIG_ROLLOVER);
     kbuf_reset(kbuf);
 
-    int err;
     uint8_t d;
 
     while(1) {
