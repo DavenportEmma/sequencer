@@ -68,31 +68,49 @@ static void parse_step_buffer(MIDIChannel_t c, uint8_t* step_buffer, int8_t len)
     }
 }
 
+static void load_step_buffer(MIDISequence_t* sq, uint8_t sq_index, uint8_t* step_buffer) {
+    if(ACTIVE_SQ == sq_index && SQ_EDIT_READY == 1) {
+        if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+            read_step_edit_buffer(sq->counter, step_buffer, (uint16_t)BYTES_PER_STEP);
+            
+            xSemaphoreGive(edit_buffer_mutex);
+        }
+    } else {
+        // get the address for the step pointer in flash memory
+        // read MEMORY.md for more info
+        uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+        uint32_t steps_base_addr = sq_base_addr + 0x1000;
+        uint32_t current_step_addr = steps_base_addr + sq->counter;
+    
+        // traverse memory and load the step info until and end of step or end of
+        // sequence byte is hit
+        uint8_t tx[BYTES_PER_STEP] = {0};
+        SPIRead(current_step_addr, tx, step_buffer, (uint16_t)BYTES_PER_STEP);
+    }
+}
+
 static void play_step(uint8_t sq_index) {
     MIDISequence_t* sq = &sq_states[sq_index];
 
-    // get the address for the step pointer in flash memory
-    // read MEMORY.md for more info
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint32_t steps_base_addr = sq_base_addr + 0x1000;
-    uint32_t current_step_addr = steps_base_addr + sq->counter;
-
     // see MEMORY.md
-    int8_t buffer_max = STEP_MAX_BYTES;
-    uint8_t* step_buffer = (uint8_t*)pvPortCalloc(buffer_max, sizeof(uint8_t));
+    uint8_t* step_buffer = (uint8_t*)pvPortCalloc(BYTES_PER_STEP, sizeof(uint8_t));
 
-    // traverse memory and load the step info until and end of step or end of
-    // sequence byte is hit
-    int8_t num_bytes = readSteps(current_step_addr, step_buffer, 1, buffer_max);
+    load_step_buffer(sq, sq_index, step_buffer);
 
     // if the end of sequence byte is hit then put the counter back to the start
-    if(step_buffer[num_bytes] == 0xFF) {
+    if(step_buffer[BYTES_PER_STEP-1] == 0xFF) {
         sq->counter = 0;
     } else {
-        sq->counter += num_bytes + 1;
+        sq->counter += BYTES_PER_STEP;
     }
 
-    parse_step_buffer(sq->channel, step_buffer, num_bytes);
+    for(int i = 0; i < BYTES_PER_STEP; i++) {
+        send_hex(USART3, step_buffer[i]);
+        send_uart(USART3, "\n\r", 2);
+    }
+    send_uart(USART3, "\n\r", 2);
+
+    parse_step_buffer(sq->channel, step_buffer, BYTES_PER_STEP);
 
     vPortFree(step_buffer);
 }
