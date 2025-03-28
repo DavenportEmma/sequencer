@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "sequence.h"
 
-MenuEvent_t decode_key(MenuState_t current, uint8_t key) {
+static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
     /*
         these are the 64 keys that represent the sequences or steps depending on
         the current state
@@ -95,7 +95,7 @@ StateMachine_t state_machine[] = {
     { S_PREV, prev },
 };
 
-void menu(uint8_t key) {
+void menu(uint16_t key) {
     static MenuState_t current = S_MAIN_MENU;
     static MenuState_t previous = S_MAIN_MENU;
 

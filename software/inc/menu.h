@@ -86,7 +86,6 @@ typedef struct {
     void (*func)(uint8_t key);
 } StateMachine_t;
 
-MenuEvent_t decode_key(MenuState_t current, uint8_t key);
-void menu(uint8_t key);
+void menu(uint16_t key);
 
 #endif // _MENU_H
