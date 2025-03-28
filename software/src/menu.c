@@ -1,5 +1,6 @@
 #include "uart.h"
 #include "menu.h"
+#include "sequence.h"
 
 MenuEvent_t decode_key(MenuState_t current, uint8_t key) {
     /*
@@ -53,6 +54,7 @@ static void sq_en(uint8_t key) {
     send_uart(USART3, "sq_en ", 6);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n", 1);
+    toggle_sequence(ACTIVE_SQ);
 }
 
 static void st_landing(uint8_t key) {
