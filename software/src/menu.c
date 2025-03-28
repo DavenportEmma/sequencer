@@ -34,9 +34,12 @@ static uint8_t key_to_sq_st(uint8_t key) {
 
 volatile uint8_t ACTIVE_SQ; 
 volatile uint8_t ACTIVE_ST; 
+volatile uint8_t SQ_EDIT_READY = 0;
 
 static void main_menu(uint8_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
+    reset_step_edit_buffer();
+    SQ_EDIT_READY=0;
 }
 
 static void sq_select(uint8_t key) {
