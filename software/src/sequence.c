@@ -111,6 +111,16 @@ static void play_step(uint8_t sq_index) {
     vPortFree(step_buffer);
 }
 
+static void load_step_edit_buffer(uint8_t sq_index) {
+    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+    uint32_t steps_base_addr = sq_base_addr + 0x1000;
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        SPIRead(steps_base_addr, step_edit_buffer, step_edit_buffer, (uint16_t)BYTES_PER_SEQ);
+        xSemaphoreGive(edit_buffer_mutex);
+    }
+}
+
 void play_sequences() {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
@@ -130,24 +140,8 @@ void reset_step_edit_buffer() {
     }
 }
 
-static int load_step_edit_buffer(uint8_t sq_index) {
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint32_t steps_base_addr = sq_base_addr + 0x1000;
-
-    int8_t num_bytes = 0;
-
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, BYTES_PER_SEQ);
-        xSemaphoreGive(edit_buffer_mutex);
-    }
-
-    return num_bytes;
-}
-
 int load_sq_for_edit(uint8_t seq) {
-    if(load_step_edit_buffer(seq)) {
-        send_uart(USART3, "error loading step edit buffer\n\r", 32);
-    }
+    load_step_edit_buffer(seq);
 
     SQ_EDIT_READY = 1;
 
