@@ -105,8 +105,15 @@ void menu(uint16_t key) {
         if((state_table[i].current == current && state_table[i].event == event) ||
             (state_table[i].current == current && state_table[i].event == E_AUTO)
         ) {
-            current = state_table[i].next;
+            if(state_table[i].next == S_PREV) {
+                current = previous;
+            } else {
+                previous = current;
+                current = state_table[i].next;    
+            }
+
             (state_machine[current].func)(key);
+            break;
         }
     }
 }
