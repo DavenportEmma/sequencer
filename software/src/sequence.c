@@ -11,7 +11,7 @@ extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
-static uint8_t step_edit_buffer[ALL_STEPS_MAX_BYTES];
+static uint8_t step_edit_buffer[BYTES_PER_SEQ];
 extern uint8_t ACTIVE_SQ;
 extern uint8_t SQ_EDIT_READY;
 
@@ -137,7 +137,7 @@ static int load_step_edit_buffer(uint8_t sq_index) {
     int8_t num_bytes = 0;
 
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, ALL_STEPS_MAX_BYTES);
+        num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, BYTES_PER_SEQ);
         xSemaphoreGive(edit_buffer_mutex);
     }
 
