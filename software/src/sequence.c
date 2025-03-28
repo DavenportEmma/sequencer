@@ -25,24 +25,9 @@ static MIDIChannel_t get_channel(uint8_t sq_index) {
     return (MIDIChannel_t)rx[0];
 }
 
-void toggle_sequence(uint8_t seq) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sq_states[seq].enabled ^= 1;
-
-        if(!sq_states[seq].enabled) {
-            MIDICC_t p = {
-                .status = CONTROLLER,
-                .channel = sq_states[seq].channel,
-                .control = ALL_NOTES_OFF,
-                .value = 0,
-            };
-
-            send_midi_control(USART1, &p);
-        } else {
-            sq_states[seq].channel = get_channel(seq);
-        }
-
-        xSemaphoreGive(sq_mutex);
+static void read_step_edit_buffer(uint8_t addr, uint8_t* data, uint16_t num_bytes) {
+    for(int i = 0; i < num_bytes; i++) {
+        data[i] = step_edit_buffer[i + addr];
     }
 }
 
@@ -119,6 +104,27 @@ static void load_step_edit_buffer(uint8_t sq_index) {
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         SPIRead(steps_base_addr, step_edit_buffer, step_edit_buffer, (uint16_t)BYTES_PER_SEQ);
         xSemaphoreGive(edit_buffer_mutex);
+    }
+}
+
+void toggle_sequence(uint8_t seq) {
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        sq_states[seq].enabled ^= 1;
+
+        if(!sq_states[seq].enabled) {
+            MIDICC_t p = {
+                .status = CONTROLLER,
+                .channel = sq_states[seq].channel,
+                .control = ALL_NOTES_OFF,
+                .value = 0,
+            };
+
+            send_midi_control(USART1, &p);
+        } else {
+            sq_states[seq].channel = get_channel(seq);
+        }
+
+        xSemaphoreGive(sq_mutex);
     }
 }
 
