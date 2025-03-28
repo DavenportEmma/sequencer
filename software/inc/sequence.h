@@ -17,5 +17,6 @@
 
 void toggle_sequence(uint8_t seq);
 void play_sequences();
+int load_sq_for_edit(uint8_t seq);
 
 #endif // _SEQUENCE_H

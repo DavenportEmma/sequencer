@@ -9,6 +9,9 @@
 extern SemaphoreHandle_t sq_mutex;
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
+static uint8_t step_edit_buffer[ALL_STEPS_MAX_BYTES];
+static uint8_t SQ_UNDER_EDIT;
+
 static MIDIChannel_t get_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint8_t tx[1] = {0};
@@ -114,4 +117,29 @@ void play_sequences() {
         }
         xSemaphoreGive(sq_mutex);
     }
+}
+
+static int load_step_edit_buffer(uint8_t sq_index) {
+    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+    uint32_t steps_base_addr = sq_base_addr + 0x1000;
+
+    int8_t num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, ALL_STEPS_MAX_BYTES);
+    
+    for(int i = 0; i < num_bytes; i++) {
+        uint8_t d = step_edit_buffer[i];
+        send_hex(USART3, d);
+        send_uart(USART3, "\n", 1);
+    }
+
+    return 0;
+}
+
+int load_sq_for_edit(uint8_t seq) {
+    if(load_step_edit_buffer(seq)) {
+        send_uart(USART3, "error loading step edit buffer\n", 31);
+    }
+
+
+
+    return 0;
 }
