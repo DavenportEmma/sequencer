@@ -36,31 +36,31 @@ static uint8_t ACTIVE_SQ;
 static uint8_t ACTIVE_ST; 
 
 static void main_menu(uint8_t key) {
-    send_uart(USART3, "main_menu\n", 10);
+    send_uart(USART3, "main_menu\n\r", 11);
 }
 
 static void sq_select(uint8_t key) {
     ACTIVE_SQ = key_to_sq_st(key);
     send_uart(USART3, "sq_select ", 10);
     send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n", 1);
+    send_uart(USART3, "\n\r", 2);
 }
 
 static void sq_menu(uint8_t key) {
-    send_uart(USART3, "sq_menu\n", 8);
+    send_uart(USART3, "sq_menu\n\r", 9);
 }
 
 static void sq_en(uint8_t key) {
     send_uart(USART3, "sq_en ", 6);
     send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n", 1);
+    send_uart(USART3, "\n\r", 2);
     toggle_sequence(ACTIVE_SQ);
 }
 
 static void st_landing(uint8_t key) {
-    send_uart(USART3, "st_landing\n", 11);
+    send_uart(USART3, "st_landing\n\r", 12);
     if(load_sq_for_edit(ACTIVE_SQ)) {
-        send_uart(USART3, "error loading sequence\n", 23);
+        send_uart(USART3, "error loading sequence\n\r", 24);
     }
 }
 
@@ -68,11 +68,11 @@ static void st_select(uint8_t key) {
     ACTIVE_ST = key_to_sq_st(key);
     send_uart(USART3, "st_select ", 10);
     send_hex(USART3, ACTIVE_ST);
-    send_uart(USART3, "\n", 1);
+    send_uart(USART3, "\n\r", 2);
 }
 
 static void st_menu(uint8_t key) {
-    send_uart(USART3, "st_menu\n", 8);
+    send_uart(USART3, "st_menu\n\r", 9);
 }
 
 /*
