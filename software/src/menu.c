@@ -2,7 +2,6 @@
 #include "menu.h"
 #include "sequence.h"
 #include "midi.h"
-#include "step_edit.h"
 
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
     if(key > 0x0F && key < 0x50) {
