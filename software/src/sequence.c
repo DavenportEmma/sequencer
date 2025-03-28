@@ -150,7 +150,7 @@ int load_sq_for_edit(uint8_t seq) {
         send_uart(USART3, "error loading step edit buffer\n\r", 32);
     }
 
-
+    SQ_EDIT_READY = 1;
 
     return 0;
 }
