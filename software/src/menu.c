@@ -7,16 +7,16 @@ static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
         these are the 64 keys that represent the sequences or steps depending on
         the current state
     */
-    if(key > 0x0F && key < 0x50) {
-        /*
-            menu states 0 and 1 are main menu and sequence menu. the central 64
-            keys represent sequences here
-        */
-        if(current < 2) {
-            return E_SQ_SELECT;
-        } else {
-            return E_ST_SELECT;
-        }
+    switch(current) {
+        case S_MAIN_MENU:
+        case S_SQ_MENU:
+            if(key > 0x0F && key < 0x50) {
+                return E_SQ_SELECT;
+            }
+            break;
+
+        default:
+            return key;
     }
 
     return key;
