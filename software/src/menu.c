@@ -2,6 +2,7 @@
 #include "menu.h"
 #include "sequence.h"
 #include "midi.h"
+#include "step_edit.h"
 
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
     if(key > 0x0F && key < 0x50) {
@@ -87,7 +88,7 @@ volatile uint8_t SQ_EDIT_READY = 0;
 static void main_menu(uint8_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
 
-    reset_step_edit_buffer();
+    edit_buffer_reset();
 
     SQ_EDIT_READY=0;
 }
@@ -123,7 +124,7 @@ static void st_landing(uint8_t key) {
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 
-    if(load_sq_for_edit(ACTIVE_SQ)) {
+    if(edit_buffer_load(ACTIVE_SQ)) {
         send_uart(USART3, "error loading sequence\n\r", 24);
     }
 }
@@ -155,6 +156,8 @@ static void st_note(uint8_t key) {
         send_uart(USART3, " ", 1);
         send_hex(USART3, note);
         send_uart(USART3, "\n\r", 2);
+
+        edit_step_note(ACTIVE_ST, note);
     }
 
     menu(E_AUTO);
