@@ -64,23 +64,3 @@ void key_scan_task(void *pvParameters) {
     kbuf_free(kbuf);
     vTaskDelete(NULL);
 }
-
-void menu_task() {
-    while(1) {
-        send_uart(USART3, "menu :)\n", 8);
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    }
-
-    // receive data from key_scan_task and update menu state
-
-    // menu_lut_t menu_id = SQ_MENU;
-    // while(1) {
-    //     switch(menu_id) {
-    //     case SQ_MENU:
-    //         send_uart(USART3, "*** select sequence ***\n", 24);
-
-    //         break;
-    //     }
-
-    // }
-}
