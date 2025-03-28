@@ -8,10 +8,12 @@
 #include <string.h>
 
 extern SemaphoreHandle_t sq_mutex;
+extern SemaphoreHandle_t edit_buffer_mutex;
 extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
 static uint8_t step_edit_buffer[ALL_STEPS_MAX_BYTES];
-static uint8_t SQ_UNDER_EDIT;
+extern uint8_t ACTIVE_SQ;
+extern uint8_t SQ_EDIT_READY;
 
 static MIDIChannel_t get_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
