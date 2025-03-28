@@ -7,8 +7,10 @@
 #include "midi.h"
 #include "setup.h"
 #include "autoconf.h"
+#include <string.h>
 
 SemaphoreHandle_t sq_mutex;
+MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -18,6 +20,8 @@ int main(void) {
     setup();
 
     sq_mutex = xSemaphoreCreateMutex();
+
+    memset(sq_states, 0, sizeof(sq_states));
 
     all_channels_off(USART1);
 
