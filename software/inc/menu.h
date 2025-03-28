@@ -48,6 +48,7 @@ typedef enum {
     E_ST_EN = 0x5A,
     E_ST_MUTE = 0x5B,
     E_ST_DEL = 0x5F,
+    E_ST_NOTE,
     E_AUTO = 0xFFFF,
 } MenuEvent_t;
 

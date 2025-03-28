@@ -2,6 +2,12 @@
 #include "menu.h"
 #include "sequence.h"
 
+static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
+    if((key >= 0x61 && key <= 0x66) || (key >= 0x70 && key <= 0x77)) {
+        return E_ST_NOTE;
+    }
+}
+
 static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
     /*
         these are the 64 keys that represent the sequences or steps depending on
@@ -14,6 +20,9 @@ static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
                 return E_SQ_SELECT;
             }
             break;
+
+        case S_ST_MENU:
+            return decode_step_operation(current, key);
 
         default:
             return key;
