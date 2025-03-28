@@ -18,9 +18,10 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 }
 
 int main(void) {
-    setup();
-
+    edit_buffer_mutex = xSemaphoreCreateMutex();
     sq_mutex = xSemaphoreCreateMutex();
+    
+    setup();
 
     memset(sq_states, 0, sizeof(sq_states));
 
