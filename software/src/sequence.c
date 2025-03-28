@@ -134,15 +134,14 @@ static int load_step_edit_buffer(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint32_t steps_base_addr = sq_base_addr + 0x1000;
 
-    int8_t num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, ALL_STEPS_MAX_BYTES);
-    
-    for(int i = 0; i < num_bytes; i++) {
-        uint8_t d = step_edit_buffer[i];
-        send_hex(USART3, d);
-        send_uart(USART3, "\n", 1);
+    int8_t num_bytes = 0;
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        num_bytes = readSteps(steps_base_addr, step_edit_buffer, -1, ALL_STEPS_MAX_BYTES);
+        xSemaphoreGive(edit_buffer_mutex);
     }
 
-    return 0;
+    return num_bytes;
 }
 
 int load_sq_for_edit(uint8_t seq) {
