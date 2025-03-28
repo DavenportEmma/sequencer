@@ -4,7 +4,7 @@
 #include "sequence.h"
 #include "autoconf.h"
 #include "uart.h"
-#include "common.h"
+#include "w25q128jv.h"
 
 extern SemaphoreHandle_t sq_mutex;
 extern volatile MIDISequence_t sq_states[64];
