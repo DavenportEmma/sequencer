@@ -65,8 +65,8 @@ void menu(uint8_t key) {
     MenuEvent_t event = decode_key(current, key);
     
     for(uint8_t i = 0; i < STATE_TABLE_SIZE; i++) {
-        if( state_table[i].current == current &&
-            state_table[i].event == event
+        if((state_table[i].current == current && state_table[i].event == event) ||
+            (state_table[i].current == current && state_table[i].event == E_AUTO)
         ) {
             current = state_table[i].next;
             (state_machine[current].func)(key);

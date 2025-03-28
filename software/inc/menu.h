@@ -1,5 +1,6 @@
 #ifndef _MENU_H
 #define _MENU_H
+#include <stddef.h>
 
 /*
 SQ_MENU     = 0x09,
@@ -21,12 +22,18 @@ ST_NEXT     = 0x56,
 ST_DEL      = 0x57
 */
 
+/*
+the order of the elements in this enum MUST be in the same order as the the 
+elements in state_machine. I am dumb
+*/
 typedef enum {
     S_MAIN_MENU,
+    S_SQ_SELECT,
     S_SQ_MENU,
+    S_SQ_EN,
     S_ST_LANDING,
+    S_ST_SELECT,
     S_ST_MENU,
-    S_ST_EDIT
 } MenuState_t;
 
 typedef enum {
@@ -39,7 +46,8 @@ typedef enum {
     E_ST_PITCH = 0x61,
     E_ST_EN = 0x52,
     E_ST_MUTE = 0x53,
-    E_ST_DEL = 0x57
+    E_ST_DEL = 0x57,
+    E_AUTO = 0xFFFF,
 } MenuEvent_t;
 
 typedef struct {
@@ -50,26 +58,24 @@ typedef struct {
 
 static const MenuTransition_t state_table[] = {
     {S_MAIN_MENU, E_MAIN_MENU, S_MAIN_MENU},
-    {S_MAIN_MENU, E_SQ_SELECT, S_SQ_MENU},
-    
+    {S_MAIN_MENU, E_SQ_SELECT, S_SQ_SELECT},
+
+    {S_SQ_SELECT, E_AUTO, S_SQ_MENU},
+
     {S_SQ_MENU, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MENU, E_SQ_EDIT, S_ST_LANDING},
-    {S_SQ_MENU, E_SQ_SELECT, S_SQ_MENU},
-    {S_SQ_MENU, E_SQ_EN, S_SQ_MENU},
-    
+    {S_SQ_MENU, E_SQ_SELECT, S_SQ_SELECT},
+    {S_SQ_MENU, E_SQ_EN, S_SQ_EN},
+
+    {S_SQ_EN, E_AUTO, S_SQ_MENU},
+
     {S_ST_LANDING, E_MAIN_MENU, S_MAIN_MENU},
-    {S_ST_LANDING, E_ST_SELECT, S_ST_MENU},
+    {S_ST_LANDING, E_ST_SELECT, S_ST_SELECT},
     
+    {S_ST_SELECT, E_AUTO, S_ST_MENU},
+
     {S_ST_MENU, E_MAIN_MENU, S_MAIN_MENU},
-    {S_ST_MENU, E_ST_EDIT, S_ST_EDIT},
-    {S_ST_MENU, E_ST_SELECT, S_ST_MENU},
-    
-    {S_ST_EDIT, E_MAIN_MENU, S_MAIN_MENU},
-    {S_ST_EDIT, E_ST_SELECT, S_ST_MENU},
-    {S_ST_EDIT, E_ST_PITCH, S_ST_EDIT},
-    {S_ST_EDIT, E_ST_EN, S_ST_EDIT},
-    {S_ST_EDIT, E_ST_MUTE, S_ST_EDIT},
-    {S_ST_EDIT, E_ST_DEL, S_ST_EDIT},
+    {S_ST_MENU, E_ST_SELECT, S_ST_SELECT},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))
@@ -87,12 +93,18 @@ void st_landing(uint8_t key);
 void st_select(uint8_t key);
 void st_menu(uint8_t key);
 
+/*
+the order of the elements in this array MUST be in the same order as the the 
+elements in MenuState_t enum. I am dumb
+*/
 StateMachine_t state_machine[] = {
     { S_MAIN_MENU, main_menu },
+    { S_SQ_SELECT, sq_select },
     { S_SQ_MENU, sq_menu },
+    { S_SQ_EN, sq_en },
     { S_ST_LANDING, st_landing },
+    { S_ST_SELECT, st_select },
     { S_ST_MENU, st_menu },
-    { S_ST_EDIT, st_edit },
 };
 
 MenuEvent_t decode_key(MenuState_t current, uint8_t key);
