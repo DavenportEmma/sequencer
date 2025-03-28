@@ -10,6 +10,7 @@
 #include <string.h>
 
 SemaphoreHandle_t sq_mutex;
+SemaphoreHandle_t edit_buffer_mutex;
 MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
