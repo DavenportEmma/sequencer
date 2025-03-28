@@ -119,7 +119,7 @@ static void sq_en(uint8_t key) {
 }
 
 static void st_landing(uint8_t key) {
-    send_uart(USART3, "edit sq ", 8);
+    send_uart(USART3, "st_landing ", 11);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 
