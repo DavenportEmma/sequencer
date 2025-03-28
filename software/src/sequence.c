@@ -147,7 +147,7 @@ static int load_step_edit_buffer(uint8_t sq_index) {
 
 int load_sq_for_edit(uint8_t seq) {
     if(load_step_edit_buffer(seq)) {
-        send_uart(USART3, "error loading step edit buffer\n", 31);
+        send_uart(USART3, "error loading step edit buffer\n\r", 32);
     }
 
 
