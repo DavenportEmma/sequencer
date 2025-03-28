@@ -1,11 +1,14 @@
 #include "stm32f722xx.h"
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
+#include "semphr.h"
 #include "task.h"
 #include "tasks.h"
 #include "midi.h"
 #include "setup.h"
 #include "autoconf.h"
+
+SemaphoreHandle_t sq_mutex;
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -13,6 +16,8 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 
 int main(void) {
     setup();
+
+    sq_mutex = xSemaphoreCreateMutex();
 
     all_channels_off(USART1);
 
