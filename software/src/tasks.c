@@ -43,11 +43,6 @@ void key_scan_task(void *pvParameters) {
                 kbuf_pop(kbuf, &d);
                 
                 menu(kbuf->buffer[0]);
-                #ifdef CONFIG_DEBUG
-                    send_hex(USART3, d);
-                    send_uart(USART3, " ", 1);
-                #endif
-
             }
 
             kbuf->ready = 0;
