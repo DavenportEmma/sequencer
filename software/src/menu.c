@@ -29,9 +29,9 @@ static void main_menu(uint8_t key) {
 }
 
 static void sq_select(uint8_t key) {
-    ACTIVE_SQ = key;
+    ACTIVE_SQ = key_to_sq_st(key);
     send_uart(USART3, "sq_select ", 10);
-    send_hex(USART3, key);
+    send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n", 1);
 }
 
@@ -50,9 +50,9 @@ static void st_landing(uint8_t key) {
 }
 
 static void st_select(uint8_t key) {
-    ACTIVE_ST = key;
+    ACTIVE_ST = key_to_sq_st(key);
     send_uart(USART3, "st_select ", 10);
-    send_hex(USART3, key);
+    send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n", 1);
 }
 
