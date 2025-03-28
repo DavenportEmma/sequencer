@@ -47,6 +47,8 @@ static void sq_select(uint8_t key) {
     send_uart(USART3, "sq_select ", 10);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
+
+    menu(E_AUTO);
 }
 
 static void sq_menu(uint8_t key) {
@@ -58,6 +60,8 @@ static void sq_en(uint8_t key) {
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
     toggle_sequence(ACTIVE_SQ);
+
+    menu(E_AUTO);
 }
 
 static void st_landing(uint8_t key) {
@@ -72,6 +76,8 @@ static void st_select(uint8_t key) {
     send_uart(USART3, "st_select ", 10);
     send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n\r", 2);
+
+    menu(E_AUTO);
 }
 
 static void st_menu(uint8_t key) {
