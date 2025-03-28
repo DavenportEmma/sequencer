@@ -26,7 +26,7 @@ void setup() {
 
     err = init_uart(&u);
     if(err == 0) {
-        send_uart(USART3, "ST-Link UART initialised\n", 25);
+        send_uart(USART3, "ST-Link UART initialised\n\r", 26);
     }
 
     u.uart = USART1;
@@ -39,7 +39,7 @@ void setup() {
 
     err = init_uart(&u);
     if(err) {
-        send_uart(USART3, "Error initialising MIDI UART\n", 29);
+        send_uart(USART3, "Error initialising MIDI UART\n\r", 30);
     }
 
     SPI_Handler s;
@@ -52,7 +52,7 @@ void setup() {
 
     err = init_spi(&s);
     if(err) {
-        send_uart(USART3, "Error initialising SPI\n", 23);
+        send_uart(USART3, "Error initialising SPI\n\r", 24);
     }
 
     uint8_t tx[] = {0x9F, 0x00, 0x00, 0x00};
@@ -61,7 +61,7 @@ void setup() {
     SPI_tx_rx(SPI1, tx, rx, 4);
     CS_high(GPIOA, 4);
     if(rx[1] != 0xEF || rx[2] != 0x40 || rx[3] != 0x18) {
-        send_uart(USART3, "Error initialising SPI flash chip\n", 34);
+        send_uart(USART3, "Error initialising SPI flash chip\n\r", 34);
     }
 
     // shift register
@@ -89,8 +89,8 @@ void setup() {
     scan(kbuf);
 
     if(!kbuf_empty(kbuf)) {
-        send_uart(USART3, "Start up key press\n", 19);
-        send_uart(USART3, "Erasing flash\n", 14);
+        send_uart(USART3, "Start up key press\n\r", 20);
+        send_uart(USART3, "Erasing flash\n\r", 15);
         eraseChip();
     }
 
@@ -99,5 +99,5 @@ void setup() {
     // initialise menu state machine
     menu(E_MAIN_MENU);
 
-    send_uart(USART3, "Finished initialisation\n", 24);
+    send_uart(USART3, "Finished initialisation\n\r", 25);
 }
