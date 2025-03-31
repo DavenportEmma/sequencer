@@ -87,9 +87,10 @@ volatile uint8_t SQ_EDIT_READY = 0;
 static void main_menu(uint8_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
 
-    edit_buffer_reset();
-
-    SQ_EDIT_READY=0;
+    if(SQ_EDIT_READY) {
+        edit_buffer_reset();
+        SQ_EDIT_READY=0;
+    }
 }
 
 static void sq_select(uint8_t key) {
