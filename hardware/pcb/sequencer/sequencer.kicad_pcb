@@ -1,7 +1,7 @@
 (kicad_pcb
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(general
 		(thickness 1.6)
 		(legacy_teardrops no)
@@ -9,41 +9,42 @@
 	(paper "A4")
 	(layers
 		(0 "F.Cu" signal)
-		(31 "B.Cu" signal)
-		(32 "B.Adhes" user "B.Adhesive")
-		(33 "F.Adhes" user "F.Adhesive")
-		(34 "B.Paste" user)
-		(35 "F.Paste" user)
-		(36 "B.SilkS" user "B.Silkscreen")
-		(37 "F.SilkS" user "F.Silkscreen")
-		(38 "B.Mask" user)
-		(39 "F.Mask" user)
-		(40 "Dwgs.User" user "User.Drawings")
-		(41 "Cmts.User" user "User.Comments")
-		(42 "Eco1.User" user "User.Eco1")
-		(43 "Eco2.User" user "User.Eco2")
-		(44 "Edge.Cuts" user)
-		(45 "Margin" user)
-		(46 "B.CrtYd" user "B.Courtyard")
-		(47 "F.CrtYd" user "F.Courtyard")
-		(48 "B.Fab" user)
-		(49 "F.Fab" user)
-		(50 "User.1" user)
-		(51 "User.2" user)
-		(52 "User.3" user)
-		(53 "User.4" user)
-		(54 "User.5" user)
-		(55 "User.6" user)
-		(56 "User.7" user)
-		(57 "User.8" user)
-		(58 "User.9" user)
+		(2 "B.Cu" signal)
+		(9 "F.Adhes" user "F.Adhesive")
+		(11 "B.Adhes" user "B.Adhesive")
+		(13 "F.Paste" user)
+		(15 "B.Paste" user)
+		(5 "F.SilkS" user "F.Silkscreen")
+		(7 "B.SilkS" user "B.Silkscreen")
+		(1 "F.Mask" user)
+		(3 "B.Mask" user)
+		(17 "Dwgs.User" user "User.Drawings")
+		(19 "Cmts.User" user "User.Comments")
+		(21 "Eco1.User" user "User.Eco1")
+		(23 "Eco2.User" user "User.Eco2")
+		(25 "Edge.Cuts" user)
+		(27 "Margin" user)
+		(31 "F.CrtYd" user "F.Courtyard")
+		(29 "B.CrtYd" user "B.Courtyard")
+		(35 "F.Fab" user)
+		(33 "B.Fab" user)
+		(39 "User.1" user)
+		(41 "User.2" user)
+		(43 "User.3" user)
+		(45 "User.4" user)
+		(47 "User.5" user)
+		(49 "User.6" user)
+		(51 "User.7" user)
+		(53 "User.8" user)
+		(55 "User.9" user)
 	)
 	(setup
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
+		(tenting front back)
 		(pcbplotparams
-			(layerselection 0x00010fc_ffffffff)
-			(plot_on_all_layers_selection 0x0000000_00000000)
+			(layerselection 0x00000000_00000000_55555555_5755f5ff)
+			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
 			(disableapertmacros no)
 			(usegerberextensions no)
 			(usegerberattributes yes)
@@ -52,8 +53,7 @@
 			(dashed_line_dash_ratio 12.000000)
 			(dashed_line_gap_ratio 3.000000)
 			(svgprecision 4)
-			(plotframeref no)
-			(viasonmask no)
+			(plotframeref yes)
 			(mode 1)
 			(useauxorigin no)
 			(hpglpennumber 1)
@@ -61,20 +61,23 @@
 			(hpglpendiameter 15.000000)
 			(pdf_front_fp_property_popups yes)
 			(pdf_back_fp_property_popups yes)
+			(pdf_metadata yes)
+			(pdf_single_document no)
 			(dxfpolygonmode yes)
 			(dxfimperialunits yes)
 			(dxfusepcbnewfont yes)
 			(psnegative no)
 			(psa4output no)
-			(plotreference yes)
-			(plotvalue yes)
-			(plotfptext yes)
-			(plotinvisibletext no)
+			(plot_black_and_white yes)
 			(sketchpadsonfab no)
+			(plotpadnumbers no)
+			(hidednponfab no)
+			(sketchdnponfab yes)
+			(crossoutdnponfab yes)
 			(subtractmaskfromsilk no)
 			(outputformat 1)
 			(mirror no)
-			(drillshape 1)
+			(drillshape 0)
 			(scaleselection 1)
 			(outputdirectory "")
 		)
@@ -169,19 +172,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7f6bffb5-6ad6-466e-8209-620a4900ac84")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -210,7 +200,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/bd00c552-81eb-40e6-873a-894ca7bfa46b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -347,7 +337,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 34 "O12")
 			(pinfunction "K")
@@ -357,13 +347,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "96761b3e-5bdd-4d8f-b749-6d1b64014622")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -405,19 +396,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0270ecbf-3f06-4eb8-bf14-fc96e8947847")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -445,49 +423,9 @@
 			)
 		)
 		(path "/1ba0a2d8-7af5-43d8-8c43-e8ba0a84f2a7")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5dfd4de5-2cb6-4541-8f3c-18cbd7460eb1")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "983e2cbf-d674-4d0f-8562-bdfae6dd75ab")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "497873e5-b95f-4f2d-9044-59e3442513ec")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "2e829353-1e3e-4978-b056-95f801f9a5c1")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -662,6 +600,7 @@
 			(pintype "passive")
 			(uuid "5496cf5b-4f4d-4b07-b8fd-e55b41afc74f")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -703,19 +642,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "74a85bbb-48ec-43ec-832e-170dcd954369")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -744,7 +670,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/0b7f0624-3830-4f55-9e08-e8f10a2d2bec")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -881,7 +807,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 36 "O14")
 			(pinfunction "K")
@@ -891,13 +817,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "6d339470-bdb7-4a13-9b30-a8cacf0876f8")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -939,19 +866,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2e2c131f-539e-4d2c-b7c4-570873a2bac1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -980,7 +894,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/176c65ca-c66a-4b9f-84f0-5bee7344d878")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1117,7 +1031,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 31 "O9")
 			(pinfunction "K")
@@ -1127,13 +1041,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "47160de9-61bd-40e8-a920-fb45d3f1ccb5")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -1175,19 +1090,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8b6af94e-8abc-44eb-9283-283306dfeef5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -1216,7 +1118,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/f5a8e637-5c89-4121-920b-73e9523e8263")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1353,7 +1255,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 33 "O11")
 			(pinfunction "K")
@@ -1363,13 +1265,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "d2422e6d-6f9b-41c0-b23c-ba77a6a33129")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -1411,19 +1314,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "264ace4c-c322-440a-bd4c-e732d18c126b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -1451,49 +1341,9 @@
 			)
 		)
 		(path "/b4bd77e3-48c2-467a-9351-463941a6cea9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d910f561-9003-4ec3-9f85-8f97368ff22f")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "95ebcfc1-4a97-4d28-8743-a5b57ac11b79")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "1812c2ad-32be-4b97-ae70-8e273dbcae09")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "7cb70814-3be4-41a0-9159-69d79f3a766c")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -1668,6 +1518,7 @@
 			(pintype "passive")
 			(uuid "983b5c68-a90b-4cc4-a125-4ce61f460bf2")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -1709,19 +1560,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d8628408-f37d-4396-a737-dd1a6c4ac1b4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -1749,49 +1587,9 @@
 			)
 		)
 		(path "/f5b9dfcc-dd54-4ed9-a9a4-32fefecb0118")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ab4c5200-4886-4554-9a98-88d1d44800e1")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "81d816ea-0b44-418c-82d8-986c79bc3d46")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "6fd654ad-e30d-4d39-91ef-f742ca171af1")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9b5d612d-54f8-4bca-89bd-9317f742abfc")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -1966,6 +1764,7 @@
 			(pintype "passive")
 			(uuid "bacfeb9e-b88a-44fd-8fe8-fc81baf54ff2")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -2007,19 +1806,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb1fdd1f-5117-48ec-8b61-7c3cf818c1c6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -2048,7 +1834,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/6a8ab44b-bb9b-4d78-b9ee-26638e3b3501")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2185,7 +1971,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 35 "O13")
 			(pinfunction "K")
@@ -2195,13 +1981,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "6b6f8cb3-5ea1-4672-b526-6e2f8285cbe0")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -2243,19 +2030,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "005d4f23-e52e-4446-ad19-e88e52cbe99e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -2284,7 +2058,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/2dabc876-fffd-48d3-991d-0e34862f2129")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2421,7 +2195,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 34 "O12")
 			(pinfunction "K")
@@ -2431,13 +2205,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "e9dc1fb4-cddc-411c-8373-14f04d8178ad")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -2479,19 +2254,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c224a7d5-3b62-443a-92b6-259721b2334f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -2519,49 +2281,9 @@
 			)
 		)
 		(path "/0045acaf-e7f7-4286-97c3-4321a0cd1f40")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d6179539-5c4f-4af0-a5fa-35deff3f58b7")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d613bed5-864e-48f0-8f61-32dbf1a0cff4")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "643f949e-086a-4681-9e14-53f28d10ceb4")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "bea072d7-c5a9-4398-abae-cdebb8c80f53")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -2736,6 +2458,7 @@
 			(pintype "passive")
 			(uuid "86327dfb-7dfd-4132-9ba9-037b96ecbf3c")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -2777,19 +2500,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c0c471ea-40ba-409c-bd04-00b165e326c0")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -2817,49 +2527,9 @@
 			)
 		)
 		(path "/ab8e4ec8-6365-47c3-9416-077444d3b850")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "162efb3c-b159-4618-9136-d2861e5ee9de")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "259c8857-9cbe-4cc8-b593-8b53d3b8e907")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "1b5ef08e-c258-4cc4-9edd-13855c85ef79")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d113590c-8479-44bd-974d-b299a8527739")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -3034,6 +2704,7 @@
 			(pintype "passive")
 			(uuid "4f971c40-2527-4d33-bd4b-50d4bec26e98")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -3075,19 +2746,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c2eaa242-e563-4c24-8275-ab57b078a003")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -3116,7 +2774,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/e5b29f49-44e3-4c09-9197-619fcba836e6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3253,7 +2911,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 32 "O10")
 			(pinfunction "K")
@@ -3263,13 +2921,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "4da7da91-8314-4734-9c63-67b94a401f16")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -3311,19 +2970,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2cb303cb-5591-4c2e-80e9-260d91b4c533")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -3352,7 +2998,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/41c47443-e83b-489f-b939-8006380724f7")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3489,7 +3135,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 33 "O11")
 			(pinfunction "K")
@@ -3499,13 +3145,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "1ce265ef-cf90-4e52-915f-59d8782875d8")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -3547,19 +3194,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "47c0727e-48df-4a18-b87b-409c7a112d5f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -3587,49 +3221,9 @@
 			)
 		)
 		(path "/5fdfbf1d-1dc0-4407-9afa-3ec6b92987bc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "39edaaaf-81db-4217-8e62-d810c00b600c")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "a43e2bce-ce5b-4aa2-a028-f9d608685b69")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c813ecbc-fd25-49ec-a20d-3db21455480c")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c9188c62-9d13-4f86-a2a2-9c50eb8335ae")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -3804,6 +3398,7 @@
 			(pintype "passive")
 			(uuid "0e7976bb-58ef-4fb8-bdcf-00192b14ef20")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -3845,19 +3440,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "366f1d43-c605-40d9-ae47-3ee0d732e013")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -3885,49 +3467,9 @@
 			)
 		)
 		(path "/bf2b1b75-e868-4d8d-8952-0f6481b25001")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4ea9c63a-57b0-44b4-957a-e3f955d013b5")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b4a9a138-954c-40ae-a64c-da8b57fa61a9")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9952cf4f-1735-4958-bff4-9d919b99f098")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5c25ec07-972a-4c13-b85a-8ebc01fcffe8")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -4102,6 +3644,7 @@
 			(pintype "passive")
 			(uuid "d5225298-e9b7-4e43-a78f-4e765a6e67e0")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -4143,19 +3686,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b49382ef-0bb1-41fa-906f-11644d288139")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -4183,49 +3713,9 @@
 			)
 		)
 		(path "/b34e6150-12c6-4420-83b7-01c0485a7ed2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "50f501dd-9e90-4611-a8c8-f7d1a32e2a83")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "743b445a-d7cf-4bc4-ba3b-c1e4e865480d")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "487af7bd-9354-47d0-bb3b-c15542f1458d")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4b6d162f-4c50-4203-aba4-689dce21a776")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -4400,6 +3890,7 @@
 			(pintype "passive")
 			(uuid "5c3e8bdc-b2cd-4efd-8fe5-0e3389eb8f5b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -4441,19 +3932,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6b5b6d3c-0f60-4a62-b08c-9793954ef34d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -4482,7 +3960,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/ecdb1e0b-7086-451a-b423-d6da7327b94a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4619,7 +4097,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 31 "O9")
 			(pinfunction "K")
@@ -4629,13 +4107,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "f158c839-1ed4-408b-8339-71ee60d524a1")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -4677,19 +4156,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "78386944-4250-49da-8200-66f416b927b6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -4717,49 +4183,9 @@
 			)
 		)
 		(path "/b7b3f79b-1a31-47dc-b05e-8f88635ad2a1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "aec248eb-69e7-4034-84d0-f0d7cb6801bc")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "7ab7561f-f20e-4a19-bf86-ba969c26e686")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "02345d42-a9a4-41a1-920f-7b56a8f94dd5")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ad926447-623b-4b92-959c-2c7e8e6f25bf")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -4934,6 +4360,7 @@
 			(pintype "passive")
 			(uuid "70484598-3183-427a-8ce0-e02cdfdb76bf")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -4975,19 +4402,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "350d5bcf-1afb-4c7c-818b-6e6170299f26")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -5016,7 +4430,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/73b48f13-9cfb-4f0f-bc32-40b2e9bfbcd2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5153,7 +4567,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 32 "O10")
 			(pinfunction "K")
@@ -5163,13 +4577,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "2df523c3-dea9-4cf8-b22f-664413f8e47a")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -5211,19 +4626,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b6beaa9a-7e2d-40e5-8935-a4ba4689a426")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -5252,7 +4654,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/1e2bf7d1-fe53-4aa5-97a0-a9d4a761c231")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5389,7 +4791,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 35 "O13")
 			(pinfunction "K")
@@ -5399,13 +4801,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "cffb48f6-b097-4a96-b507-a78d68d3943b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -5447,19 +4850,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9f75bfb3-8b29-4703-916d-30dd7ecfcd64")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -5487,49 +4877,9 @@
 			)
 		)
 		(path "/e13a56da-a613-4337-9304-3ac2e5761404")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4a488c24-e390-406a-b8cc-82dc2bd5ae1a")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "a03245dc-1e51-4532-8b2d-c201e331ad66")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b9407a80-b006-4904-bc14-8c9cc52daf2a")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c9dfbb5d-9c84-463e-83f8-829eec4b5f32")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -5704,6 +5054,7 @@
 			(pintype "passive")
 			(uuid "6da1b41a-80eb-4abf-8a6a-ee2d47af2781")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -5745,19 +5096,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "913ab5ce-73d8-4abd-aea2-e1154533eb7c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -5786,7 +5124,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/64aba107-b67c-4217-bf10-9303fd521f0d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5923,7 +5261,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 32 "O10")
 			(pinfunction "K")
@@ -5933,13 +5271,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "c31be39e-9783-446d-a8e9-d9f97f069638")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -5981,19 +5320,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "84aad663-a0cc-4a42-b94a-45dba273e5ad")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -6021,49 +5347,9 @@
 			)
 		)
 		(path "/f81a3283-98c4-4988-8b10-df5f534f32f4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "135c274c-61e6-4b92-a9ce-4aa2a6eb570f")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "84570263-9da5-4bed-a54f-5b6ebfc33cb4")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "fc3a81cb-8a66-490d-8e0d-8649a6d2bf04")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "62ccc625-c1d2-483a-be59-4a55274a99d7")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -6238,6 +5524,7 @@
 			(pintype "passive")
 			(uuid "086261d1-20b1-4e9c-95a6-765da551cedc")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -6279,19 +5566,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e378ff83-f6e2-47ab-a34d-cbee399a3647")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -6320,7 +5594,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/b913d02a-b7d0-4cb3-a43c-3d9e98495b12")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6457,7 +5731,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 31 "O9")
 			(pinfunction "K")
@@ -6467,13 +5741,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "79014ba9-f217-45b5-aa41-0dbcd6a14c0f")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -6515,19 +5790,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b3e67567-b50d-4dd7-b7b5-703bc4d0aa8e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -6556,7 +5818,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/d3ebddb9-5541-494a-b850-4b636fb3dbc6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6693,7 +5955,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 31 "O9")
 			(pinfunction "K")
@@ -6703,13 +5965,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "f12e1216-9081-4a4d-a2f5-b5c64f083e12")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -6751,19 +6014,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "172e2fe9-7b38-4790-b6ed-5c551c78d471")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -6791,49 +6041,9 @@
 			)
 		)
 		(path "/f255e6ee-9840-406f-b45b-09548831ae66")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5d98109a-1e06-4ba7-92c5-26228cfa942c")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "19376b2d-e052-44fa-a8ee-ff59e1e49f52")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "3b50cbac-cf3c-45aa-80b0-93333cab87ee")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4afa2d9f-ca76-4de6-8559-7a30c0810cef")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -7008,6 +6218,7 @@
 			(pintype "passive")
 			(uuid "49354fea-57dc-4714-946f-2e5bdbd3ac09")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -7049,19 +6260,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "606776f6-72db-4926-a7ef-3cde020dbc5e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -7089,49 +6287,9 @@
 			)
 		)
 		(path "/c67282f8-af48-4519-ae7c-004b9253c318")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e47a7df7-2452-4872-b2d1-decd551cb554")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "01899d88-61ac-43d7-acb1-60da73fcdb41")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d059d171-433d-4719-a382-fc9ddd12af62")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e73a9073-207a-4f56-b33e-468f63be338c")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -7306,6 +6464,7 @@
 			(pintype "passive")
 			(uuid "ce12786b-e758-4674-947f-f86a15bba422")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -7347,19 +6506,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dc230dfd-db16-4908-836e-45931c286cf8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -7387,49 +6533,9 @@
 			)
 		)
 		(path "/bfaafa69-05d9-4ad8-88fe-a01b8da08ebf")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b3eb44e1-39be-4b84-9945-a9c085bdd73d")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ce8ab3fb-35db-4852-8285-03ffb2f377b4")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "122e7ae9-5387-4448-9ce9-f684744fdcb5")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9f287c5d-4150-4ec6-8d9b-b1b44329a44a")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -7604,6 +6710,7 @@
 			(pintype "passive")
 			(uuid "8fd24949-677b-42cc-b04a-9b3c3576d6fc")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -7645,19 +6752,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1410075a-45d4-4fd5-97d3-8ac52a4c7834")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -7686,7 +6780,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/ffa2f310-56f5-4410-8276-ad0f296ba11a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7823,7 +6917,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 32 "O10")
 			(pinfunction "K")
@@ -7833,13 +6927,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "5e794454-82a8-4dde-808b-8c55eea70fae")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -7881,19 +6976,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9e4a7a4d-7bd8-479a-841b-d964f1623969")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -7922,7 +7004,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/eb76475a-0873-488a-993e-3d4372add245")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8059,7 +7141,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 35 "O13")
 			(pinfunction "K")
@@ -8069,13 +7151,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "afc84fcb-5063-4077-a0eb-6636d9a1b71b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -8117,19 +7200,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "69dfa1f6-682d-46e0-8ad9-ee278342e5a9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -8158,7 +7228,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/30f9727c-2cd4-428f-9a75-5ce9f9281302")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8295,7 +7365,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 33 "O11")
 			(pinfunction "K")
@@ -8305,13 +7375,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "873c4dc3-7206-4505-af53-4b03dab8bd10")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -8353,19 +7424,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0faffd32-c27f-4b40-8eb6-93511de414e7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -8394,7 +7452,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/8a327ce1-3122-41a4-aeaf-2df47efa41b4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8531,7 +7589,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 33 "O11")
 			(pinfunction "K")
@@ -8541,13 +7599,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "39b1abd2-4e25-4e7c-81b5-d5da53081e24")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -8589,19 +7648,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c3df9e2f-5369-4513-838b-02feb6dab902")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -8630,7 +7676,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/3f6fe7f5-d3f6-4ec9-868a-04d6257fe1b9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8767,7 +7813,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 35 "O13")
 			(pinfunction "K")
@@ -8777,13 +7823,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "eb50ba91-8c7e-4901-820f-ff76a0fe0235")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -8825,19 +7872,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "01f0b339-c97b-42ad-9cfc-9bbca75aa8ba")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -8865,49 +7899,9 @@
 			)
 		)
 		(path "/4420f86a-a48b-429f-9f08-eef401f1d5d6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "643a8ee3-0db3-4893-8f0e-ce2e106fcfa9")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "4fe57d2f-a08f-4c37-a42e-b6073cf91403")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b44a1cd4-9c7b-41d1-aca5-37da58556149")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5557c841-3f6f-483b-8d0f-f70e18d04d6e")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -9082,6 +8076,7 @@
 			(pintype "passive")
 			(uuid "6f6b76ad-3aef-4b15-85e9-0041862bb985")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -9104,7 +8099,7 @@
 			(at 0 -1.65 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "45a3522f-9285-40b4-8530-5e91fd9bc370")
+			(uuid "6c417118-6e49-4513-a3c0-7cf9cc1f67fa")
 			(effects
 				(font
 					(size 1 1)
@@ -9115,23 +8110,10 @@
 		(property "Value" "LED"
 			(at 0 1.65 0)
 			(layer "F.Fab")
-			(uuid "1b65da3f-cb45-466f-974c-2b3052350d8a")
+			(uuid "3ed73f2d-dd00-4af1-8e17-11e798fc3787")
 			(effects
 				(font
 					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c3293319-a857-4e79-8783-c5d08c4e45c1")
-			(effects
-				(font
-					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -9141,7 +8123,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c110fdd5-7ece-4706-a680-a2a708670c65")
+			(uuid "33e610fe-243a-4d2e-9333-b719cac6c73d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9154,7 +8136,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "d431dd5d-2593-4f21-b5db-1418e2ded218")
+			(uuid "f0716956-26af-4ed5-9728-6741f291bb2c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9164,7 +8146,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/e01b42c6-d68f-4d85-8bb4-86cde8c9e352")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9301,7 +8283,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 36 "O14")
 			(pinfunction "K")
@@ -9311,13 +8293,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "9b46a7eb-63d6-4c32-94ae-b0ce77a08719")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -9359,19 +8342,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dd61ccbe-f9df-432a-92b6-f0390baf8402")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -9400,7 +8370,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/51b695cf-276b-4d80-9f8f-83a91b267fcd")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9537,7 +8507,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 36 "O14")
 			(pinfunction "K")
@@ -9547,13 +8517,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "aa189b57-dfbf-4bf3-87a1-044380ce0320")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -9595,19 +8566,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6130656e-8706-42df-8d49-497c17c5cea3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -9635,49 +8593,9 @@
 			)
 		)
 		(path "/057fbd58-9436-489f-ad90-8379f19fa6a5")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "243317d5-0ebd-4cad-a182-e4e055e77d61")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ec29430c-6066-490d-90ba-7a442fe673c6")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "856f73d6-2906-45aa-874e-59a84f81e47b")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e1270dbc-4430-427d-bcc9-1adb68e16fe8")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -9852,6 +8770,7 @@
 			(pintype "passive")
 			(uuid "cd4a1ed5-8f47-46b4-99a2-034d5c2e2eaa")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -9893,19 +8812,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e114c055-7b61-4330-a1e3-72bd9b2337ae")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -9933,49 +8839,9 @@
 			)
 		)
 		(path "/fd91b016-0b46-41e6-93cb-16c36e8c404b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "3d5b5797-8f51-4800-8580-7d69087f1244")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "cb0ab041-4f50-495b-a4db-2fbe67d32b7d")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f1ccc7a5-03d0-4a35-9759-2150ac0374e3")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "877d8ceb-b8de-4e74-90fa-f6b70be0a255")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -10150,6 +9016,7 @@
 			(pintype "passive")
 			(uuid "b56fbac1-ebba-43f1-bd7b-cc0fc36b1b36")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10191,19 +9058,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2fff0d9f-33e8-47a6-a4ef-9d65b8308f95")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -10231,49 +9085,9 @@
 			)
 		)
 		(path "/a4a0999f-a9c0-43a0-87df-ecf2201c97c2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "cb894b99-f5db-4eb2-ad63-07e7b469af23")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "7516698d-389c-4566-964f-7b51ff7efff8")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "609182c2-8e74-4e33-bcbf-db7e84b22b16")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "a1a489ca-d269-4df3-9a8d-e075c61f7a5a")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -10448,6 +9262,7 @@
 			(pintype "passive")
 			(uuid "40f1790c-009e-4d6c-9f82-894fcf1318e4")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10489,19 +9304,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "45bbd97b-d0a0-4bea-a8fa-0124e862d5e3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -10529,49 +9331,9 @@
 			)
 		)
 		(path "/cb7f590a-b272-44b0-8259-46f2a699253e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "0f2a4218-27af-4bf3-bf1e-7c53e36f8441")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "38a3eadd-8d04-41ef-93ba-f0c2c05177fb")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "2c954d44-ac9a-403e-8e36-7cfaa2d3268f")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "62369ead-785c-420e-8c90-0f22a0bcd58b")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -10746,6 +9508,7 @@
 			(pintype "passive")
 			(uuid "9913aa4a-0443-4fab-93f5-7108c1cba562")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10787,19 +9550,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "18c2fe13-c914-4330-9f18-f54fe231561f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -10827,49 +9577,9 @@
 			)
 		)
 		(path "/618c645a-dcb1-4e73-bb0a-55674d64fcad")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "285cba79-252f-4916-be37-64c57688ea06")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "27f6dc8b-ddc1-42d6-b77c-21878d15b985")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ac327c88-c57a-43e6-b1da-64e3a66e74a3")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "99c5fbe5-0329-4df2-8b4a-beb268c4dc67")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -11044,6 +9754,7 @@
 			(pintype "passive")
 			(uuid "497024d9-7b83-4d1b-9c76-05b3160a219f")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11085,19 +9796,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "949cec02-9e5f-403c-9174-13c6a220fc24")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -11125,49 +9823,9 @@
 			)
 		)
 		(path "/e68fab34-0c72-4923-a792-9b122a4b334e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "59827fa3-c86e-47f5-9a94-11c8f6eb3253")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b151c108-c631-4436-af51-784b71ae600c")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ccd064b9-236b-4332-adb3-4da52005e6c5")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "859f6b89-6c48-4569-844b-5a060148f31e")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -11342,6 +10000,7 @@
 			(pintype "passive")
 			(uuid "dcf2829b-0189-4cac-9087-e592d6a1d383")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11383,19 +10042,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bb23fef8-284d-45c6-a36b-b8ef0f6fe52b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -11423,49 +10069,9 @@
 			)
 		)
 		(path "/30a9ae19-e8ac-4ea7-b1fc-92f132d0f39d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f81232a0-4c44-408a-a5a4-c9d8385f6873")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "93adcc4f-35e6-42b4-b5cc-5061c99e0006")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "0642809d-278c-4f95-8010-238fa306bc51")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "53faae42-20b0-4d45-81f2-3f56f84da7c5")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -11640,6 +10246,7 @@
 			(pintype "passive")
 			(uuid "02b9632a-268d-42a5-ad6b-0973e98d1941")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11681,19 +10288,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "95d81bbb-c90e-4e58-b13f-e2dbd5e1505b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -11721,49 +10315,9 @@
 			)
 		)
 		(path "/4f8d5856-4d7e-4dd5-97a2-2a3a7dfd5494")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5662f15c-32c3-451a-a68d-fcd2861cc68d")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "1d334656-bb37-4a0e-a6a4-76941065023d")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "10ce33d6-3cfa-4790-aab8-fc0f3cb7172a")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e89dfd05-9c0e-45c1-b059-e6e364db7b28")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -11938,6 +10492,7 @@
 			(pintype "passive")
 			(uuid "9acca06a-9990-4092-96e0-b58a761e0a22")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11979,19 +10534,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ce719ece-490d-4b9d-b848-d51977f6c92c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -12020,7 +10562,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/4367d689-8815-4bba-95f8-99e40a97407d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12157,7 +10699,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 34 "O12")
 			(pinfunction "K")
@@ -12167,13 +10709,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "8d4eb7af-c29e-444b-b06f-ededa95dd65a")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -12215,19 +10758,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "34ab6b52-4dbe-49ef-ab48-d99ab305fcc9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -12256,7 +10786,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/358112e0-fad4-4b4c-a622-52a49635ccfe")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12393,7 +10923,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 36 "O14")
 			(pinfunction "K")
@@ -12403,13 +10933,14 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "0106d673-325f-4e53-befc-701a8ad1c624")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -12451,19 +10982,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "65568f6c-577b-4856-a327-4b0dc31daa79")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -12491,49 +11009,9 @@
 			)
 		)
 		(path "/22fceb42-22d1-484e-93a4-389ad7e985be")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
-		(fp_line
-			(start -9.525 -1.905)
-			(end 4.445 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b1dba61d-8cf2-476a-b4ec-c7afb1224c1e")
-		)
-		(fp_line
-			(start -9.525 12.065)
-			(end -9.525 -1.905)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "18d25b5d-befa-48ff-a71e-b0d35bec9822")
-		)
-		(fp_line
-			(start 4.445 -1.905)
-			(end 4.445 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c3332bf1-be63-4133-807d-e6054d07dafe")
-		)
-		(fp_line
-			(start 4.445 12.065)
-			(end -9.525 12.065)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "8a3611f8-324f-4e5d-8f5a-db9ee04ff10f")
-		)
 		(fp_line
 			(start -12.065 -4.445)
 			(end 6.985 -4.445)
@@ -12708,6 +11186,7 @@
 			(pintype "passive")
 			(uuid "9d003648-2413-4078-8038-1256fd8d3a3d")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Button_Switch_Keyboard.3dshapes/SW_Cherry_MX_1.00u_PCB.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -12749,19 +11228,6 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0d17de9f-4f4b-4345-9590-a1295df7a6bc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -12790,7 +11256,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/e0ceacce-87c7-495c-a35d-c8ed4b520732")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12927,7 +11393,7 @@
 		(pad "1" smd roundrect
 			(at -0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 34 "O12")
 			(pinfunction "K")
@@ -12937,14 +11403,272 @@
 		(pad "2" smd roundrect
 			(at 0.9375 0 180)
 			(size 0.975 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pinfunction "A")
 			(pintype "passive")
 			(uuid "bc91d2c6-c476-4e0f-8e65-8db651e0193d")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "04374382-203f-413c-bd46-f9cce97af330")
+		(at 87 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "COL"
+			(at 0 -2 180)
+			(layer "B.SilkS")
+			(uuid "c5361ca3-7485-4b5a-a2a1-fc29a4d9d671")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "8fa4901a-aa0e-4fd9-ad87-fc9d761924c7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "eb128c57-0807-46a1-abb9-0582215e2613")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "fbd63fb1-f1e8-4129-9b06-35c7b1a3f1dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/1304f20d-be7f-4853-8e41-08e4373faf38")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "fa907714-c955-415e-852c-b5c15c5c5e53")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "a288c8af-0b05-40e2-8ee9-514143993522")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "63610557-ce85-4a5d-9824-9cc28f8e8fcf")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "355a098f-a21b-4392-b84b-6c54b0c86b25")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "f9c56abc-f7bd-4984-9a3c-bde869d09dac")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "bfb1e734-80c0-4ccb-ae6e-62010415fc55")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "fe4f739f-e1ee-4f06-81c7-be73fc595e58")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "b06b483f-3238-477d-9cdd-190e984cd106")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "3df8ff73-7cfd-4811-a553-a41ee8fc9f9d")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "d87ed63d-3ad0-4f99-96c5-fe990595a2df")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "d37c0ec9-e13b-4fed-af57-70efee5d59be")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "ce0552e8-cb81-48be-a5be-688f0d135acd")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "ffeb1652-6fe1-4d07-926b-74f0b59ac4bd")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "8163434f-496c-46e7-b2a0-0e4afd1e704c")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "e2de8ef5-4d5c-4584-941f-d2ef1fedef41")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c6ea72fd-6a57-4aa7-b229-dcc39af80da0")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "30ba4e50-1cf6-4da3-92e1-8b2893f55e83")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 54 "C2")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "37ba3f6f-af61-4e67-bc2f-bfbc0cb98f43")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -12987,22 +11711,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "5cfaf1da-ceb6-4858-ae9e-e4eed3a1845a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13016,7 +11726,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13030,7 +11740,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13044,7 +11754,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13059,7 +11769,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/1ada6d9b-0f69-45bb-9531-774d8c87f29f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -13328,6 +12038,7 @@
 			(pintype "passive")
 			(uuid "02531b19-7eae-4f49-9f18-ec6fe484488b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -13347,7 +12058,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S1"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "4f3b219b-01ca-474c-9b5b-6e0cf3c97eb9")
 			(effects
@@ -13359,7 +12070,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "c50c03fa-9e52-4a9a-a662-457b61e8bab6")
 			(effects
@@ -13370,22 +12081,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "9047177c-d1ac-4076-9daf-4ef2315f8f07")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13399,7 +12096,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13414,7 +12111,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/f2310802-489d-4a09-b4f8-12355b642443")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13518,7 +12215,7 @@
 			(uuid "b81a59df-31ac-4b8b-9504-d257f911f8c0")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "399998cf-7db8-4794-8aa8-943c9ac40d59")
 			(effects
@@ -13532,7 +12229,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 41 "I1")
 			(pintype "passive")
@@ -13541,12 +12238,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pintype "passive")
 			(uuid "62c1fea0-cb69-461b-9558-7a27952984b0")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -13590,22 +12288,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "f44aef78-487f-4284-8750-48ff5eb24fbd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13619,7 +12303,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13633,7 +12317,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13647,7 +12331,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -13662,7 +12346,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/68b350ce-6445-4062-aa7e-ca5de4cfe22e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -13931,6 +12615,7 @@
 			(pintype "passive")
 			(uuid "dbc365d3-bb01-43e0-a8bb-457de5a1e08b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -13974,22 +12659,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "93b52129-9614-417d-8b85-3315a4a873d6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14003,7 +12674,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14017,7 +12688,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14031,7 +12702,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14046,7 +12717,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/1baae69a-825a-45ab-b149-dacb6a2567a0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14315,6 +12986,7 @@
 			(pintype "passive")
 			(uuid "0fb2e7a0-392a-4ace-9bbb-afc2b5a10e10")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -14358,22 +13030,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "b9cf8a5b-053c-46d1-8ef3-eec71f206ebd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14387,7 +13045,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14401,7 +13059,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14415,7 +13073,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -14430,7 +13088,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/d5733506-ff9f-4d81-b635-73df9dec00cc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14699,6 +13357,7 @@
 			(pintype "passive")
 			(uuid "3c363c98-4212-4f8f-98ac-76820a313907")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -14741,20 +13400,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a8aa2e62-0c14-45a4-9a3f-e72bb081668e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -14785,7 +13430,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/70a1804b-b68a-495a-85ce-3c3793ec6d76")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15196,6 +13841,7 @@
 			(pintype "passive")
 			(uuid "50d7848a-c669-4212-8e0e-382f2a633d26")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_2x08_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -15239,22 +13885,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "49f25b0d-7e4a-4ab1-b43c-1b058712a9e5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15268,7 +13900,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15282,7 +13914,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15296,7 +13928,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15311,7 +13943,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/af9fac3f-9b18-4780-858e-148c05cd21cf")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15580,6 +14212,7 @@
 			(pintype "passive")
 			(uuid "42ae007c-a0c5-4673-85ae-52a444d06e10")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -15599,7 +14232,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S6"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "b2b16557-0492-47fc-8933-d3182a038fa9")
 			(effects
@@ -15611,7 +14244,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "7c77a139-95ab-4d6a-98d3-5b491fc562c4")
 			(effects
@@ -15622,22 +14255,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "b1d65dba-211e-4477-bcba-c75bc215da6a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15651,7 +14270,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15666,7 +14285,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/a157a9ac-c64c-4709-a9a5-3bcc8ca91ee8")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15770,7 +14389,7 @@
 			(uuid "93bbfb52-720b-4187-aa2a-ba76762f6e1b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "c63ff6f9-5db9-4060-844c-3580b43895b0")
 			(effects
@@ -15784,7 +14403,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 48 "I6")
 			(pintype "passive")
@@ -15793,12 +14412,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pintype "passive")
 			(uuid "4672c3ee-bcc7-4acd-b5e2-bed8b962c0ba")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -15842,22 +14462,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c9517b69-116f-4b63-8b6d-eb77f3e21e24")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15871,7 +14477,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15885,7 +14491,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15899,7 +14505,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -15914,7 +14520,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/14cb8ada-7e9e-45e2-b287-05c05987d554")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16183,6 +14789,7 @@
 			(pintype "passive")
 			(uuid "a98a7b9c-227e-4172-a46f-0483d38fd3e4")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -16202,7 +14809,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S5"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "c7a85545-767e-4435-bf31-55e004391345")
 			(effects
@@ -16214,7 +14821,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "738dd9fa-e57e-4cce-b26d-f963feb4ebe7")
 			(effects
@@ -16225,22 +14832,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a275d947-16ef-44e6-bc25-ea37e88040e9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16254,7 +14847,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16269,7 +14862,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/51a1d960-a50e-4866-a66e-3e3ca393d9e0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16373,7 +14966,7 @@
 			(uuid "0fb88c6c-d70b-4c90-947e-8ea6489f71d6")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "d0c20bb2-f544-48f4-b2ec-3fc5a679ff49")
 			(effects
@@ -16387,7 +14980,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 51 "I5")
 			(pintype "passive")
@@ -16396,12 +14989,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pintype "passive")
 			(uuid "3d87335f-3fa0-45cc-938c-3d69e7d40802")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -16421,7 +15015,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S13"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "925c7471-4df3-4973-b4d9-6759a3a806d7")
 			(effects
@@ -16433,7 +15027,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "be88f9ab-6c65-4f05-b8a3-032f05f06e16")
 			(effects
@@ -16444,22 +15038,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a9832f23-7991-43dd-a7eb-81f89b498e4c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16473,7 +15053,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16488,7 +15068,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/29c6b9ee-be98-4683-8986-517320cae3b1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16592,7 +15172,7 @@
 			(uuid "bbef8788-bd0c-49ad-8ccf-4450d705ae26")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "692a367d-cd3a-4d1f-bc79-b04a3bfdfebe")
 			(effects
@@ -16606,7 +15186,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 50 "I13")
 			(pintype "passive")
@@ -16615,13 +15195,271 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pintype "passive")
 			(uuid "06303634-7408-450f-b57c-2c70d1ab6156")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "41cb1b91-8c41-4216-b9f7-4d8116ff766c")
+		(at 107.5 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "COL"
+			(at 0 -2 180)
+			(layer "B.SilkS")
+			(uuid "0e97da8e-d683-4d2a-b02a-05e8d51e1550")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "c6e7127d-1bca-4368-8e73-a712f32c5f07")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "a1a9b41b-1e4f-45f2-9715-23bfe36147b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "637eb891-a5e5-4baa-8185-f58be0eb321a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/79a97bc4-163f-4785-8d47-387672a39088")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "4e72f508-dfdf-4011-bcd0-caa03789bc64")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "25e5747f-a04d-46be-bd3b-42f910d501a6")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "43b22af0-e450-4005-9a20-edbe539b08ca")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "879a9b7f-c8db-40c0-b851-13f41cbb5c5e")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "6ebd7137-8fca-4c7a-8b8d-7482dcef5c28")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "09866a5d-a1ec-4cc0-b8bc-07bdbf463e1d")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "26bd7838-e0b2-4e08-8166-5fb63d3c5e14")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "f59dc702-d838-48ca-9e28-5e6b50b1f5f8")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "6abbb5a5-d0b7-4ef8-9f67-57621f9ff34b")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "98b4f9b7-5513-4a27-a28a-c26ebb4dd592")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "a63bdf6d-cb49-4c49-91db-cd04c7008ff6")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "90f29077-e554-48f6-bf13-fc3b62107293")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "fc07b5b4-9d6c-4b5e-9985-6ca1412e8eba")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "3bf6c284-26d7-4324-905c-7aee7117b0cb")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "bc85c904-66ea-4249-ace7-9b04154ca359")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "badeee8e-a194-4136-98ed-b81dd0be06a4")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "341acd5f-2443-4bd3-8302-2d24b56b73aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 55 "C3")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "208e8579-6bf2-4aa3-b396-7f456bbf708a")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -16664,22 +15502,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "16c0c1cd-5a33-4571-bb53-58153309dfde")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16693,7 +15517,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16707,7 +15531,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16721,7 +15545,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -16736,7 +15560,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/1f38706b-ae46-4b57-aa01-cdc8c2695f32")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -17005,7 +15829,265 @@
 			(pintype "passive")
 			(uuid "1fa9be98-bb27-4e71-a85e-a11009862a7f")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "4625be2b-9706-4137-92af-cc3606e535ea")
+		(at 75 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "ROW8"
+			(at 0 -2 180)
+			(layer "B.SilkS")
+			(uuid "4ca7955c-1ad5-4b0c-b67b-903013c371eb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "164af276-adee-44c5-ab33-c17ea524b942")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "57f90b8b-661f-4a9b-afb6-638094d5b1b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3e349567-5205-4150-9aa2-c509b7cf37f1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/6265f576-86b2-4a66-9504-c3f8a0b323d0")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "0403ec2c-6e61-4de2-9cf5-6dbb794fbd7f")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "81b2dee9-4eff-4548-bf37-6b3409ca537e")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "d7f88cb0-3bbb-4ba1-ab71-f5580a4cf647")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e349ff21-dadf-4d10-bfdc-1fd4233f5c83")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "63154ecb-b7b9-4748-a797-a94823c1a505")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "cc06b384-581f-47b6-88ff-fd63f18caf1f")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "b4ed2291-10f9-4b0a-9577-b11c14fa4d11")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "ecaf6628-aa16-41cf-baf4-b48ff990616d")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "b66bd350-b57a-4d9a-9911-df3867454ecb")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "d031bd4e-6dad-44d2-b8a6-cdb60ff14c1d")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "001de57a-d4e9-49a2-bca9-c2d4540a1a48")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "a4098a60-4b9e-4b4d-b54b-cecf0595634e")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "84322145-559e-48c5-9fc4-9cad9e9df56f")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "6f1586fa-6613-4bc8-b2be-23387db8264f")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "d4845001-410e-407e-9a86-761d27856a59")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "5d9c265e-af3c-477e-8b75-ce4474483eeb")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "7049e253-deee-4ecd-8745-da3a19b99ea1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 59 "O8")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "43b7b5de-61c9-4008-809b-412e7623f0ed")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -17024,7 +16106,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S10"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "028b3fb1-e63c-4e3a-af3a-a680cc39cb01")
 			(effects
@@ -17036,7 +16118,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "78a9ffd9-1454-4c19-b369-6574a1946887")
 			(effects
@@ -17047,22 +16129,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "56cc9a7e-4cc1-49f9-9ff6-8d4a086680d8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17076,7 +16144,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17091,7 +16159,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/0b0e9238-a028-4f2e-a89e-baa7408bdce3")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -17195,7 +16263,7 @@
 			(uuid "547b4c2c-c2ff-465d-b4a0-683343f2f9f2")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "8dfdb68b-4524-46ff-b278-27ada83bc496")
 			(effects
@@ -17209,7 +16277,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 46 "I10")
 			(pintype "passive")
@@ -17218,12 +16286,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pintype "passive")
 			(uuid "f02243c7-ffff-455c-9863-7370311d0cd3")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -17266,20 +16335,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1f896b88-f94d-4cc9-8709-92e94ac84c1e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -17310,7 +16365,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/df877f86-a153-49fe-ac7c-04bf77b1cb02")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -17721,6 +16776,7 @@
 			(pintype "passive")
 			(uuid "5a2ab729-9e91-46f6-9a64-dc3568c47307")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_2x08_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -17764,22 +16820,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "99608554-5e0b-423a-83a2-667f4afdf216")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17793,7 +16835,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17807,7 +16849,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17821,7 +16863,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -17836,7 +16878,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/0938fb4d-9069-40a3-8dd3-896db566a15a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18105,7 +17147,265 @@
 			(pintype "passive")
 			(uuid "f6668335-08da-4f73-890b-463d124f42af")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "5fbe0a09-94ec-4823-be2b-9c59a23bab5b")
+		(at 66.5 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "COL"
+			(at 0 -2 180)
+			(layer "B.SilkS")
+			(uuid "7bc4aa73-ee86-40bb-a582-477269b2b531")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "fbe3d400-d7b0-419b-8527-3a35998e9928")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "f4d3cabf-c7dd-44bd-856f-490f938531f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "f09683ec-f7a0-4c25-8143-cdee597bd818")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/7806efad-a0e9-4972-8c0d-12c69d42506b")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "c086508d-4ee9-48ff-85e7-3a440ead1d6e")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "bf4db759-6edc-4ff9-bdf1-bfe99101bb98")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "99df10f4-5fe4-49b3-9363-487abed655d3")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "202bb12c-22c8-4165-a5cd-b94003d5655e")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "57a61dd2-6487-4b46-8f0f-0b3b76a8d670")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "a28e847a-aa50-46a1-b63b-55b78d71fd6e")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e448b0a3-6cac-4de1-beb5-426772f69c97")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "2faba536-2ddd-4a3b-bc97-6238f38e43db")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "489a1a27-5514-47e2-95ab-da328d43b93f")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "7aab87b3-03fd-4da2-b6d7-c52606e0cdde")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "5beebf10-8bf1-43ce-9b2c-4c6f8e52e89c")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "6da461f0-ec45-4ab8-ae96-986e2c4ee7d8")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "68c2c232-ec86-47ff-a141-a15eb7ce094b")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "d00ac004-6db2-4d0f-863d-4cb6f23f3fef")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c0c369ee-ea82-431a-8f8c-ceb870764e21")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "0e7f7c04-e9c3-4ad1-8704-ee4d714f2127")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "ccdd16d4-bb21-4503-a079-50a03915d13f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 53 "C1")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "b7456753-46ed-45d6-869d-fd0ff65af208")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -18124,7 +17424,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S2"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "5ae52c7c-495e-483d-8776-044dc5fa4c13")
 			(effects
@@ -18136,7 +17436,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "11e0679e-3fae-48dd-bb0e-0a9c8b0fc27d")
 			(effects
@@ -18147,22 +17447,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "91a0489b-f86b-4b79-9bc6-10b119e45059")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18176,7 +17462,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18191,7 +17477,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/679efe4e-9394-47ff-a0bb-83ba0948cce1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18295,7 +17581,7 @@
 			(uuid "bb615e62-66dc-459b-b21e-1ceef4d3f8f3")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "25d4916a-fefb-43d4-9c9e-3cb5c31745a6")
 			(effects
@@ -18309,7 +17595,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 52 "I2")
 			(pintype "passive")
@@ -18318,12 +17604,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pintype "passive")
 			(uuid "f5f6bfea-78cd-467c-a5ec-46f1111bed51")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -18343,7 +17630,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S8"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "983a394c-fd8c-4ee8-84e1-9dc64b6896e9")
 			(effects
@@ -18355,7 +17642,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "352b943a-ddfa-468b-8805-6a9437e8f578")
 			(effects
@@ -18366,22 +17653,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "0398ab41-5b56-4dfe-ada7-a207de7924a2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18395,7 +17668,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18410,7 +17683,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/66cb832f-2c6f-483a-8712-09f4ef27e0f9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18514,7 +17787,7 @@
 			(uuid "10c4ecf5-3d0c-410e-abfb-d87ad034d505")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "546db704-647b-4aea-8fbc-41e6637d4328")
 			(effects
@@ -18528,7 +17801,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 40 "I8")
 			(pintype "passive")
@@ -18537,12 +17810,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pintype "passive")
 			(uuid "75e50627-76b8-491a-8876-e3d8c8c237de")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -18586,22 +17860,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "62775ac0-f6fc-4fbb-b0e1-9c50c77a827f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18615,7 +17875,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18629,7 +17889,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18643,7 +17903,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18658,7 +17918,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/e07f2b72-7b90-43d9-bd16-84068c08827a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18927,6 +18187,7 @@
 			(pintype "passive")
 			(uuid "aa094494-018d-4307-9b95-5d1068517572")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -18970,22 +18231,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "679a73a9-e6ee-4147-b3b9-ec9808af444a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -18999,7 +18246,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19013,7 +18260,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19027,7 +18274,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19042,7 +18289,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/a711cabd-c400-482b-9c1f-c5dd9ae78f39")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19311,6 +18558,7 @@
 			(pintype "passive")
 			(uuid "abe5f7dd-f375-436b-9baf-71dfd8aede3d")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -19354,22 +18602,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "5a93a1eb-d7d9-4531-96db-5944574a675d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19383,7 +18617,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19397,7 +18631,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19411,7 +18645,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19426,7 +18660,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/0dacc109-182a-46ed-910e-65a85914f33e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19695,6 +18929,7 @@
 			(pintype "passive")
 			(uuid "cb4934d1-50ff-4496-9ae8-96d8d072a44a")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -19738,22 +18973,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "6f8ea83e-1268-4427-b9e1-8b5541af94c8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19767,7 +18988,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19781,7 +19002,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19795,7 +19016,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -19810,7 +19031,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/8f8ca217-fb10-443e-88b4-54cbdd33dd8f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20079,6 +19300,7 @@
 			(pintype "passive")
 			(uuid "58ffa232-47e3-4d48-93be-22ca2dbf76a9")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -20122,22 +19344,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "1127057a-7984-49be-b669-eeeff85e9e07")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20151,7 +19359,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20165,7 +19373,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20179,7 +19387,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20194,7 +19402,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/64720bc9-9de8-46f4-b971-290dc1540b68")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20463,6 +19671,7 @@
 			(pintype "passive")
 			(uuid "964b596d-cbf8-48e7-a823-cd0af6f5ad93")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -20506,22 +19715,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "6e244afe-6b23-47c8-8013-91c3031edbcf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20535,7 +19730,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20549,7 +19744,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20563,7 +19758,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20578,7 +19773,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/249d5b49-0ea8-4405-ab2b-9190481a9809")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20847,6 +20042,7 @@
 			(pintype "passive")
 			(uuid "01282642-b554-4c3b-8609-ccc639a6b564")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -20866,7 +20062,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S15"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "fbd8698d-ed36-4974-9fa0-4d3c59b8f5f7")
@@ -20879,7 +20075,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "0f979524-e45b-4fa3-a951-d88cf0038aff")
 			(effects
@@ -20890,22 +20086,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "ff59b88f-dfea-4b1b-a88d-b0254804c63b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20919,7 +20101,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -20934,7 +20116,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/88e18d2b-2556-4252-ad71-a7df81867949")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21038,7 +20220,7 @@
 			(uuid "28d12154-53ed-47d5-96cf-51750bb4503f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "b6716143-ff7e-4e59-a609-cf9b6390376d")
 			(effects
@@ -21052,7 +20234,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 38 "I15")
 			(pintype "passive")
@@ -21061,12 +20243,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pintype "passive")
 			(uuid "4d745abf-761e-4d3a-9373-d6ef4c43c4d3")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -21086,7 +20269,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S4"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "1544018c-e69d-4fa9-8e70-7b6b949e95ec")
 			(effects
@@ -21098,7 +20281,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "cc92b14a-2a46-4999-8f90-341fc40f5fb9")
 			(effects
@@ -21109,22 +20292,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "e3f62c78-a5e3-4d61-9a07-29a1b98f2fbd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21138,7 +20307,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21153,7 +20322,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/3f838ff4-908b-4cc5-86b5-4d6fe1e493ea")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21257,7 +20426,7 @@
 			(uuid "934e9490-f55b-4e98-aaa9-bd2d09ed36d3")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "addfe978-88e8-4620-a9b3-224279b14177")
 			(effects
@@ -21271,7 +20440,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 44 "I4")
 			(pintype "passive")
@@ -21280,12 +20449,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pintype "passive")
 			(uuid "d77c0ba0-c5c6-4e1c-acc7-fa8aaa3f610c")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -21329,22 +20499,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c8eeedeb-ab3a-449e-8811-647077ec0b96")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21358,7 +20514,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21372,7 +20528,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21386,7 +20542,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21401,7 +20557,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/be95bb4c-0938-4227-bd84-6e072ed913c6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -21670,6 +20826,7 @@
 			(pintype "passive")
 			(uuid "f757ada1-65bc-4aa4-96e8-2f5b3bcaf1b9")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -21689,7 +20846,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S14"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "0d4de61a-c0ec-47aa-8706-ba00b6f6bf41")
 			(effects
@@ -21701,7 +20858,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "5b8ced62-8d7f-4868-8379-6eb4844cba47")
 			(effects
@@ -21712,22 +20869,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "d21030dd-00d0-43f0-9312-50506bb01892")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21741,7 +20884,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21756,7 +20899,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/f43cddd6-1485-4589-9b18-e4f39c011bde")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21860,7 +21003,7 @@
 			(uuid "068295de-22cd-43cd-8284-94da1ca65c95")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "7b7e82b3-5a40-4bf5-add1-379f487ca79d")
 			(effects
@@ -21874,7 +21017,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 39 "I14")
 			(pintype "passive")
@@ -21883,12 +21026,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 54 "C2")
 			(pintype "passive")
 			(uuid "7269916e-87b9-4ed2-a67d-140d059bec0f")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -21933,22 +21077,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "409dee8c-0bc0-40fa-b63d-bc6d32053cf1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21962,7 +21092,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21976,7 +21106,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -21990,7 +21120,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22005,7 +21135,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/380661d5-7a22-4ae7-a7f1-1c9dd31e171c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22274,6 +21404,7 @@
 			(pintype "passive")
 			(uuid "a0711903-61ab-4a80-8cec-522292cd189b")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -22293,7 +21424,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S12"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "688f2d6a-b4cb-4a00-a2e3-feeeb035fbc1")
 			(effects
@@ -22305,7 +21436,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "8cbf83c4-e2b4-4086-9a58-566f225a60cb")
 			(effects
@@ -22316,22 +21447,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a8b8347f-dc3a-48b1-a244-7bafd3a1bdcf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22345,7 +21462,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22360,7 +21477,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/9fe97f78-f785-4c73-9e74-20ea523ee100")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -22464,7 +21581,7 @@
 			(uuid "5b9d5cae-c22b-48ed-ba81-ff101ba14aa1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "17ef4ecc-5c3d-4506-ab62-dd5f47a53988")
 			(effects
@@ -22478,7 +21595,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 49 "I12")
 			(pintype "passive")
@@ -22487,12 +21604,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pintype "passive")
 			(uuid "47641352-bd7c-46a8-bdeb-6b8300cf538a")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -22512,7 +21630,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S11"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "ecf07efa-25fd-4a15-8590-4bfed55dd696")
 			(effects
@@ -22524,7 +21642,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(hide yes)
 			(uuid "c47e8a4b-a43d-41f1-ae4d-a62d3c83c4a5")
@@ -22536,22 +21654,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "4a5d71e6-91c0-43f3-834e-9e9661d52a75")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22565,7 +21669,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22580,7 +21684,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/31f5dd5e-6f01-4bdc-bfcb-c7848f66a2e4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -22684,7 +21788,7 @@
 			(uuid "dd739b30-20aa-4dfb-8a9e-b71c638f3949")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "ae5c5ff4-b981-44af-acc6-23c8e8627a8b")
 			(effects
@@ -22698,7 +21802,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 47 "I11")
 			(pintype "passive")
@@ -22707,12 +21811,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pintype "passive")
 			(uuid "312106f7-6f56-4dcc-bb71-329a85d394ba")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -22732,7 +21837,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S7"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "f75d9d33-20ea-4ebf-baaa-81d00b1d113e")
 			(effects
@@ -22744,7 +21849,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "073f7e09-7099-4422-835f-fb23914010b8")
 			(effects
@@ -22755,22 +21860,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "629bf455-2888-41b0-aecb-09256949f9a1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22784,7 +21875,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -22799,7 +21890,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/5a039d0a-9799-41cb-a9cb-2c19ceca8d91")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -22903,7 +21994,7 @@
 			(uuid "c8cfbedf-b0df-49eb-8d93-537bb56705c7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "c5ac053a-8d8f-466f-a37a-f9cb411da821")
 			(effects
@@ -22917,7 +22008,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 43 "I7")
 			(pintype "passive")
@@ -22926,12 +22017,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pintype "passive")
 			(uuid "129d1bda-cb41-4a50-988b-e6003fcd9850")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -22951,7 +22043,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S9"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "0fe81027-f6fb-49fe-98d6-61ee8c13a0fb")
 			(effects
@@ -22963,7 +22055,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "95e241e0-7a4e-436a-9d84-934f57044842")
 			(effects
@@ -22974,22 +22066,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "f8440b85-6a3e-4e5a-9ac4-fe25d0617d1d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23003,7 +22081,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23018,7 +22096,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/644cfb58-491d-426b-9353-b7a9f17b4adf")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -23122,7 +22200,7 @@
 			(uuid "405bb2d7-08cb-4f88-a06c-8cd135bd04c7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "a954597b-5833-4441-8862-379356f76f44")
 			(effects
@@ -23136,7 +22214,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 37 "I9")
 			(pintype "passive")
@@ -23145,12 +22223,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 53 "C1")
 			(pintype "passive")
 			(uuid "2c410708-4d67-44df-939d-7df291437f71")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -23194,22 +22273,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c5abae0b-94ff-4fc2-9de0-4c4a5744ca59")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23223,7 +22288,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23237,7 +22302,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23251,7 +22316,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23266,7 +22331,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/de2d84aa-97a0-453b-b702-2309d94aea7f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -23535,6 +22600,7 @@
 			(pintype "passive")
 			(uuid "191aa396-ed40-479b-936e-4628c6828686")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -23554,7 +22620,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S16"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "11091520-988f-4628-af43-1d6b47083703")
 			(effects
@@ -23566,7 +22632,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "5f60728d-d58e-4ad8-8dc0-dac744a7f3ba")
 			(effects
@@ -23577,22 +22643,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a7595f24-4a4c-42f0-8e73-06bfa82eba78")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23606,7 +22658,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23621,7 +22673,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/b22c5d54-98b5-4800-8de6-f33cc4c6cbde")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -23725,7 +22777,7 @@
 			(uuid "db55276f-1b76-4495-a99a-033c80b3b6c1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "ccf24025-9ed2-4640-b7ef-3b68b8e16340")
 			(effects
@@ -23739,7 +22791,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 45 "I16")
 			(pintype "passive")
@@ -23748,12 +22800,13 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 56 "C4")
 			(pintype "passive")
 			(uuid "2e78e7c0-1981-4287-94b9-d7297e35d549")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -23773,7 +22826,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "S3"
-			(at 0 1.43 -90)
+			(at 0 1.43 270)
 			(layer "B.SilkS")
 			(uuid "2a26cbc5-c9be-4bb6-a4d4-f541c2b992f1")
 			(effects
@@ -23785,7 +22838,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 0 -1.43 -90)
+			(at 0 -1.43 270)
 			(layer "B.Fab")
 			(uuid "3a645732-6a2d-49be-8299-487a98df2b5e")
 			(effects
@@ -23796,22 +22849,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a8b9069c-7893-4ba2-ae7b-06f96e4b83dd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23825,7 +22864,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -23840,7 +22879,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/3a6492c2-647d-4f00-8217-334db3227b09")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -23944,7 +22983,7 @@
 			(uuid "6c6ebbfd-cf3f-40c5-923e-e394281fade4")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "59198c88-cc96-4ce6-9170-6d2b7f08fe4f")
 			(effects
@@ -23958,7 +22997,7 @@
 		(pad "1" smd roundrect
 			(at -0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 42 "I3")
 			(pintype "passive")
@@ -23967,13 +23006,271 @@
 		(pad "2" smd roundrect
 			(at 0.825 0 90)
 			(size 0.8 0.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.25)
 			(net 55 "C3")
 			(pintype "passive")
 			(uuid "6e7270a9-021c-43f8-908c-af57d0560711")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "cf1bb5fd-4a8b-492b-9633-b10068abe6bf")
+		(at 71 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "ROW7"
+			(at -0.25 -2 180)
+			(layer "B.SilkS")
+			(uuid "acb1765a-7ac1-4aef-bcc0-47dc29e062d2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "ec6dc978-66a4-498b-9b1c-e37c290c3fb3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "e0025c82-4448-405d-80d2-6cd9c2de601a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "d5f2ee02-e84d-4514-a9ac-198838a857e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/8fe7700c-ab97-4976-88c6-9bcdcf62a13d")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "c76752ac-82f9-4a0c-81ce-a66672cac8af")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "3ee8f0de-4898-4e4b-a6ec-81aaa832ded3")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "50f79639-d083-489b-b53c-4b3157a2e81c")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "dcd30be6-a837-4f30-a5ee-e5bb48b8c01d")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "2a2b981f-1a29-465a-8160-c7f298538c04")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e7fea79a-1db7-4eb7-a948-e0e8b285b217")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "69c0f345-c4ec-4b27-bd7c-ac88d94d35cf")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "37e16299-e5aa-4e1a-be37-a222bf26268c")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "bdcc1064-ff47-4b12-8147-3a5120db25d3")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "1da3d420-dc78-4ba7-95d3-9eb37aef58b7")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "ae9c73a3-734f-43c8-9b33-ed876fe8cc7a")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "72e63563-0a1d-4601-9c95-61bfeeff3801")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "15a933f8-8f29-4ade-b95c-3774e6b33202")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "60488b23-9136-495c-bd6f-632c07dacd09")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "220805b6-af89-4cff-8ca5-dcb7d21572cf")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "81519de3-d997-429b-bba1-b25e818e817c")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "cf006602-4a71-40a3-a681-38c773e142f2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 58 "O7")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "f164a2df-9224-4b39-8589-d97b88516b76")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -24016,22 +23313,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "568fc874-b44d-442c-b25b-881db6f08617")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24045,7 +23328,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24059,7 +23342,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24073,7 +23356,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24088,7 +23371,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/ee1d9d0c-a33d-4ad5-b935-9e392c46748a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -24357,6 +23640,7 @@
 			(pintype "passive")
 			(uuid "445a10c5-3f05-49dd-a87b-e698ec829a59")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -24401,22 +23685,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "bda71a30-fd79-4444-b38d-cca633bf0ca0")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24430,7 +23700,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24444,7 +23714,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24458,7 +23728,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24473,7 +23743,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/76b149ae-4478-45de-a06b-3bec9b803959")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -24742,6 +24012,7 @@
 			(pintype "passive")
 			(uuid "6795108b-32aa-497b-94d0-6ed25eb9a208")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -24785,22 +24056,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "e4c3579b-3af7-4714-8e43-2068177531fe")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24814,7 +24071,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24828,7 +24085,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24842,7 +24099,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -24857,7 +24114,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/0dbcdf9c-ffef-481a-9ff1-2738ac4ddc6c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -25126,6 +24383,7 @@
 			(pintype "passive")
 			(uuid "efb9a76f-5e75-4454-9cb3-0b05b7c4c669")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -25169,22 +24427,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "e81ac8fc-3a87-4707-b837-b30f8ddfbdb7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25198,7 +24442,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25212,7 +24456,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25226,7 +24470,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25241,7 +24485,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/cae14f21-d713-44a5-8d93-b3909fe2c85e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -25510,6 +24754,7 @@
 			(pintype "passive")
 			(uuid "c945a0de-1d90-460c-bb6f-0efd069efe37")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -25554,22 +24799,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "2f9260ae-df9b-4ae2-bbac-4a7453701814")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25583,7 +24814,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25597,7 +24828,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25611,7 +24842,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25626,7 +24857,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/921b920f-885d-4c8f-9034-fa04e9527989")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -25895,6 +25126,7 @@
 			(pintype "passive")
 			(uuid "3496880c-d28b-4beb-a788-ad4eb628a332")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -25938,22 +25170,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "107445d2-bb59-430d-81cb-750763fef6dc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25967,7 +25185,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25981,7 +25199,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -25995,7 +25213,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -26010,7 +25228,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/d5c04e08-c332-4aab-868d-337f2129f680")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -26279,6 +25497,7 @@
 			(pintype "passive")
 			(uuid "fc6ffee0-78e7-4f50-9cc2-ad0f80980be4")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -26322,22 +25541,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "3d5fc2a2-8287-49dd-bd85-b00c0705d355")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -26351,7 +25556,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -26365,7 +25570,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -26379,7 +25584,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
@@ -26394,7 +25599,7 @@
 		)
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/26622a9b-a49b-4e72-b8a4-fbf7b31b7af4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "sequencer.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -26663,7 +25868,265 @@
 			(pintype "passive")
 			(uuid "781e429d-24a5-4592-9446-7ef20f969b63")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Diode_THT.3dshapes/D_DO-35_SOD27_P7.62mm_Horizontal.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
+		(layer "B.Cu")
+		(uuid "eedc7154-8ef6-4b13-87a1-545282a9dedc")
+		(at 128 180)
+		(descr "Through hole straight pin header, 1x01, 1.27mm pitch, single row")
+		(tags "Through hole pin header THT 1x01 1.27mm single row")
+		(property "Reference" "COL"
+			(at 0 -2 180)
+			(layer "B.SilkS")
+			(uuid "943b4316-b856-4f19-bb9f-8488aae80964")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 0 -1.745 180)
+			(layer "B.Fab")
+			(uuid "be998d1a-f64f-47c4-852e-ac4d29e99e91")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "37361ef8-f5bd-4d58-96cb-3c871a76e6e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "37721956-4882-4d73-a794-089334e45d17")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
+		(path "/357469cb-a115-4699-a03e-f748357caf35")
+		(sheetname "/")
+		(sheetfile "sequencer.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "84d1327f-e39f-4401-b5ff-281d9ae71dff")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end -0.666708 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e200196a-54e6-41ee-89de-3214c1479795")
+		)
+		(fp_line
+			(start -1.16 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "c761cbd8-55d2-413b-be71-760ba92cb7bb")
+		)
+		(fp_line
+			(start -1.16 0)
+			(end -1.16 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "c7dca180-116f-4bb8-93bd-86bfddf5c9fd")
+		)
+		(fp_line
+			(start -1.16 0.81)
+			(end 0 0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "1c688370-bc0d-4205-b39c-504a9b3e8437")
+		)
+		(fp_line
+			(start 0.666708 -0.81)
+			(end 1.16 -0.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "65898314-3384-449b-ba2e-364d9766558b")
+		)
+		(fp_line
+			(start 1.16 -0.81)
+			(end 1.16 -0.745)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e34f008e-e7c4-48d1-abac-6161f39c1122")
+		)
+		(fp_line
+			(start -1.55 -1.14)
+			(end 1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "45235e58-4bb7-40cd-a84e-d96f31a53df7")
+		)
+		(fp_line
+			(start -1.55 1.14)
+			(end -1.55 -1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "858c5bfc-fe9a-414c-91e7-730482b59f74")
+		)
+		(fp_line
+			(start 1.55 -1.14)
+			(end 1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "cbae8c1a-4c3d-4d9f-b1ea-f7182cd712a8")
+		)
+		(fp_line
+			(start 1.55 1.14)
+			(end -1.55 1.14)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.CrtYd")
+			(uuid "09d67669-163b-417a-ab78-a3f55e9ba289")
+		)
+		(fp_line
+			(start -1.05 -0.635)
+			(end -1.05 0.11)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c7999317-3499-47b3-8be8-c4bc3133fbda")
+		)
+		(fp_line
+			(start -1.05 0.11)
+			(end -0.525 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "deab00b1-ec1e-4afa-811c-bf01c20a91e4")
+		)
+		(fp_line
+			(start -0.525 0.635)
+			(end 1.05 0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "4881a6b0-c4b3-46f3-a102-12f6747a4a93")
+		)
+		(fp_line
+			(start 1.05 -0.635)
+			(end -1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "be7bed31-ccc4-4230-bb53-1ae2b8f99b6c")
+		)
+		(fp_line
+			(start 1.05 0.635)
+			(end 1.05 -0.635)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "b231a2ad-42cc-4017-a9b4-043b579cfb77")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 90)
+			(layer "B.Fab")
+			(uuid "340f3e99-d69e-405d-bfd1-dbf521c6f74a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1 1)
+			(drill 0.65)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 56 "C4")
+			(pinfunction "Pin_1")
+			(pintype "passive")
+			(uuid "6d9bb71d-826d-43e8-ac8c-be1ad73f97d7")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_PinHeader_1.27mm.3dshapes/PinHeader_1x01_P1.27mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -26677,57 +26140,67 @@
 	)
 	(gr_circle
 		(center 71.25 160.75)
-		(end 71.25 162.75)
+		(end 72.85 160.75)
 		(stroke
 			(width 0.05)
-			(type default)
+			(type solid)
 		)
-		(fill none)
+		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "04ab6a28-173f-48ee-8cdd-f4b2a4c90116")
 	)
 	(gr_circle
 		(center 112.25 78.75)
-		(end 112.25 80.75)
+		(end 113.85 78.75)
 		(stroke
 			(width 0.05)
-			(type default)
+			(type solid)
 		)
-		(fill none)
+		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "2497d122-c0da-48ef-8923-f119b37a888f")
 	)
 	(gr_line
-		(start 55 182.25)
-		(end 132 182.25)
+		(start 131.75 52.75)
+		(end 55 52.75)
 		(stroke
 			(width 0.05)
 			(type default)
 		)
 		(layer "Edge.Cuts")
-		(uuid "30a3915b-5714-4889-ac14-e72e00b7c8bd")
+		(uuid "2dbd3601-dee4-4a5f-a9cc-fdf18de4ce76")
 	)
 	(gr_circle
 		(center 112.25 160.75)
-		(end 112.25 162.75)
+		(end 113.85 160.75)
 		(stroke
 			(width 0.05)
-			(type default)
+			(type solid)
 		)
-		(fill none)
+		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "3dec69a0-a152-4dc4-b2fb-4dd23ce7eec1")
 	)
 	(gr_arc
-		(start 134.5 179.75)
-		(mid 133.767767 181.517767)
-		(end 132 182.25)
+		(start 134.25 179.75)
+		(mid 133.517767 181.517767)
+		(end 131.75 182.25)
 		(stroke
 			(width 0.05)
 			(type default)
 		)
 		(layer "Edge.Cuts")
 		(uuid "4541dd9c-908a-43d2-b528-35ce54bd966b")
+	)
+	(gr_line
+		(start 55 182.25)
+		(end 131.75 182.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "5f8ea9fb-8268-475d-9285-75fd45ba9603")
 	)
 	(gr_arc
 		(start 52.5 55.25)
@@ -26751,34 +26224,14 @@
 		(layer "Edge.Cuts")
 		(uuid "7da7bc35-0164-4a75-94df-f79c1bdf872e")
 	)
-	(gr_line
-		(start 55 52.75)
-		(end 132 52.75)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "9460a8e6-e5fa-4cb0-9e4b-cf5e16f8e664")
-	)
-	(gr_line
-		(start 134.5 55.25)
-		(end 134.5 179.75)
-		(stroke
-			(width 0.05)
-			(type default)
-		)
-		(layer "Edge.Cuts")
-		(uuid "aee34c2e-b212-4420-bab8-17c5ef789df4")
-	)
 	(gr_circle
 		(center 71.25 78.75)
-		(end 71.25 80.75)
+		(end 72.85 78.75)
 		(stroke
 			(width 0.05)
-			(type default)
+			(type solid)
 		)
-		(fill none)
+		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "b369cb4f-dc78-4dfb-afad-4e85b7c3ad88")
 	)
@@ -26792,10 +26245,20 @@
 		(layer "Edge.Cuts")
 		(uuid "c3fe274e-3c38-4b67-add4-a730fa1b15ee")
 	)
+	(gr_line
+		(start 134.25 179.75)
+		(end 134.25 55.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "dc222015-d653-472c-b275-1e531952fcbb")
+	)
 	(gr_arc
-		(start 132 52.75)
-		(mid 133.767767 53.482233)
-		(end 134.5 55.25)
+		(start 131.75 52.75)
+		(mid 133.517767 53.482233)
+		(end 134.25 55.25)
 		(stroke
 			(width 0.05)
 			(type default)
@@ -26810,7 +26273,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "User.4")
 		(uuid "04759f5a-96da-460a-97b5-899ea9d08dca")
 	)
@@ -26955,6 +26418,16 @@
 		(uuid "4b5200c2-c800-4935-876b-9c2ad530add3")
 	)
 	(gr_line
+		(start 132 161.5)
+		(end 133.5 161.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "User.4")
+		(uuid "4eb79df4-2a13-4b15-8dca-8d43f8929984")
+	)
+	(gr_line
 		(start 88.5 178)
 		(end 95 178)
 		(stroke
@@ -27051,7 +26524,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "User.4")
 		(uuid "7ccbb384-c0d1-4622-8db4-dc369222a2e8")
 	)
@@ -27222,7 +26695,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "User.4")
 		(uuid "c8ba90ba-1854-443e-9918-cbe8b74a6ce6")
 	)
@@ -27256,6 +26729,16 @@
 		(layer "User.4")
 		(uuid "e0edaf0b-a8e1-4f6f-b210-8480800d5628")
 	)
+	(gr_line
+		(start 133.5 161.5)
+		(end 133.5 45.402394)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "User.4")
+		(uuid "e14b9a82-de54-4f9c-9171-c4e7eecb716d")
+	)
 	(gr_rect
 		(start 132 56.5)
 		(end 134.5 59)
@@ -27263,7 +26746,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "User.4")
 		(uuid "e2cf4f4d-25c2-41c2-b115-cf8ac91fc92b")
 	)
@@ -27298,6 +26781,16 @@
 		(uuid "e7616ae8-86ed-42b9-bfc6-be0a11440dc0")
 	)
 	(gr_line
+		(start 133.5 161.5)
+		(end 133.5 186.25)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "User.4")
+		(uuid "ed6a96b7-fb2e-44a9-9069-24e2caa7132c")
+	)
+	(gr_line
 		(start 54 61.5)
 		(end 54 186.5)
 		(stroke
@@ -27327,18 +26820,6 @@
 		(layer "User.4")
 		(uuid "fb361cac-8a55-454d-8f0e-3313d8028594")
 	)
-	(gr_text "DATA"
-		(at 113.2 136.6 0)
-		(layer "B.SilkS")
-		(uuid "0d18950c-eedd-410b-9b1f-969c4373bf89")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom mirror)
-		)
-	)
 	(gr_text "SOLDER BRIDGES\n1: S1  S5  S9  S13\n2: S2  S6  S10 S14\n3: S3  S7  S11 S15\n4: S4  S8  S12 S16"
 		(at 130.75 103.25 0)
 		(layer "B.SilkS")
@@ -27348,18 +26829,6 @@
 				(size 1.45 1.45)
 				(thickness 0.3)
 				(bold yes)
-			)
-			(justify left bottom mirror)
-		)
-	)
-	(gr_text "ADDRESS"
-		(at 73.8 137 0)
-		(layer "B.SilkS")
-		(uuid "231ef66a-922c-408d-8dc6-5510ebd5de96")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
 			)
 			(justify left bottom mirror)
 		)
@@ -27713,6 +27182,14 @@
 		(uuid "d4a52908-610d-433b-894f-4eeba3c008dd")
 	)
 	(segment
+		(start 95.5 137)
+		(end 99.96 132.54)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "0b656fcc-8d56-4758-9813-3b13a8af818e")
+	)
+	(segment
 		(start 85.127 132.62)
 		(end 90.627 138.12)
 		(width 0.2)
@@ -27754,7 +27231,7 @@
 	)
 	(segment
 		(start 94.5 138)
-		(end 99.96 132.54)
+		(end 95.5 137)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 8)
@@ -27769,28 +27246,36 @@
 		(uuid "eb2cfcb5-08c4-4620-9309-e0dcd36de386")
 	)
 	(via
-		(at 94.5 138)
+		(at 95.5 137)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net 8)
-		(uuid "7986e58f-b9ce-4e98-8aca-21d8b09a2a69")
-	)
-	(segment
-		(start 94.5 121.46)
-		(end 94.5 138)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 8)
-		(uuid "70c89fe6-982a-4d2c-bf68-1aac8ceeaf59")
+		(uuid "1d66ee60-2277-4760-8d5f-6b252a4be159")
 	)
 	(segment
 		(start 92.5 119.46)
-		(end 94.5 121.46)
+		(end 95.5 122.46)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 8)
-		(uuid "a091da52-80a9-4409-89cb-a8198e287333")
+		(uuid "9d991967-19e8-483c-bd46-3e4ca87c91d1")
+	)
+	(segment
+		(start 95.5 122.46)
+		(end 95.5 137)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "b0738b12-3e1a-49dc-af2d-20406da93a09")
+	)
+	(segment
+		(start 95 153.04)
+		(end 131.5 153.04)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 9)
+		(uuid "89a92be8-b034-4efe-8d15-e6c14db5e363")
 	)
 	(segment
 		(start 93.86 153.04)
@@ -27810,35 +27295,43 @@
 	)
 	(segment
 		(start 70.127 153.04)
-		(end 131.5 153.04)
+		(end 95 153.04)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 9)
 		(uuid "fe8abdf2-8561-4eeb-b51d-d8db4f0923a9")
 	)
 	(via
-		(at 93.9 153)
+		(at 95 153.04)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net 9)
-		(uuid "8f26ddad-b294-46f2-95b7-ee51036f1045")
+		(uuid "ab2685f4-49e3-40f5-a122-211a8b528d5c")
 	)
 	(segment
-		(start 93.9 122.13)
-		(end 93.9 153)
+		(start 94.899 152.939)
+		(end 95 153.04)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 9)
-		(uuid "240d682d-5ab1-4456-893a-bcbbebe5af5e")
+		(uuid "0c63ffd2-8479-4f6b-9d99-d6635935aa2c")
+	)
+	(segment
+		(start 94.899 123.129)
+		(end 94.899 152.939)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 9)
+		(uuid "5a66f217-124a-44f6-b490-f3aa4c0b0a1e")
 	)
 	(segment
 		(start 92.5 120.73)
-		(end 93.9 122.13)
+		(end 94.899 123.129)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 9)
-		(uuid "cb7943e4-8fe6-4916-99c0-5eafe3400b43")
+		(uuid "6139416f-7464-4ad8-ae80-cfb507decfae")
 	)
 	(segment
 		(start 63.54 145.42)
@@ -27857,7 +27350,7 @@
 		(uuid "39954786-60f5-4d2b-aeac-dbef075ddf1e")
 	)
 	(segment
-		(start 70.127 173.54)
+		(start 94 173.54)
 		(end 131.5 173.54)
 		(width 0.2)
 		(layer "F.Cu")
@@ -27865,28 +27358,36 @@
 		(uuid "33358958-59ba-41d6-85ec-8feb6db2ce86")
 	)
 	(segment
+		(start 70.127 173.54)
+		(end 94 173.54)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 12)
+		(uuid "58597e6c-101b-4e0f-805b-63e3bb09aa5a")
+	)
+	(via
+		(at 94 173.54)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net 12)
+		(uuid "f26af87c-0c10-4213-b556-2a1c1992c93b")
+	)
+	(segment
 		(start 92.5 122)
-		(end 93.3 122.8)
+		(end 94 123.5)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 12)
-		(uuid "0b761e81-d90c-462b-b602-827723f6b1c4")
+		(uuid "751937d4-496e-42cd-b102-dd24ae8d419c")
 	)
 	(segment
-		(start 93.3 122.8)
-		(end 93.3 170.867)
+		(start 94 123.5)
+		(end 94 173.54)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 12)
-		(uuid "a5e35f3f-4d0a-4819-be71-7bdd8a0a1f72")
-	)
-	(segment
-		(start 93.3 170.867)
-		(end 90.627 173.54)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 12)
-		(uuid "fdf32ab8-ee6a-4d61-90f2-9b27cdde3f71")
+		(uuid "84b62db0-a2ab-43fc-9cba-e1929557959a")
 	)
 	(segment
 		(start 87.78 74.193)
@@ -28625,92 +28126,100 @@
 		(uuid "f955d416-75a5-472b-863d-c8bd081c76d2")
 	)
 	(segment
-		(start 81.4375 179)
-		(end 82.4375 180)
+		(start 67 175)
+		(end 82.5 175)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "081010c2-ad22-4d10-bd75-943369144547")
+		(uuid "2c174423-2f3b-4358-a07b-20392360f666")
 	)
 	(segment
-		(start 89 178.75)
-		(end 101.625 178.75)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 36)
-		(uuid "30d5aac9-26df-4313-9d29-b1bd84239aed")
-	)
-	(segment
-		(start 82.4375 180)
-		(end 83.6875 178.75)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 36)
-		(uuid "3779eb4c-4c50-40cb-b222-33498d801c2c")
-	)
-	(segment
-		(start 62 180)
-		(end 63 179)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 36)
-		(uuid "73da6e5e-de94-4571-b1b7-db858e7b1a3e")
-	)
-	(segment
-		(start 102.875 180)
-		(end 103.875 179)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 36)
-		(uuid "87cb9ec5-f006-48e4-a2db-79d3e57c7568")
-	)
-	(segment
-		(start 122.4375 179)
+		(start 118.4375 175)
 		(end 123.4375 180)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "9f14d342-c840-4dd3-821f-45741e0f10e9")
+		(uuid "3a887085-f8d0-421a-9364-edf32678a32c")
 	)
 	(segment
-		(start 63 179)
-		(end 81.4375 179)
+		(start 82.4375 175.0625)
+		(end 82.5 175)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "abcf3190-7b45-41d7-b943-05a79804c7f1")
+		(uuid "49587466-08fa-46ee-9eb9-1031d4da0e36")
 	)
 	(segment
-		(start 101.625 178.75)
-		(end 102.875 180)
+		(start 103 175)
+		(end 118.4375 175)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "c3b9eddb-85bb-4f2d-afd4-6418e5f24eb6")
+		(uuid "4caa0727-d8f3-4df4-b1ee-5588a77c5a87")
 	)
 	(segment
-		(start 83.6875 178.75)
-		(end 89 178.75)
+		(start 102.875 180)
+		(end 102.875 175.125)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "d4e41733-0ffd-4c3c-8cf3-e4b57b813294")
+		(uuid "6779b49b-4cd1-41e0-80a2-a78bcdb925fd")
 	)
 	(segment
-		(start 103.875 179)
-		(end 122.4375 179)
+		(start 102.875 175.125)
+		(end 103 175)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 36)
-		(uuid "ef50f50e-8f38-4972-a8b6-1d8c008f00ef")
+		(uuid "818e73ef-0b23-488c-98d8-82490b772b45")
+	)
+	(segment
+		(start 62 180)
+		(end 67 175)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 36)
+		(uuid "8e81aa0c-d58a-4787-aaa0-cbe92694b82e")
+	)
+	(segment
+		(start 82.5 175)
+		(end 89 175)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 36)
+		(uuid "97c02dd7-96d0-4a99-83a5-5d2121904504")
+	)
+	(segment
+		(start 82.4375 180)
+		(end 82.4375 175.0625)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 36)
+		(uuid "9cd05fec-9f40-4763-ba7d-5187e5e759ff")
+	)
+	(segment
+		(start 89 175)
+		(end 103 175)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 36)
+		(uuid "a8f45365-2895-4004-97f1-d17401d931e1")
 	)
 	(via
-		(at 89 178.75)
+		(at 89 175)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net 36)
-		(uuid "1a38ff8c-235d-44e4-a392-535a301c3ce7")
+		(uuid "3a761630-aff4-4ab2-b3ef-da672a332bfa")
+	)
+	(segment
+		(start 89 124.23)
+		(end 89 175)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 36)
+		(uuid "9b245a24-e503-455b-8322-36f57c6c16df")
 	)
 	(segment
 		(start 91.23 122)
@@ -28719,14 +28228,6 @@
 		(layer "B.Cu")
 		(net 36)
 		(uuid "dd5d3c28-44d9-4a48-a68b-a65f9eca983d")
-	)
-	(segment
-		(start 89 124.23)
-		(end 89 178.75)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 36)
-		(uuid "f3ef7824-ea20-4a7b-b504-e5f217d15bbf")
 	)
 	(segment
 		(start 90.005 59.67)
@@ -29609,6 +29110,14 @@
 		(uuid "1c80324c-a1c0-4724-9226-a77e19f49120")
 	)
 	(segment
+		(start 57.19 177.065)
+		(end 60.125 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 53)
+		(uuid "24e0500b-33a7-4887-a4da-ca0e99c1eb31")
+	)
+	(segment
 		(start 57.19 142.31)
 		(end 57.19 147.96)
 		(width 0.2)
@@ -29625,12 +29134,20 @@
 		(uuid "3396a50a-6aa0-4423-a3d9-d966173b9a11")
 	)
 	(segment
-		(start 57.19 177.065)
+		(start 61.126 181.001)
 		(end 60.125 180)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 53)
-		(uuid "447570ff-31cd-492c-b500-226b5589db6f")
+		(uuid "36efc2fc-3e72-4e45-b11b-5d43ba74f39c")
+	)
+	(segment
+		(start 57.19 168.46)
+		(end 57.19 177.065)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 53)
+		(uuid "48e6fe28-9233-4ff5-b8fb-294cf547c484")
 	)
 	(segment
 		(start 60 124.65)
@@ -29673,12 +29190,12 @@
 		(uuid "85247139-b689-4cd5-a264-4dfeaf837984")
 	)
 	(segment
-		(start 57.19 168.46)
-		(end 57.19 177.065)
+		(start 66.5 180)
+		(end 65.499 181.001)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 53)
-		(uuid "8612a535-b434-4515-86bf-2be695b00113")
+		(uuid "933837bf-160b-43b1-b0ac-a55d09a116d7")
 	)
 	(segment
 		(start 60.125 98)
@@ -29751,6 +29268,14 @@
 		(layer "F.Cu")
 		(net 53)
 		(uuid "e119cefa-d32e-4039-8d20-ee67df9dbbe6")
+	)
+	(segment
+		(start 65.499 181.001)
+		(end 61.126 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 53)
+		(uuid "e6ec7866-ec54-400e-b8ab-dc3deeeb0052")
 	)
 	(segment
 		(start 60.125 159.5)
@@ -29945,6 +29470,14 @@
 		(uuid "2abb92d3-0a97-4957-ac77-bc4532f72701")
 	)
 	(segment
+		(start 85.999 181.001)
+		(end 81.5635 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 54)
+		(uuid "53391471-878e-43cf-b99d-6969cc451d14")
+	)
+	(segment
 		(start 80.5625 77.5)
 		(end 77.69 77.5)
 		(width 0.2)
@@ -29967,6 +29500,14 @@
 		(layer "F.Cu")
 		(net 54)
 		(uuid "74fd570b-fc4a-474a-a1d6-f78b93cd4f30")
+	)
+	(segment
+		(start 87 180)
+		(end 85.999 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 54)
+		(uuid "83729d56-a04d-4632-8a87-2e8c1a8bacce")
 	)
 	(segment
 		(start 86.75 58)
@@ -30007,6 +29548,14 @@
 		(layer "F.Cu")
 		(net 54)
 		(uuid "da8080ee-c781-4d9b-8f9f-de90f65a5727")
+	)
+	(segment
+		(start 81.5635 181.001)
+		(end 80.5625 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 54)
+		(uuid "f096c109-19e1-42b9-8565-afdf5c56e98f")
 	)
 	(segment
 		(start 80.5625 159.5)
@@ -30321,6 +29870,14 @@
 		(uuid "4a3c66ee-de60-4fbe-a7ba-d79bd2292722")
 	)
 	(segment
+		(start 102.001 181.001)
+		(end 101 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 55)
+		(uuid "6ad1a5ef-87df-4c5d-9732-7487ec79508e")
+	)
+	(segment
 		(start 113.75 62)
 		(end 114.5 61.25)
 		(width 0.2)
@@ -30351,6 +29908,14 @@
 		(layer "F.Cu")
 		(net 55)
 		(uuid "99a8c7a8-8e14-4f15-b08a-5997a7e79811")
+	)
+	(segment
+		(start 106.499 181.001)
+		(end 102.001 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 55)
+		(uuid "9b617162-4dfc-429c-8ca0-668d40e7b2c5")
 	)
 	(segment
 		(start 101.125 98)
@@ -30391,6 +29956,14 @@
 		(layer "F.Cu")
 		(net 55)
 		(uuid "c0173aa8-e22d-45a7-9619-8e306e5dd00a")
+	)
+	(segment
+		(start 107.5 180)
+		(end 106.499 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 55)
+		(uuid "e3b46696-6a4e-47fd-aba7-093e141148fe")
 	)
 	(segment
 		(start 101 139)
@@ -30697,6 +30270,14 @@
 		(uuid "0c985c22-a7a8-4273-beb1-1f8c2db5c535")
 	)
 	(segment
+		(start 128 180)
+		(end 126.999 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 56)
+		(uuid "11c76551-d68f-4692-8c39-7d065e21db60")
+	)
+	(segment
 		(start 118.94 139)
 		(end 118.69 139.25)
 		(width 0.2)
@@ -30777,6 +30358,14 @@
 		(uuid "99e91f7e-ac3f-4519-bb42-ac81a84a1493")
 	)
 	(segment
+		(start 126.999 181.001)
+		(end 122.5635 181.001)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 56)
+		(uuid "a1be36b6-dd10-468a-bb55-206ffb1af771")
+	)
+	(segment
 		(start 118.69 74.19)
 		(end 118.75 74.25)
 		(width 0.2)
@@ -30791,6 +30380,14 @@
 		(layer "F.Cu")
 		(net 56)
 		(uuid "aba9dab6-a938-406a-b773-1e4242b1260b")
+	)
+	(segment
+		(start 122.5635 181.001)
+		(end 121.5625 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 56)
+		(uuid "ce75383b-42c6-44ff-b6ba-b05070baa2ee")
 	)
 	(segment
 		(start 124.1625 76.811768)
@@ -31008,4 +30605,117 @@
 		(net 56)
 		(uuid "fc531aca-fa3a-44b8-b345-0246a70209da")
 	)
+	(segment
+		(start 78.5 177)
+		(end 74 177)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 58)
+		(uuid "6b9d9b91-3405-4cdd-b949-2142d7cbb8a1")
+	)
+	(segment
+		(start 74 177)
+		(end 71 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 58)
+		(uuid "909010fc-70e2-4ec3-ace6-ea3b6cb1b542")
+	)
+	(via
+		(at 78.5 177)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net 58)
+		(uuid "1fa3db42-9905-4bdd-bd69-b3cd98606eec")
+	)
+	(segment
+		(start 91.5 177)
+		(end 93.301 175.199)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 58)
+		(uuid "1139c95e-94e5-4a3f-9961-819f332812d5")
+	)
+	(segment
+		(start 93.301 124.071)
+		(end 92.5 123.27)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 58)
+		(uuid "5fbac599-4bae-4334-8919-4ce8f4867d50")
+	)
+	(segment
+		(start 78.5 177)
+		(end 91.5 177)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 58)
+		(uuid "7553ae02-100d-4762-8ea7-33883a8dd484")
+	)
+	(segment
+		(start 93.301 175.199)
+		(end 93.301 124.071)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 58)
+		(uuid "79f311ba-12aa-4a41-8927-060212d9f0f3")
+	)
+	(segment
+		(start 76.5 180)
+		(end 75 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "6ddebce0-a7fc-47a6-81a0-282cb73c329d")
+	)
+	(segment
+		(start 80 176.5)
+		(end 76.5 180)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "9ce6af30-5a82-47f3-a969-f03f8b5288b3")
+	)
+	(segment
+		(start 80 176)
+		(end 80 176.5)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "c90ef6d1-6be9-4cc5-89c9-9ee5889857e4")
+	)
+	(via
+		(at 80 176)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net 59)
+		(uuid "f62df131-c26c-4068-b1c7-8f61730997d3")
+	)
+	(segment
+		(start 92.5 124.54)
+		(end 92.5 174)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 59)
+		(uuid "17a54c1e-868e-4516-b994-30519d0efca9")
+	)
+	(segment
+		(start 92.5 174)
+		(end 90.5 176)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 59)
+		(uuid "88fbf3ec-8c7e-4137-8d17-89373335cf7d")
+	)
+	(segment
+		(start 90.5 176)
+		(end 80 176)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 59)
+		(uuid "dd04d75c-fd92-4c4e-a079-5e8908d7366c")
+	)
+	(embedded_fonts no)
 )
