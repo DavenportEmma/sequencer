@@ -1,2 +1,7 @@
 *.zip
 *.lck
+*.gbr
+*.drl
+*.gbrjob
+fp-info-cache
+fp-lib-table
