@@ -158,8 +158,6 @@ static void st_note(uint8_t key) {
         send_uart(USART3, " ", 1);
         send_hex(USART3, note);
         send_uart(USART3, "\n\r", 2);
-
-        edit_step_note(ACTIVE_ST, note);
     }
 
     menu(E_AUTO);
