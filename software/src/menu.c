@@ -1,6 +1,7 @@
 #include "uart.h"
 #include "menu.h"
 #include "sequence.h"
+#include "step_edit_buffer.h"
 #include "midi.h"
 
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
