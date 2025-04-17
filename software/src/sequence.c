@@ -22,7 +22,7 @@ typedef struct {
 extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
 
-extern MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
+extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 static step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
 
@@ -139,7 +139,7 @@ static int load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
 }
 
 static void play_step(uint8_t sq_index) {
-    MIDISequence_t* sq = &sq_states[sq_index];
+    MIDISequence_t* sq = &sequences[sq_index];
     step_t st;
 
     if(load_step(sq, sq_index, &st)) {
@@ -159,7 +159,7 @@ static void play_step(uint8_t sq_index) {
 void play_sequences() {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-            if(sq_states[i].enabled) {
+            if(sequences[i].enabled) {
                 play_step(i);
             }
         }
@@ -169,19 +169,19 @@ void play_sequences() {
 
 void toggle_sequence(uint8_t seq) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sq_states[seq].enabled ^= 1;
+        sequences[seq].enabled ^= 1;
 
-        if(!sq_states[seq].enabled) {
+        if(!sequences[seq].enabled) {
             MIDICC_t p = {
                 .status = CONTROLLER,
-                .channel = sq_states[seq].channel,
+                .channel = sequences[seq].channel,
                 .control = ALL_NOTES_OFF,
                 .value = 0,
             };
 
             send_midi_control(USART1, &p);
         } else {
-            sq_states[seq].channel = get_channel(seq);
+            sequences[seq].channel = get_channel(seq);
         }
 
         xSemaphoreGive(sq_mutex);

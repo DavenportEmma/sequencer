@@ -11,7 +11,7 @@
 
 SemaphoreHandle_t sq_mutex;
 SemaphoreHandle_t edit_buffer_mutex;
-MIDISequence_t sq_states[CONFIG_TOTAL_SEQUENCES];
+MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -23,7 +23,7 @@ int main(void) {
     
     setup();
 
-    memset(sq_states, 0, sizeof(sq_states));
+    memset(sequences, 0, sizeof(sequences));
 
     all_channels_off(USART1);
 
