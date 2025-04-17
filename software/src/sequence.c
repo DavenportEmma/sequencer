@@ -30,6 +30,15 @@ extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
 extern uint8_t SQ_EDIT_READY;
 
+/*
+    get the midi channel of the sequence from flash memory. The sequence
+    metadata is stored in the first sector of the block. The midi channel
+    information is stored in the first byte of the first page of the block 
+
+    @param sq_index     Index of sequence (0-63)
+
+    @return The midi channel of the sequence
+*/
 static MIDIChannel_t get_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint8_t tx[1] = {0};
@@ -39,6 +48,14 @@ static MIDIChannel_t get_channel(uint8_t sq_index) {
     return (MIDIChannel_t)rx[0];
 }
 
+/*
+    play the notes contained in the step
+
+    @param c    The midi channel the notes should be played over
+    @param st   A pointer to a step struct containing note_on, and note_off
+                notes, and the end of step byte (0x00 or 0xFF depending on if
+                it's the end of the step or the whole sequence)
+*/
 static void play_step_notes(MIDIChannel_t c, step_t* st) {
     for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
         MIDINote_t n = st->note_off[i];
@@ -71,6 +88,13 @@ static void play_step_notes(MIDIChannel_t c, step_t* st) {
     }
 }
 
+/*
+    read step from the sequence currently loaded into the edit buffer
+    
+    @param sq   A pointer to the struct of the current sequence in sequences
+    @param st   A pointer to the step struct to be assigned to the current step
+                in the sequence
+*/
 static void read_step_from_edit_buffer(MIDISequence_t* sq, step_t* st) {
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         *st = edit_buffer[sq->counter];
@@ -79,6 +103,13 @@ static void read_step_from_edit_buffer(MIDISequence_t* sq, step_t* st) {
     }
 }
 
+/*
+    read step from flash memory
+
+    @param sq       A pointer to the struct of the current sequence in sequences
+    @param sq_index The index of the currently processed sequence in sequences
+    @param data     The buffer to be filled with step data from flash
+*/
 static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t* data) {
     // get the address for the step pointer in flash memory
     // read MEMORY.md for more info
@@ -89,6 +120,13 @@ static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t*
     SPIRead(current_step_addr, data, data, BYTES_PER_STEP);
 }
 
+/*
+    convert a buffer of bytes to a step struct
+
+    @param data     Bytes buffer to be converted to a step
+    @param st       Pointer to a step struct to be filled with the data from
+                    the data buffer
+*/
 static void bytes_to_step(uint8_t* data, step_t* st) {
     int i = 0;
 
@@ -116,7 +154,16 @@ static void bytes_to_step(uint8_t* data, step_t* st) {
     st->end_of_step = data[i];
 }
 
-// load step from flash or from the edit buffer
+/*
+    read a step from the edit buffer or from memory depending on if the current
+    sequence is being edited or not
+    
+    @param sq       A pointer to the currently processed sequence in sequences
+    @param sq_index The index of the currently processed sequence in sequences
+    @param st       A pointer to the step struct to be filled with data
+
+    @return 1 if the data being read is malformed
+*/
 static int load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     if(ACTIVE_SQ == sq_index && SQ_EDIT_READY == 1) {
         read_step_from_edit_buffer(sq, st);
@@ -138,6 +185,11 @@ static int load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     return 0;
 }
 
+/*
+    load step data into a step struct then send the note data over midi
+
+    @param sq_index The index of the currently process sequence in sequences
+*/
 static void play_step(uint8_t sq_index) {
     MIDISequence_t* sq = &sequences[sq_index];
     step_t st;
@@ -156,6 +208,9 @@ static void play_step(uint8_t sq_index) {
     play_step_notes(sq->channel, &st);
 }
 
+/*
+    play the current steps in the currently active sequences
+*/
 void play_sequences() {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
@@ -167,21 +222,26 @@ void play_sequences() {
     }
 }
 
-void toggle_sequence(uint8_t seq) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sequences[seq].enabled ^= 1;
+/*
+    toggle a sequence between enabled and disabled
 
-        if(!sequences[seq].enabled) {
+    @param sq_index The index of the currently process sequence in sequences
+*/
+void toggle_sequence(uint8_t sq_index) {
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        sequences[sq_index].enabled ^= 1;
+
+        if(!sequences[sq_index].enabled) {
             MIDICC_t p = {
                 .status = CONTROLLER,
-                .channel = sequences[seq].channel,
+                .channel = sequences[sq_index].channel,
                 .control = ALL_NOTES_OFF,
                 .value = 0,
             };
 
             send_midi_control(USART1, &p);
         } else {
-            sequences[seq].channel = get_channel(seq);
+            sequences[sq_index].channel = get_channel(sq_index);
         }
 
         xSemaphoreGive(sq_mutex);
