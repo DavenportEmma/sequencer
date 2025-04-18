@@ -1,3 +1,9 @@
+/*
+    this file contains all the functions that are used to manipulate the step
+    edit buffer on a buffer-wide scale. any individual step operations are
+    found in step_editor.c
+*/
+
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "autoconf.h"
@@ -15,6 +21,14 @@ extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
 extern uint8_t SQ_EDIT_READY;
 
+/*
+    convert a step_t struct to a buffer of bytes. see MEMORY.md for more info
+    about the structure of steps in a buffer
+
+    @param st       step struct to be stringified
+    @param pos      the location in the buffer the data is to be entered at
+    @param data     the byte buffer into which the stringified step is entered
+*/
 static void stringify_step(step_t st, uint16_t* pos, uint8_t* data) {
     data[(*pos)++] = NOTE_OFF;
     
@@ -32,6 +46,12 @@ static void stringify_step(step_t st, uint16_t* pos, uint8_t* data) {
     data[(*pos)++] = st.end_of_step;
 }
 
+/*
+    convert the step edit buffer to a buffer of bytes. the step edit buffer is
+    an array of step_t structs
+
+    @param data     the buffer to be filled with stringified steps
+*/
 static void stringify_buffer(uint8_t* data) {
     uint16_t pos = 0;
     for(uint16_t i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
@@ -39,6 +59,10 @@ static void stringify_buffer(uint8_t* data) {
     }
 }
 
+/*
+    stringify the step eit buffer and write the byte buffer to flash memory. use
+    ACTIVE_SQ to get the address to write to
+*/
 static void write_buffer_to_memory() {
     uint8_t ebuf_data[BYTES_PER_SEQ];
 
@@ -74,6 +98,10 @@ static void write_buffer_to_memory() {
     }
 }
 
+/*
+    write the step edit buffer to memory and reset the step edit buffer to all
+    0xFF
+*/
 void edit_buffer_reset() {
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         write_buffer_to_memory();
@@ -84,6 +112,14 @@ void edit_buffer_reset() {
     }
 }
 
+/*
+    read the active sequence from memory and store the contents in the step edit
+    buffer
+
+    @param sq_index     the index (0-63) of the active sequence
+
+    @return 1 if the data is malformed
+*/
 int edit_buffer_load(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint32_t steps_base_addr = sq_base_addr + 0x1000;
@@ -97,11 +133,7 @@ int edit_buffer_load(uint8_t sq_index) {
             
             memcpy(st_data, &seq_data[BYTES_PER_STEP * i], BYTES_PER_STEP);
 
-            if(
-                st_data[0] != NOTE_OFF &&
-                !(st_data[BYTES_PER_STEP - 1] == SEQ_END ||
-                st_data[BYTES_PER_STEP - 1] == STEP_END)
-            ) {
+            if(st_data[0] != NOTE_OFF) {
                 return 1;
             }
 
