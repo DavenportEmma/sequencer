@@ -167,11 +167,7 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
         uint8_t data[BYTES_PER_STEP];
         read_step_from_memory(sq, sq_index, data);
 
-        if(
-            data[0] != NOTE_OFF &&
-            !(data[BYTES_PER_STEP - 1] == SEQ_END ||
-            data[BYTES_PER_STEP - 1] == STEP_END)
-        ) {
+        if(data[0] != NOTE_OFF) {
             return 1;
         }
         
@@ -185,25 +181,23 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     load step data into a step struct then send the note data over midi
 
     @param sq_index The index of the currently process sequence in sequences
-    @param note_on_mbuf
-    @param note_off_mbuf
 */
-static step_t load_step(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
+static uint8_t load_step(uint8_t sq_index, step_t* st) {
     MIDISequence_t* sq = &sequences[sq_index];
-    step_t st;
 
-    if(read_step(sq, sq_index, &st)) {
+    if(read_step(sq, sq_index, st)) {
         send_uart(USART3, "Error data alignment\n\r", 22);
+        return 1;
     }
     
     // if the end of sequence byte is hit then put the counter back to the start
-    if(st.end_of_step == 0xFF){
+    if(st->end_of_step == 0xFF){
         sq->counter = 0;
     } else {
         sq->counter++;
     }
 
-    return st;
+    return 0;
 }
 
 /*
@@ -216,8 +210,10 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
             if(sequences[i].enabled) {
-                step_t st = load_step(i, note_on_mbuf, note_off_mbuf);
-                load_step_notes(note_on_mbuf, note_off_mbuf, sequences[i].channel, &st);
+                step_t st;
+                if(load_step(i, &st) == 0) {
+                    load_step_notes(note_on_mbuf, note_off_mbuf, sequences[i].channel, &st);
+                }
             }
         }
         xSemaphoreGive(sq_mutex);
