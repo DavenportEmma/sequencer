@@ -6,6 +6,7 @@
 #include "uart.h"
 #include "w25q128jv.h"
 #include "common.h"
+#include "m_buf.h"
 
 extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
@@ -37,14 +38,21 @@ static MIDIChannel_t get_channel(uint8_t sq_index) {
 }
 
 /*
-    play the notes contained in the step
+    load the notes contained in the step into the note_on and note_off buffers
 
+    @param note_on_mbuf
+    @param note_off_mbuf
     @param c    The midi channel the notes should be played over
     @param st   A pointer to a step struct containing note_on, and note_off
                 notes, and the end of step byte (0x00 or 0xFF depending on if
                 it's the end of the step or the whole sequence)
 */
-static void play_step_notes(MIDIChannel_t c, step_t* st) {
+static void load_step_notes(
+    mbuf_handle_t note_on_mbuf,
+    mbuf_handle_t note_off_mbuf,
+    MIDIChannel_t c,
+    step_t* st
+) {
     for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
         MIDINote_t n = st->note_off[i];
 
@@ -56,7 +64,7 @@ static void play_step_notes(MIDIChannel_t c, step_t* st) {
                 .velocity = 0,
             };
 
-            send_midi_note(USART1, &p);
+            mbuf_push(note_off_mbuf, p);
         }
     }
 
@@ -71,7 +79,7 @@ static void play_step_notes(MIDIChannel_t c, step_t* st) {
                 .velocity = st->note_on[i].velocity,
             };
     
-            send_midi_note(USART1, &p);
+            mbuf_push(note_on_mbuf, p);
         }
     }
 }
@@ -152,7 +160,7 @@ void bytes_to_step(uint8_t* data, step_t* st) {
 
     @return 1 if the data being read is malformed
 */
-static int load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
+static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     if(ACTIVE_SQ == sq_index && SQ_EDIT_READY == 1) {
         read_step_from_edit_buffer(sq, st);
     } else {
@@ -177,12 +185,14 @@ static int load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     load step data into a step struct then send the note data over midi
 
     @param sq_index The index of the currently process sequence in sequences
+    @param note_on_mbuf
+    @param note_off_mbuf
 */
-static void play_step(uint8_t sq_index) {
+static step_t load_step(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     MIDISequence_t* sq = &sequences[sq_index];
     step_t st;
 
-    if(load_step(sq, sq_index, &st)) {
+    if(read_step(sq, sq_index, &st)) {
         send_uart(USART3, "Error data alignment\n\r", 22);
     }
     
@@ -193,17 +203,21 @@ static void play_step(uint8_t sq_index) {
         sq->counter++;
     }
 
-    play_step_notes(sq->channel, &st);
+    return st;
 }
 
 /*
     play the current steps in the currently active sequences
+
+    @param note_on_mbuf     midi packet buffer for note on packets
+    @param note_off_mbuf    midi packet buffer for note off packets
 */
-void play_sequences() {
+void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
             if(sequences[i].enabled) {
-                play_step(i);
+                step_t st = load_step(i, note_on_mbuf, note_off_mbuf);
+                load_step_notes(note_on_mbuf, note_off_mbuf, sequences[i].channel, &st);
             }
         }
         xSemaphoreGive(sq_mutex);
@@ -233,5 +247,13 @@ void toggle_sequence(uint8_t sq_index) {
         }
 
         xSemaphoreGive(sq_mutex);
+    }
+}
+
+void play_notes(mbuf_handle_t mbuf) {
+    while(!mbuf_empty(mbuf)) {
+        MIDIPacket_t p;
+        mbuf_pop(mbuf, &p);
+        send_midi_note(USART1, &p);
     }
 }
