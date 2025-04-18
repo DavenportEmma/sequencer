@@ -8,17 +8,28 @@
 #include "keyboard.h"
 #include "menu.h"
 #include "sequence.h"
+#include "m_buf.h"
+
+#define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
 void sq_play_task(void *pvParameters) {
     float TEMPO_PERIOD_MS = 60000/(CONFIG_TEMPO);
 
     TickType_t lastWakeTime;
+    
+    MIDIPacket_t note_on_buffer[NOTE_BUFFER_SIZE];
+    mbuf_handle_t note_on_mbuf = mbuf_init(note_on_buffer, NOTE_BUFFER_SIZE);
+
+    MIDIPacket_t note_off_buffer[NOTE_BUFFER_SIZE];
+    mbuf_handle_t note_off_mbuf = mbuf_init(note_off_buffer, NOTE_BUFFER_SIZE);
 
     while(1) {
         lastWakeTime = xTaskGetTickCount();
 
-        play_sequences();
+        load_sequences(note_on_mbuf, note_off_mbuf);
 
+        play_notes(note_off_mbuf);
+        play_notes(note_on_mbuf);
         vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(TEMPO_PERIOD_MS));
     }
 }
