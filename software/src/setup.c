@@ -90,11 +90,13 @@ void setup() {
     
     scan(kbuf);
 
+    #ifdef CONFIG_ENABLE_STARTUP_MEMORY_CLEAR
     if(!kbuf_empty(kbuf)) {
         send_uart(USART3, "Start up key press\n\r", 20);
         send_uart(USART3, "Erasing flash\n\r", 15);
         eraseChip();
     }
+    #endif
 
     kbuf_free(kbuf);
 
