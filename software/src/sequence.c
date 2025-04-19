@@ -238,6 +238,10 @@ void toggle_sequence(uint8_t sq_index) {
             };
 
             send_midi_control(USART1, &p);
+
+            #ifdef CONFIG_RESET_SEQ_ON_DISABLE
+                sequences[sq_index].counter = 0;
+            #endif
         } else {
             sequences[sq_index].channel = get_channel(sq_index);
         }
