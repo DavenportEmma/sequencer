@@ -64,6 +64,8 @@ void key_scan_task(void *pvParameters) {
             }
 
             kbuf->ready = 0;
+        } else if(kbuf_ready(uart_intr_kbuf)) {
+            menu(E_ST_NOTE);
         } else {
             kbuf_reset(kbuf);
         }
