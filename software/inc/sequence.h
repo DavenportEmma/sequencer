@@ -1,8 +1,6 @@
 #ifndef _SEQUENCE_H
 #define _SEQUENCE_H
 
-#include "FreeRTOS.h"
-#include "semphr.h"
 #include "autoconf.h"
 #include "midi.h"
 #include "m_buf.h"
