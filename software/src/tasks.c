@@ -16,7 +16,7 @@
 kbuf_handle_t uart_intr_kbuf;
 
 void sq_play_task(void *pvParameters) {
-    float TEMPO_PERIOD_MS = 60000/(CONFIG_TEMPO);
+    float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
 
     TickType_t lastWakeTime;
     
