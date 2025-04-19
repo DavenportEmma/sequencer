@@ -2,7 +2,11 @@
 #include "menu.h"
 #include "sequence.h"
 #include "step_edit_buffer.h"
+#include "step_editor.h"
 #include "midi.h"
+#include "k_buf.h"
+
+extern kbuf_handle_t uart_intr_kbuf;
 
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
     if(key > 0x0F && key < 0x50) {
@@ -146,21 +150,47 @@ static void st_menu(uint8_t key) {
     send_uart(USART3, "st_menu ", 8);
     send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n\r", 2);
+
+    kbuf_reset(uart_intr_kbuf);
+    uart_enable_rx_intr(USART1);
 }
 
 static void prev(uint8_t key) { }
 
 static void st_note(uint8_t key) {
-    MIDINote_t note = key_to_note(key);
+    /*
+        if the transition to this state was triggered by a keystroke from the
+        on-board 13 key keyboard then `key` is going to be able to be decoded
+        by key_to_note
+        
+        if the transition was triggered by an external midi signal processed by
+        a usart interrupt then `key` is going to be the value of E_ST_NOTE which
+        at the time of writing this is 96 (see menu.h MenuEvent_t definition)
+    */
+    MIDINote_t note;
 
-    if(note > 0) {
+    if(kbuf_ready(uart_intr_kbuf)) {
+        MIDIStatus_t status = uart_intr_kbuf->buffer[0] & 0xF0;
+        
+        if(status == NOTE_ON) {
+            note = uart_intr_kbuf->buffer[1];
+        } else {
+            note = 0;
+        }
+    } else {
+        note = key_to_note(key);
+    }
+
+    if (note > 0) {
         send_uart(USART3, "st_note ", 8);
         send_hex(USART3, ACTIVE_ST);
         send_uart(USART3, " ", 1);
         send_hex(USART3, note);
         send_uart(USART3, "\n\r", 2);
+        edit_step_note(ACTIVE_ST, note);
     }
 
+    kbuf_reset(uart_intr_kbuf);
     menu(E_AUTO);
 }
 
@@ -181,6 +211,8 @@ StateMachine_t state_machine[] = {
 };
 
 void menu(uint16_t key) {
+    uart_disable_rx_intr(USART1);
+
     static MenuState_t current = S_MAIN_MENU;
     static MenuState_t previous = S_MAIN_MENU;
 
@@ -199,6 +231,21 @@ void menu(uint16_t key) {
 
             (state_machine[current].func)(key);
             break;
+        }
+    }
+}
+
+
+void USART1_IRQHandler(void) {
+    if(USART1->ISR & USART_ISR_RXNE) {
+        while(USART1->ISR & (USART_ISR_RXNE | USART_ISR_ORE)) {
+            uint8_t d = USART1->RDR;
+            kbuf_push(uart_intr_kbuf, d);
+
+            if(kbuf_size(uart_intr_kbuf) >= 3) {
+                USART1->ICR |= USART_ICR_ORECF;
+                uart_intr_kbuf->ready = 1;
+            }
         }
     }
 }
