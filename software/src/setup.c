@@ -41,6 +41,8 @@ void setup() {
     if(err) {
         send_uart(USART3, "Error initialising MIDI UART\n\r", 30);
     }
+    
+    NVIC_EnableIRQ(USART1_IRQn);
 
     SPI_Handler s;
     s.spi = SPI1;
