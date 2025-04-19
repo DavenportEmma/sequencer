@@ -9,8 +9,11 @@
 #include "menu.h"
 #include "sequence.h"
 #include "m_buf.h"
+#include "k_buf.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
+
+kbuf_handle_t uart_intr_kbuf;
 
 void sq_play_task(void *pvParameters) {
     float TEMPO_PERIOD_MS = 60000/(CONFIG_TEMPO);
@@ -42,6 +45,10 @@ void key_scan_task(void *pvParameters) {
     kbuf_reset(kbuf);
 
     uint8_t d;
+
+    uint8_t uart_intr_buf[3];
+    uart_intr_kbuf = kbuf_init(uart_intr_buf, 3);
+    kbuf_reset(uart_intr_kbuf);
 
     while(1) {
         lastWakeTime = xTaskGetTickCount();
