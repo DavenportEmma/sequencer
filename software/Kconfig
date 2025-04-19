@@ -1,0 +1,7 @@
+menu "Sequencer Configuration"
+
+config RESET_SEQ_ON_DISABLE
+    bool "reset the step counter on disable"
+    default n
+
+endmenu # Sequencer Configuration
