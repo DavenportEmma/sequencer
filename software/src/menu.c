@@ -129,10 +129,12 @@ static void st_landing(uint8_t key) {
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 
-    if(edit_buffer_load(ACTIVE_SQ)) {
-        send_uart(USART3, "error loading sequence\n\r", 24);
-    } else {
-        SQ_EDIT_READY = 1;
+    if(!SQ_EDIT_READY) {
+        if(edit_buffer_load(ACTIVE_SQ)) {
+            send_uart(USART3, "error loading sequence\n\r", 24);
+        } else {
+            SQ_EDIT_READY = 1;
+        }
     }
 }
 
