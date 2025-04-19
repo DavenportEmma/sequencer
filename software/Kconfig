@@ -4,4 +4,9 @@ config RESET_SEQ_ON_DISABLE
     bool "reset the step counter on disable"
     default n
 
+config ENABLE_STARTUP_MEMORY_CLEAR
+    bool "enable the ability to delete the entire flash memory by holding a key
+    on startup"
+    default n
+
 endmenu # Sequencer Configuration
