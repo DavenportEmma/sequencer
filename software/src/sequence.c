@@ -259,7 +259,7 @@ void toggle_sequence(uint8_t sq_index) {
         disable_sequence(sq_index);
     } else {
         if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-            sequences[sq_index].channel = read_channel(sq_index);
+            sequences[sq_index].enabled = 1;
             xSemaphoreGive(sq_mutex);        
         }
     }
