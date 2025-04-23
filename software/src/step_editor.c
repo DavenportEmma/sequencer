@@ -34,18 +34,32 @@ void edit_step_note(uint8_t step, MIDINote_t note) {
     }
 }
 
+static void toggle_bit(uint32_t* field, uint8_t bit) {
+    uint8_t mask_size = 32;
+
+    if (bit < CONFIG_STEPS_PER_SEQUENCE) {
+        uint8_t mask_index = bit / mask_size;
+        uint32_t mute_mask = 1 << (bit % mask_size);
+
+        field[mask_index] ^= mute_mask;
+    }
+}
+
 void mute_step(uint8_t sequence, uint8_t step) {
     if (xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         uint32_t* muted_steps = sequences[sequence].muted_steps;
 
-        uint8_t mute_mask_size = 32;
+        toggle_bit(muted_steps, step);
 
-        if (step < CONFIG_STEPS_PER_SEQUENCE) {
-            uint8_t mask_index = step / mute_mask_size;
-            uint32_t mute_mask = 1 << (step % mute_mask_size);
+        xSemaphoreGive(sq_mutex);
+    }
+}
 
-            muted_steps[mask_index] ^= mute_mask;
-        }
+void toggle_step(uint8_t sequence, uint8_t step) {
+    if (xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        uint32_t* en_steps = sequences[sequence].enabled_steps;
+
+        toggle_bit(en_steps, step);
 
         xSemaphoreGive(sq_mutex);
     }
