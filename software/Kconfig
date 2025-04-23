@@ -5,8 +5,7 @@ config RESET_SEQ_ON_DISABLE
     default n
 
 config ENABLE_STARTUP_MEMORY_CLEAR
-    bool "enable the ability to delete the entire flash memory by holding a key
-    on startup"
+    bool "enable the ability to delete the entire flash memory by holding a key on startup"
     default n
 
 endmenu # Sequencer Configuration
