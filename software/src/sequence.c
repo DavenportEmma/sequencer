@@ -28,7 +28,7 @@ extern uint8_t SQ_EDIT_READY;
 
     @return The midi channel of the sequence
 */
-static MIDIChannel_t read_channel(uint8_t sq_index) {
+MIDIChannel_t read_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint8_t tx[1] = {0};
     uint8_t rx[1] = {0};

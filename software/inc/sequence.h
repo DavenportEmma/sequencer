@@ -16,6 +16,7 @@ typedef struct {
     uint8_t end_of_step;
 } step_t;
 
+MIDIChannel_t read_channel(uint8_t sq_index);
 void toggle_sequence(uint8_t seq);
 void disable_sequence(uint8_t sq_index);
 void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf);
