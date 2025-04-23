@@ -10,6 +10,7 @@
 #include "sequence.h"
 #include "m_buf.h"
 #include "k_buf.h"
+#include "rotary_encoder.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
@@ -56,6 +57,8 @@ void key_scan_task(void *pvParameters) {
 
     while(1) {
         lastWakeTime = xTaskGetTickCount();
+        int8_t encoder_dir = get_encoder_direction();
+
         scan(kbuf);
 
         if(!kbuf_empty(kbuf) && kbuf_ready(kbuf)) {
@@ -70,6 +73,14 @@ void key_scan_task(void *pvParameters) {
             kbuf->ready = 0;
         } else if(kbuf_ready(uart_intr_kbuf)) {
             menu(E_ST_NOTE);
+        } else if(encoder_dir != 0) {
+            /*
+                wtf is this? encoder will either be 1 or -1. we need to pass
+                unique event codes to the menu state machine depending on a
+                clockwise or anti clockwise turn. E_ENCODER_UP and
+                E_ENCODER_DOWN are 1 either side of 0xFFFD
+            */
+            menu(0xFFFD + encoder_dir);
         } else {
             kbuf_reset(kbuf);
         }
