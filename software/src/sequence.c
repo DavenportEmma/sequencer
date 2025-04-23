@@ -20,7 +20,7 @@ extern uint8_t ACTIVE_ST;
 extern uint8_t SQ_EDIT_READY;
 
 /*
-    get the midi channel of the sequence from flash memory. The sequence
+    read the midi channel of the sequence from flash memory. The sequence
     metadata is stored in the first sector of the block. The midi channel
     information is stored in the first byte of the first page of the block 
 
@@ -28,7 +28,7 @@ extern uint8_t SQ_EDIT_READY;
 
     @return The midi channel of the sequence
 */
-static MIDIChannel_t get_channel(uint8_t sq_index) {
+static MIDIChannel_t read_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint8_t tx[1] = {0};
     uint8_t rx[1] = {0};
@@ -259,7 +259,7 @@ void toggle_sequence(uint8_t sq_index) {
         disable_sequence(sq_index);
     } else {
         if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-            sequences[sq_index].channel = get_channel(sq_index);
+            sequences[sq_index].channel = read_channel(sq_index);
             xSemaphoreGive(sq_mutex);        
         }
     }
