@@ -293,3 +293,11 @@ void play_notes(mbuf_handle_t mbuf) {
         send_midi_note(USART1, &p);
     }
 }
+
+void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel) {
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        sequences[sq_index].channel = channel;
+        xSemaphoreGive(sq_mutex);
+    }
+
+}
