@@ -44,7 +44,7 @@ static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
 
 // converts a key to a sequence or step number
 // this is needed as the key representing the first step/sequence is not key 0
-static uint8_t key_to_sq_st(uint8_t key) {
+static uint8_t key_to_sq_st(uint16_t key) {
     if(key > 0x0F && key < 0x50) {
         return key - 0x10;
     }
@@ -52,7 +52,7 @@ static uint8_t key_to_sq_st(uint8_t key) {
     return -1;
 }
 
-static MIDINote_t key_to_note(uint8_t key) {
+static MIDINote_t key_to_note(uint16_t key) {
     switch(key) {
         case 0x61:
             return CSHARP3;
@@ -89,7 +89,7 @@ volatile uint8_t ACTIVE_SQ;
 volatile uint8_t ACTIVE_ST; 
 volatile uint8_t SQ_EDIT_READY = 0;
 
-static void main_menu(uint8_t key) {
+static void main_menu(uint16_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
 
     if(SQ_EDIT_READY) {
@@ -98,7 +98,7 @@ static void main_menu(uint8_t key) {
     }
 }
 
-static void sq_select(uint8_t key) {
+static void sq_select(uint16_t key) {
     ACTIVE_SQ = key_to_sq_st(key);
 
     send_uart(USART3, "sq_select ", 10);
@@ -108,13 +108,13 @@ static void sq_select(uint8_t key) {
     menu(E_AUTO);
 }
 
-static void sq_menu(uint8_t key) {
+static void sq_menu(uint16_t key) {
     send_uart(USART3, "sq_menu ", 8);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 }
 
-static void sq_en(uint8_t key) {
+static void sq_en(uint16_t key) {
     send_uart(USART3, "sq_en ", 6);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
@@ -124,12 +124,7 @@ static void sq_en(uint8_t key) {
     menu(E_AUTO);
 }
 
-static void sq_midi(uint8_t key) {
-    MIDIChannel_t channel = CHANNEL_11;
-    set_midi_channel(ACTIVE_SQ, channel);
-}
-
-static void st_landing(uint8_t key) {
+static void st_landing(uint16_t key) {
     send_uart(USART3, "st_landing ", 11);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
@@ -143,7 +138,7 @@ static void st_landing(uint8_t key) {
     }
 }
 
-static void st_select(uint8_t key) {
+static void st_select(uint16_t key) {
     ACTIVE_ST = key_to_sq_st(key);
 
     send_uart(USART3, "st_select ", 10);
@@ -153,7 +148,7 @@ static void st_select(uint8_t key) {
     menu(E_AUTO);
 }
 
-static void st_menu(uint8_t key) {
+static void st_menu(uint16_t key) {
     send_uart(USART3, "st_menu ", 8);
     send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n\r", 2);
@@ -162,9 +157,9 @@ static void st_menu(uint8_t key) {
     uart_enable_rx_intr(USART1);
 }
 
-static void prev(uint8_t key) { }
+static void prev(uint16_t key) { }
 
-static void st_note(uint8_t key) {
+static void st_note(uint16_t key) {
     /*
         if the transition to this state was triggered by a keystroke from the
         on-board 13 key keyboard then `key` is going to be able to be decoded
@@ -201,7 +196,7 @@ static void st_note(uint8_t key) {
     menu(E_AUTO);
 }
 
-static void st_mute(uint8_t key) {
+static void st_mute(uint16_t key) {
     mute_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO);
 }
