@@ -7,6 +7,7 @@
 #include "k_buf.h"
 
 extern kbuf_handle_t uart_intr_kbuf;
+extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
     if(key > 0x0F && key < 0x50) {
@@ -122,6 +123,40 @@ static void sq_en(uint16_t key) {
     toggle_sequence(ACTIVE_SQ);
 
     menu(E_AUTO);
+}
+
+static void sq_midi(uint16_t key) {
+    static MIDIChannel_t channel;
+    switch(key) {
+        case E_SQ_MIDI:
+            disable_sequence(ACTIVE_SQ);
+            send_uart(USART3, "midi channel\n\r", 14);
+            channel = get_channel(ACTIVE_SQ);
+            break;
+        case E_ENCODER_DOWN:
+            if(channel < 0x0F) {
+                channel++;
+            }
+
+            set_midi_channel(ACTIVE_SQ, channel);
+            send_hex(USART3, channel);
+            send_uart(USART3, "\n\r", 2);
+
+            break;
+
+        case E_ENCODER_UP:
+            if(channel > 0x00) {
+                channel--;
+            }
+
+            set_midi_channel(ACTIVE_SQ, channel);
+            send_hex(USART3, channel);
+            send_uart(USART3, "\n\r", 2);
+
+            break;
+        default:
+            break;
+    }
 }
 
 static void st_landing(uint16_t key) {
