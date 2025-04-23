@@ -301,3 +301,7 @@ void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel) {
     }
 
 }
+
+MIDIChannel_t get_channel(uint8_t sq_index) {
+    return sequences[sq_index].channel;
+}
