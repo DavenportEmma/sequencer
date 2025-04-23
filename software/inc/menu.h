@@ -53,6 +53,8 @@ typedef enum {
     E_ST_MUTE = 0x5B,
     E_ST_DEL = 0x5F,
     E_ST_NOTE,
+    E_ENCODER_UP = 0xFFFE,  // see tasks.c inside key scan task for why I used
+    E_ENCODER_DOWN = 0xFFFC,// these values
     E_AUTO = 0xFFFF,
 } MenuEvent_t;
 
@@ -75,6 +77,8 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_SQ_MIDI, S_SQ_MIDI},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
+    {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
+    {S_SQ_MIDI, E_ENCODER_DOWN, S_SQ_MIDI},
 
     {S_SQ_EN, E_AUTO, S_PREV},
 
