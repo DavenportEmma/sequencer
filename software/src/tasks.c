@@ -46,6 +46,10 @@ void key_scan_task(void *pvParameters) {
 
     uint8_t d;
 
+    /*
+        uart_intr_buf is a vector style buffer for recieving midi commands from
+        a midi controller
+    */
     uint8_t uart_intr_buf[3];
     uart_intr_kbuf = kbuf_init(uart_intr_buf, 3);
     kbuf_reset(uart_intr_kbuf);
