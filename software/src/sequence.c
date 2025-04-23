@@ -181,6 +181,49 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     return 0;
 }
 
+static uint8_t check_bit(uint8_t bit, uint32_t* field, uint8_t max) {
+    uint8_t mask_size = 32;
+
+    if(bit < max) {
+        int8_t mask_index = bit / mask_size;
+        uint32_t mute_mask = 1 << (bit % mask_size);
+
+        if(field[mask_index] & mute_mask) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    return 0;
+}
+
+static uint8_t is_disabled(uint8_t step, uint32_t* enabled_steps) {
+    return check_bit(step, enabled_steps, CONFIG_STEPS_PER_SEQUENCE);
+}
+
+static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
+    uint8_t prev_counter = (*counter);
+
+    for(uint8_t i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
+        (*counter)++;
+        if((*counter) >= CONFIG_STEPS_PER_SEQUENCE) {
+            (*counter) = 0;
+        }
+
+        if(!is_disabled((*counter), enabled_steps)) {
+            break;
+        }
+
+        // exit if we've looped back to the starting 
+        if((*counter) == prev_counter) {
+            break;
+        }
+
+
+    }
+}
+
 /*
     load step data into a step struct then send the note data over midi
 
@@ -189,6 +232,21 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
 static uint8_t load_step(uint8_t sq_index, step_t* st) {
     MIDISequence_t* sq = &sequences[sq_index];
 
+    uint8_t* counter = &sq->counter;
+
+    if(is_disabled(*counter, sq->enabled_steps)) {
+        MIDICC_t p = {
+            .status = CONTROLLER,
+            .channel = sq->channel,
+            .control = ALL_NOTES_OFF,
+            .value = 0,
+        };
+
+        send_midi_control(USART1, &p);
+
+        goto_next_enabled_step(counter, sq->enabled_steps);
+    }
+
     if(read_step(sq, sq_index, st)) {
         send_uart(USART3, "Error data alignment\n\r", 22);
         return 1;
@@ -196,29 +254,16 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
     
     // if the end of sequence byte is hit then put the counter back to the start
     if(st->end_of_step == 0xFF){
-        sq->counter = 0;
+        (*counter) = 0;
     } else {
-        sq->counter++;
+        (*counter)++;
     }
 
     return 0;
 }
 
 static uint8_t is_muted(uint8_t step, uint32_t* muted_steps) {
-    uint8_t mute_mask_size = 32;
-
-    if (step < CONFIG_STEPS_PER_SEQUENCE) {
-        uint8_t mask_index = step / mute_mask_size;
-        uint32_t mute_mask = 1 << (step % mute_mask_size);
-
-        if(muted_steps[mask_index] & mute_mask) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    return 0;
+    return check_bit(step, muted_steps, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 /*
