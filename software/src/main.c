@@ -21,9 +21,9 @@ int main(void) {
     edit_buffer_mutex = xSemaphoreCreateMutex();
     sq_mutex = xSemaphoreCreateMutex();
     
-    setup();
-
     memset(sequences, 0, sizeof(sequences));
+    
+    setup(sequences);
 
     all_channels_off(USART1);
 
