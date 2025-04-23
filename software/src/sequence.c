@@ -254,25 +254,33 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     @param sq_index The index of the currently process sequence in sequences
 */
 void toggle_sequence(uint8_t sq_index) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sequences[sq_index].enabled ^= 1;
-
-        if(!sequences[sq_index].enabled) {
-            MIDICC_t p = {
-                .status = CONTROLLER,
-                .channel = sequences[sq_index].channel,
-                .control = ALL_NOTES_OFF,
-                .value = 0,
-            };
-
-            send_midi_control(USART1, &p);
-
-            #ifdef CONFIG_RESET_SEQ_ON_DISABLE
-                sequences[sq_index].counter = 0;
-            #endif
-        } else {
+    uint8_t sq_en = sequences[sq_index].enabled;
+    if(sq_en) {
+        disable_sequence(sq_index);
+    } else {
+        if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
             sequences[sq_index].channel = get_channel(sq_index);
+            xSemaphoreGive(sq_mutex);        
         }
+    }
+}
+
+void disable_sequence(uint8_t sq_index) {
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        sequences[sq_index].enabled = 0;
+
+        MIDICC_t p = {
+            .status = CONTROLLER,
+            .channel = sequences[sq_index].channel,
+            .control = ALL_NOTES_OFF,
+            .value = 0,
+        };
+
+        send_midi_control(USART1, &p);
+
+        #ifdef CONFIG_RESET_SEQ_ON_DISABLE
+            sequences[sq_index].counter = 0;
+        #endif
 
         xSemaphoreGive(sq_mutex);
     }
