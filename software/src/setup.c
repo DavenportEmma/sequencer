@@ -5,8 +5,9 @@
 #include "w25q128jv.h"
 #include "keyboard.h"
 #include "menu.h"
+#include "sequence.h"
 
-void setup() {
+void setup(MIDISequence_t* sequences) {
     /*
     setup uart for st link
     setup uart for midi
@@ -64,6 +65,10 @@ void setup() {
     CS_high(GPIOA, 4);
     if(rx[1] != 0xEF || rx[2] != 0x40 || rx[3] != 0x18) {
         send_uart(USART3, "Error initialising SPI flash chip\n\r", 34);
+    }
+
+    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+        sequences[i].channel = read_channel(i);
     }
 
     // shift register
