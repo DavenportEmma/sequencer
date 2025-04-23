@@ -124,6 +124,11 @@ static void sq_en(uint8_t key) {
     menu(E_AUTO);
 }
 
+static void sq_midi(uint8_t key) {
+    MIDIChannel_t channel = CHANNEL_11;
+    set_midi_channel(ACTIVE_SQ, channel);
+}
+
 static void st_landing(uint8_t key) {
     send_uart(USART3, "st_landing ", 11);
     send_hex(USART3, ACTIVE_SQ);
@@ -210,6 +215,7 @@ StateMachine_t state_machine[] = {
     { S_SQ_SELECT, sq_select },
     { S_SQ_MENU, sq_menu },
     { S_SQ_EN, sq_en },
+    { S_SQ_MIDI, sq_midi },
     { S_ST_LANDING, st_landing },
     { S_ST_SELECT, st_select },
     { S_ST_MENU, st_menu },
