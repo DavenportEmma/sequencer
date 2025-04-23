@@ -42,15 +42,17 @@ static MIDIChannel_t get_channel(uint8_t sq_index) {
 
     @param note_on_mbuf
     @param note_off_mbuf
-    @param c    The midi channel the notes should be played over
-    @param st   A pointer to a step struct containing note_on, and note_off
-                notes, and the end of step byte (0x00 or 0xFF depending on if
-                it's the end of the step or the whole sequence)
+    @param c        The midi channel the notes should be played over
+    @param muted    A flag to mark muted or unmuted state for the step
+    @param st       A pointer to a step struct containing note_on, and note_off
+                    notes, and the end of step byte (0x00 or 0xFF depending on
+                    if it's the end of the step or the whole sequence)
 */
 static void load_step_notes(
     mbuf_handle_t note_on_mbuf,
     mbuf_handle_t note_off_mbuf,
     MIDIChannel_t c,
+    uint8_t muted,
     step_t* st
 ) {
     for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
@@ -68,18 +70,20 @@ static void load_step_notes(
         }
     }
 
-    for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        MIDINote_t n = st->note_on[i].note;
-
-        if(n <= C8 && n >= A0) {
-            MIDIPacket_t p = {
-                .channel = c,
-                .status = NOTE_ON,
-                .note = n,
-                .velocity = st->note_on[i].velocity,
-            };
+    if(!muted) {
+        for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+            MIDINote_t n = st->note_on[i].note;
     
-            mbuf_push(note_on_mbuf, p);
+            if(n <= C8 && n >= A0) {
+                MIDIPacket_t p = {
+                    .channel = c,
+                    .status = NOTE_ON,
+                    .note = n,
+                    .velocity = st->note_on[i].velocity,
+                };
+        
+                mbuf_push(note_on_mbuf, p);
+            }
         }
     }
 }
@@ -200,6 +204,23 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
     return 0;
 }
 
+static uint8_t is_muted(uint8_t step, uint32_t* muted_steps) {
+    uint8_t mute_mask_size = 32;
+
+    if (step < CONFIG_STEPS_PER_SEQUENCE) {
+        uint8_t mask_index = step / mute_mask_size;
+        uint32_t mute_mask = 1 << (step % mute_mask_size);
+
+        if(muted_steps[mask_index] & mute_mask) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    return 0;
+}
+
 /*
     play the current steps in the currently active sequences
 
@@ -212,7 +233,14 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
             if(sequences[i].enabled) {
                 step_t st;
                 if(load_step(i, &st) == 0) {
-                    load_step_notes(note_on_mbuf, note_off_mbuf, sequences[i].channel, &st);
+                    uint8_t muted = is_muted(sequences[i].counter, sequences[i].muted_steps);
+
+                    load_step_notes(
+                        note_on_mbuf,
+                        note_off_mbuf,
+                        sequences[i].channel,
+                        muted,
+                        &st);
                 }
             }
         }
