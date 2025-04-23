@@ -103,5 +103,15 @@ void setup() {
     // initialise menu state machine
     menu(E_MAIN_MENU);
 
+    // rotary encoder
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                // enable gpioa
+    GPIOA->MODER &= ~((3 << GPIO_MODER_MODER12_Pos) | (3 << GPIO_MODER_MODER11_Pos));
+    GPIOA->PUPDR |= ((2 << 24) | (2 << 22));            // pull down resistors
+
+    EXTI->IMR |= (EXTI_EMR_EM11 | EXTI_EMR_EM12);       // enable interrupts
+    EXTI->RTSR |= (EXTI_RTSR_TR11 | EXTI_RTSR_TR12);    // enable rising edge int
+
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
     send_uart(USART3, "Finished initialisation\n\r", 25);
 }
