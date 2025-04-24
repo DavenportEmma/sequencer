@@ -251,13 +251,6 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
         send_uart(USART3, "Error data alignment\n\r", 22);
         return 1;
     }
-    
-    // if the end of sequence byte is hit then put the counter back to the start
-    if(st->end_of_step == 0xFF){
-        (*counter) = 0;
-    } else {
-        (*counter)++;
-    }
 
     return 0;
 }
@@ -275,17 +268,24 @@ static uint8_t is_muted(uint8_t step, uint32_t* muted_steps) {
 void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-            if(sequences[i].enabled) {
+            MIDISequence_t* sq = &sequences[i];
+            if(sq->enabled) {
                 step_t st;
                 if(load_step(i, &st) == 0) {
-                    uint8_t muted = is_muted(sequences[i].counter, sequences[i].muted_steps);
+                    uint8_t muted = is_muted(sq->counter, sq->muted_steps);
 
                     load_step_notes(
                         note_on_mbuf,
                         note_off_mbuf,
-                        sequences[i].channel,
+                        sq->channel,
                         muted,
                         &st);
+                }
+                    // if the end of sequence byte is hit then put the counter back to the start
+                if(st.end_of_step == 0xFF){
+                    sq->counter = 0;
+                } else {
+                    sq->counter++;
                 }
             }
         }
