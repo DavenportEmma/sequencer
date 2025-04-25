@@ -204,30 +204,25 @@ static void st_note(uint16_t key) {
         a usart interrupt then `key` is going to be the value of E_ST_NOTE which
         at the time of writing this is 96 (see menu.h MenuEvent_t definition)
     */
-    MIDINote_t note;
+    int midi = kbuf_ready(uart_intr_kbuf);
 
-    if(kbuf_ready(uart_intr_kbuf)) {
-        MIDIStatus_t status = uart_intr_kbuf->buffer[0] & 0xF0;
-        
-        if(status == NOTE_ON) {
-            note = uart_intr_kbuf->buffer[1];
-        } else {
-            note = 0;
-        }
+    if(midi) {
+        edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
+
+        kbuf_reset(uart_intr_kbuf);
     } else {
-        note = key_to_note(key);
+        MIDINote_t note = key_to_note(key);
+
+        if (note > 0) {
+            send_uart(USART3, "st_note ", 8);
+            send_hex(USART3, ACTIVE_ST);
+            send_uart(USART3, " ", 1);
+            send_hex(USART3, note);
+            send_uart(USART3, "\n\r", 2);
+            edit_step_note(ACTIVE_ST, note);
+        }
     }
 
-    if (note > 0) {
-        send_uart(USART3, "st_note ", 8);
-        send_hex(USART3, ACTIVE_ST);
-        send_uart(USART3, " ", 1);
-        send_hex(USART3, note);
-        send_uart(USART3, "\n\r", 2);
-        edit_step_note(ACTIVE_ST, note);
-    }
-
-    kbuf_reset(uart_intr_kbuf);
     menu(E_AUTO);
 }
 
