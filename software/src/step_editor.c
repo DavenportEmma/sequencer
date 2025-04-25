@@ -3,6 +3,7 @@
 #include "semphr.h"
 #include "autoconf.h"
 #include "sequence.h"
+#include "uart.h"
 
 extern SemaphoreHandle_t edit_buffer_mutex;
 extern step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
@@ -87,4 +88,25 @@ void toggle_step(uint8_t sequence, uint8_t step) {
 
         xSemaphoreGive(sq_mutex);
     }
+}
+
+void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
+    step_t* s = &edit_buffer[step];
+    // TODO this won't do for polyphonic sequences
+    uint8_t v = s->note_on[0].velocity;
+
+    if(velocity_dir <= 0) {
+        if(v++ > 127) {
+            v = 127;
+        }
+    } else {
+        if(v > 0) {
+            v--;
+        }
+    }
+
+    s->note_on[0].velocity = v;
+
+    send_hex(USART3, s->note_on[0].velocity);
+    send_uart(USART3, "\n\r", 2);
 }
