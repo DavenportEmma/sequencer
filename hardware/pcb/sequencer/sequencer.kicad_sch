@@ -5,119 +5,6 @@
 	(uuid "72defcdb-f905-40cd-87b6-7fbce2bb60cb")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Connector_Generic:Conn_01x01"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x01"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x01_1_1"
-				(rectangle
-					(start -1.27 1.27)
-					(end 1.27 -1.27)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Connector_Generic:Conn_02x08_Odd_Even"
 			(pin_names
 				(offset 1.016)
@@ -1270,10 +1157,34 @@
 		)
 	)
 	(junction
+		(at 245.11 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "027ad966-3554-4718-9dbb-83302eedc211")
+	)
+	(junction
 		(at 214.63 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "03ba9e8d-b3f4-4dfb-b5d2-dcc86478a320")
+	)
+	(junction
+		(at 102.87 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "03e7b315-4ffd-4555-a99d-f8eb203624d6")
+	)
+	(junction
+		(at 83.82 142.24)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "04e84055-dcb1-4baf-939d-945284969a2b")
+	)
+	(junction
+		(at 59.69 148.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "05d4bb45-9edb-4b51-8bb6-1935badfdb8c")
 	)
 	(junction
 		(at 199.39 77.47)
@@ -1324,6 +1235,12 @@
 		(uuid "126edda9-433b-47c1-b7c6-8a87bd7ce402")
 	)
 	(junction
+		(at 176.53 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "126fff39-d810-42d5-9cd9-c49474a4d2fb")
+	)
+	(junction
 		(at 142.24 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1334,6 +1251,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "13d4e189-b05b-461c-997a-0d0a450d9b84")
+	)
+	(junction
+		(at 214.63 153.67)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "17d6fec5-5473-425d-b1b9-7d94f51f3a5e")
 	)
 	(junction
 		(at 191.77 83.82)
@@ -1420,6 +1343,12 @@
 		(uuid "249a137f-6b82-4842-ac5f-8c2c5e5cb506")
 	)
 	(junction
+		(at 83.82 152.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "262fed15-bcc1-4a11-9cb2-4f657b20e4e1")
+	)
+	(junction
 		(at 222.25 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1442,6 +1371,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2e1e88fc-4c03-40de-bfe9-97538526beeb")
+	)
+	(junction
+		(at 191.77 143.51)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "31fd58cc-dad0-48f6-a782-6fd661328160")
 	)
 	(junction
 		(at 102.87 107.95)
@@ -1480,10 +1415,22 @@
 		(uuid "38c897e6-e9f0-4e5d-bfeb-41b3123167e8")
 	)
 	(junction
+		(at 214.63 143.51)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "40066ccc-5584-40af-8298-7d43a76098a8")
+	)
+	(junction
 		(at 199.39 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4389e1eb-7884-45d4-a089-d9ba175f54d5")
+	)
+	(junction
+		(at 59.69 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "44a25526-9c4e-41ab-a7b1-97735a3bb8c1")
 	)
 	(junction
 		(at 59.69 97.79)
@@ -1558,6 +1505,18 @@
 		(uuid "5de5d62b-1c47-4b44-899b-0570654d2597")
 	)
 	(junction
+		(at 106.68 152.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5e5945e6-74a3-4f25-87cd-6ce84b0fc488")
+	)
+	(junction
+		(at 148.59 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5f47e026-bee2-4bfb-bfbb-593d01b7b82f")
+	)
+	(junction
 		(at 222.25 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1576,6 +1535,12 @@
 		(uuid "63b9332c-47b9-4bb8-a523-07b86000b6bc")
 	)
 	(junction
+		(at 168.91 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "65f0da85-4f19-4d07-ae66-824d4ba29fd3")
+	)
+	(junction
 		(at 102.87 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1586,6 +1551,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "67b68852-b04a-4624-bfeb-a9026f7f9b02")
+	)
+	(junction
+		(at 191.77 153.67)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "726659ee-024b-4a02-9ec1-f5cd693880d8")
 	)
 	(junction
 		(at 191.77 93.98)
@@ -1666,16 +1637,52 @@
 		(uuid "8ea2085f-3695-48b6-a5e1-9fffab38426f")
 	)
 	(junction
+		(at 199.39 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8f2bdea0-f5f6-41e8-afba-e86d4ab6915f")
+	)
+	(junction
 		(at 80.01 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "93a686e3-c4c4-4511-aaa6-55adbde9bb30")
 	)
 	(junction
+		(at 125.73 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "93cc6a79-23aa-4dda-9dcf-69fe63aad4d9")
+	)
+	(junction
+		(at 80.01 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "94889d4d-dd4e-4925-b4df-4f2be27da6d1")
+	)
+	(junction
+		(at 106.68 142.24)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9b38e6ad-82b2-40e0-9a4c-5aa0d558bf26")
+	)
+	(junction
+		(at 148.59 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9ff7ced6-0a83-4855-8d19-56addf8cffda")
+	)
+	(junction
 		(at 148.59 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9ff9dfe1-19e0-4133-8bd5-157da3c0a546")
+	)
+	(junction
+		(at 125.73 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a24a3021-9b2c-4fb4-9188-b8de836706ee")
 	)
 	(junction
 		(at 83.82 111.76)
@@ -1688,6 +1695,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "af1766d7-9f22-4c27-8b13-77cf9bc5eb19")
+	)
+	(junction
+		(at 80.01 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b00d2af6-7f03-4b52-8cec-1c227df883e5")
+	)
+	(junction
+		(at 245.11 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b0b41266-7554-4785-b631-1e1e8f8c6863")
 	)
 	(junction
 		(at 160.02 34.29)
@@ -1714,6 +1733,12 @@
 		(uuid "c064a856-a9df-4f73-a2b9-212fa143ccf5")
 	)
 	(junction
+		(at 176.53 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ccffaa7b-1dbe-45cd-8d98-7f0a4a1d3e34")
+	)
+	(junction
 		(at 125.73 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1724,6 +1749,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d6a67f84-be82-4123-81c4-32907a06ee20")
+	)
+	(junction
+		(at 199.39 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "da58735d-46b1-4eac-8faf-7f896cce92ce")
+	)
+	(junction
+		(at 222.25 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e0826116-1d98-4e25-ba03-e33cde9f29b4")
 	)
 	(junction
 		(at 125.73 77.47)
@@ -1738,16 +1775,34 @@
 		(uuid "e82568bf-e92c-47b2-8728-036b92309742")
 	)
 	(junction
+		(at 168.91 148.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eae16df1-2794-42c5-a232-f3db3d72a385")
+	)
+	(junction
 		(at 168.91 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ec6aeb90-36de-49dc-a9ce-45609d8a50af")
 	)
 	(junction
+		(at 222.25 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f21b6e93-1478-45e5-8e17-dc9ecbf7ae92")
+	)
+	(junction
 		(at 222.25 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f3275c90-acd5-485c-98c4-b69785616178")
+	)
+	(junction
+		(at 102.87 138.43)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f8a7c2b7-d645-4248-8ce2-c7b8bab0fcea")
 	)
 	(junction
 		(at 59.69 77.47)
@@ -1815,6 +1870,16 @@
 	)
 	(wire
 		(pts
+			(xy 191.77 143.51) (xy 214.63 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "042dbfa7-7d85-4cf8-bd12-4ae07921d73a")
+	)
+	(wire
+		(pts
 			(xy 83.82 128.27) (xy 83.82 132.08)
 		)
 		(stroke
@@ -1865,6 +1930,16 @@
 	)
 	(wire
 		(pts
+			(xy 199.39 128.27) (xy 199.39 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e41f2fa-aa8f-414d-ab09-2b440fc70f5e")
+	)
+	(wire
+		(pts
 			(xy 102.87 97.79) (xy 102.87 107.95)
 		)
 		(stroke
@@ -1872,6 +1947,36 @@
 			(type default)
 		)
 		(uuid "0e8da6a4-4174-49f3-aba1-63efddacc9e6")
+	)
+	(wire
+		(pts
+			(xy 83.82 138.43) (xy 83.82 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ee08eea-cf44-4557-a34c-02937e50196d")
+	)
+	(wire
+		(pts
+			(xy 59.69 142.24) (xy 59.69 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11c20a76-b51c-4eb5-a60c-66ad18b005b2")
+	)
+	(wire
+		(pts
+			(xy 68.58 148.59) (xy 69.85 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "13507504-bcee-4e23-9a1b-0071824ff5e2")
 	)
 	(wire
 		(pts
@@ -1945,6 +2050,16 @@
 	)
 	(wire
 		(pts
+			(xy 245.11 138.43) (xy 245.11 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "192cb465-833f-4d97-a146-8de413858b25")
+	)
+	(wire
+		(pts
 			(xy 165.1 34.29) (xy 170.18 34.29)
 		)
 		(stroke
@@ -1975,6 +2090,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 148.59) (xy 83.82 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "213eb5c8-1a94-4ca9-ab44-2b1b76623e27")
+	)
+	(wire
+		(pts
 			(xy 114.3 87.63) (xy 115.57 87.63)
 		)
 		(stroke
@@ -1995,6 +2120,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 148.59) (xy 214.63 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2326c06c-67f6-4b4f-99b0-8421c70e4330")
+	)
+	(wire
+		(pts
 			(xy 129.54 91.44) (xy 106.68 91.44)
 		)
 		(stroke
@@ -2012,6 +2147,16 @@
 			(type default)
 		)
 		(uuid "25130852-d404-4a64-b3a3-04c8c90c2c26")
+	)
+	(wire
+		(pts
+			(xy 58.42 148.59) (xy 59.69 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2551b121-0ccc-4ea1-972d-00ffcf4907e8")
 	)
 	(wire
 		(pts
@@ -2085,6 +2230,26 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 148.59) (xy 60.96 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2cbb3a37-e8a7-42e6-8230-8d8784d587eb")
+	)
+	(wire
+		(pts
+			(xy 102.87 138.43) (xy 102.87 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d412a6b-aa20-432b-ab20-c78f137764be")
+	)
+	(wire
+		(pts
 			(xy 214.63 87.63) (xy 214.63 93.98)
 		)
 		(stroke
@@ -2145,6 +2310,26 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 138.43) (xy 92.71 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cac1011-5d93-44f4-814b-ef4ceaf3a5ae")
+	)
+	(wire
+		(pts
+			(xy 129.54 152.4) (xy 106.68 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f3535de-24f4-4c56-9e66-0849b8637a24")
+	)
+	(wire
+		(pts
 			(xy 222.25 118.11) (xy 222.25 128.27)
 		)
 		(stroke
@@ -2172,6 +2357,26 @@
 			(type default)
 		)
 		(uuid "40eab2c5-bb0a-4f2c-bf48-4de200a50255")
+	)
+	(wire
+		(pts
+			(xy 129.54 142.24) (xy 106.68 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41e14588-a4b5-4e05-97bc-8e27f58c11e8")
+	)
+	(wire
+		(pts
+			(xy 191.77 148.59) (xy 191.77 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "423eab83-4863-4a4c-8aec-6a723be0ef38")
 	)
 	(wire
 		(pts
@@ -2222,6 +2427,16 @@
 			(type default)
 		)
 		(uuid "439defc0-a0a9-4cf2-b97f-ac6ba5eaa098")
+	)
+	(wire
+		(pts
+			(xy 106.68 148.59) (xy 106.68 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "445c8186-6199-48ff-b216-e17c21cb8c5c")
 	)
 	(wire
 		(pts
@@ -2295,6 +2510,36 @@
 	)
 	(wire
 		(pts
+			(xy 129.54 148.59) (xy 129.54 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4919aa12-4949-4c0c-b83f-17a5774ff0ef")
+	)
+	(wire
+		(pts
+			(xy 199.39 138.43) (xy 199.39 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49a0d6f2-cd3d-4632-aaf4-f06b32a370dd")
+	)
+	(wire
+		(pts
+			(xy 168.91 138.43) (xy 168.91 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bb8b2e6-32cd-4295-994e-0d3787b16293")
+	)
+	(wire
+		(pts
 			(xy 168.91 93.98) (xy 191.77 93.98)
 		)
 		(stroke
@@ -2325,6 +2570,16 @@
 	)
 	(wire
 		(pts
+			(xy 176.53 128.27) (xy 176.53 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50561bff-de73-4cbd-a2d3-fadc8c07a449")
+	)
+	(wire
+		(pts
 			(xy 109.22 34.29) (xy 114.3 34.29)
 		)
 		(stroke
@@ -2342,6 +2597,26 @@
 			(type default)
 		)
 		(uuid "54c1a73d-ab64-4603-aaf8-476023950d13")
+	)
+	(wire
+		(pts
+			(xy 102.87 128.27) (xy 102.87 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56a23d55-9888-4180-918f-2f6e47683bc0")
+	)
+	(wire
+		(pts
+			(xy 114.3 148.59) (xy 115.57 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57bd5ccb-63d1-4802-83d4-0292ca12e14e")
 	)
 	(wire
 		(pts
@@ -2565,6 +2840,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 143.51) (xy 191.77 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b741ada-92e4-4662-b764-e6ae2aeb751b")
+	)
+	(wire
+		(pts
 			(xy 114.3 118.11) (xy 115.57 118.11)
 		)
 		(stroke
@@ -2592,6 +2877,26 @@
 			(type default)
 		)
 		(uuid "77e00a54-acb4-4380-8fcd-3e1f18890bff")
+	)
+	(wire
+		(pts
+			(xy 245.11 128.27) (xy 245.11 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "78130aca-58a8-4eb0-a8f5-97c64897a850")
+	)
+	(wire
+		(pts
+			(xy 191.77 138.43) (xy 191.77 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "798128ad-2a2e-4180-b32f-b176635012f5")
 	)
 	(wire
 		(pts
@@ -2655,6 +2960,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 152.4) (xy 59.69 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ee574b4-59b0-408c-98fc-b248664cfeed")
+	)
+	(wire
+		(pts
 			(xy 191.77 77.47) (xy 191.77 83.82)
 		)
 		(stroke
@@ -2672,6 +2987,16 @@
 			(type default)
 		)
 		(uuid "8349bc21-0198-437f-a760-7b7476d5eb19")
+	)
+	(wire
+		(pts
+			(xy 91.44 148.59) (xy 92.71 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85761ff3-4271-47a9-8cda-aec502e61deb")
 	)
 	(wire
 		(pts
@@ -2705,6 +3030,26 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 128.27) (xy 148.59 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87418c03-b2a6-435f-afeb-091e2caeafea")
+	)
+	(wire
+		(pts
+			(xy 165.1 138.43) (xy 168.91 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "880d1944-f6d1-433a-947f-a74dec951ace")
+	)
+	(wire
+		(pts
 			(xy 91.44 77.47) (xy 92.71 77.47)
 		)
 		(stroke
@@ -2712,6 +3057,46 @@
 			(type default)
 		)
 		(uuid "8838609d-ec49-4793-a548-3e0848f403f0")
+	)
+	(wire
+		(pts
+			(xy 106.68 152.4) (xy 83.82 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "892b61f8-6c42-4457-98ea-600b23701365")
+	)
+	(wire
+		(pts
+			(xy 125.73 128.27) (xy 125.73 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "894c6908-4c4e-40f6-86d8-020ecddc667c")
+	)
+	(wire
+		(pts
+			(xy 165.1 148.59) (xy 168.91 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "894dad5d-4335-433a-8d0c-b8fdcf61dc40")
+	)
+	(wire
+		(pts
+			(xy 191.77 153.67) (xy 214.63 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89fcc930-4d50-4084-99d2-5b5fc554d064")
 	)
 	(wire
 		(pts
@@ -2785,6 +3170,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 148.59) (xy 168.91 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94f39df6-2876-47e8-9f0e-e0f6daef0062")
+	)
+	(wire
+		(pts
 			(xy 58.42 128.27) (xy 59.69 128.27)
 		)
 		(stroke
@@ -2812,6 +3207,16 @@
 			(type default)
 		)
 		(uuid "977ee0a2-b146-4353-a0ba-28a0dcffe317")
+	)
+	(wire
+		(pts
+			(xy 114.3 138.43) (xy 115.57 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "997bc5d0-6685-4350-b9ef-1c4f55a316ee")
 	)
 	(wire
 		(pts
@@ -2925,6 +3330,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 138.43) (xy 148.59 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9355a84-6505-402a-96c0-d6a538958780")
+	)
+	(wire
+		(pts
 			(xy 137.16 77.47) (xy 138.43 77.47)
 		)
 		(stroke
@@ -2975,6 +3390,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 153.67) (xy 191.77 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b25ba762-a3bb-48e9-950f-2ad88406dde6")
+	)
+	(wire
+		(pts
 			(xy 59.69 107.95) (xy 60.96 107.95)
 		)
 		(stroke
@@ -2985,6 +3410,26 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 138.43) (xy 106.68 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4cda681-619e-441a-9c11-2451df8fdc87")
+	)
+	(wire
+		(pts
+			(xy 137.16 138.43) (xy 138.43 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5082209-e058-494c-bf11-cde10c8a7358")
+	)
+	(wire
+		(pts
 			(xy 106.68 101.6) (xy 83.82 101.6)
 		)
 		(stroke
@@ -2992,6 +3437,16 @@
 			(type default)
 		)
 		(uuid "b5c18995-f983-42b2-8940-4faf0a405d1a")
+	)
+	(wire
+		(pts
+			(xy 59.69 152.4) (xy 59.69 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b77ac9c6-3767-48dd-858b-b5a3925f3db6")
 	)
 	(wire
 		(pts
@@ -3025,6 +3480,26 @@
 	)
 	(wire
 		(pts
+			(xy 237.49 138.43) (xy 237.49 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba96c632-8edb-495e-9dd7-bd35a81d0a5f")
+	)
+	(wire
+		(pts
+			(xy 125.73 138.43) (xy 125.73 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bab2b2fd-9ce6-4961-91ad-e206d61284c0")
+	)
+	(wire
+		(pts
 			(xy 68.58 77.47) (xy 69.85 77.47)
 		)
 		(stroke
@@ -3032,6 +3507,16 @@
 			(type default)
 		)
 		(uuid "bac8dc50-8f3d-48df-9a7c-9f4e400707bb")
+	)
+	(wire
+		(pts
+			(xy 214.63 153.67) (xy 237.49 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc89c54a-f30d-448b-84c5-c9b688faddb4")
 	)
 	(wire
 		(pts
@@ -3045,6 +3530,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 142.24) (xy 59.69 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd5ccdb7-d015-45ba-a7e9-1f784c92b746")
+	)
+	(wire
+		(pts
 			(xy 91.44 118.11) (xy 92.71 118.11)
 		)
 		(stroke
@@ -3055,6 +3550,16 @@
 	)
 	(wire
 		(pts
+			(xy 176.53 138.43) (xy 176.53 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be4ee751-86f3-4a76-b65f-0e99565554d2")
+	)
+	(wire
+		(pts
 			(xy 168.91 104.14) (xy 191.77 104.14)
 		)
 		(stroke
@@ -3062,6 +3567,16 @@
 			(type default)
 		)
 		(uuid "c1caa6b3-fe43-4e85-8c06-5eed5e2a8a3c")
+	)
+	(wire
+		(pts
+			(xy 80.01 138.43) (xy 80.01 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c20a2548-230f-4a9f-8ea5-cdb3fdcc6844")
 	)
 	(wire
 		(pts
@@ -3132,6 +3647,16 @@
 			(type default)
 		)
 		(uuid "c6f330bb-aa6d-4e3e-bf92-f4cf102765db")
+	)
+	(wire
+		(pts
+			(xy 129.54 138.43) (xy 129.54 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c74ce734-a748-4e96-a57f-8e1c068c7dad")
 	)
 	(wire
 		(pts
@@ -3255,6 +3780,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 138.43) (xy 214.63 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2df4437-d848-4271-b4ea-40f258e1d183")
+	)
+	(wire
+		(pts
 			(xy 168.91 104.14) (xy 168.91 97.79)
 		)
 		(stroke
@@ -3325,6 +3860,26 @@
 	)
 	(wire
 		(pts
+			(xy 222.25 128.27) (xy 222.25 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d87f1b08-7050-4616-9550-87397d394247")
+	)
+	(wire
+		(pts
+			(xy 137.16 148.59) (xy 138.43 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da283917-6052-4da1-80f9-918015d5e372")
+	)
+	(wire
+		(pts
 			(xy 106.68 128.27) (xy 106.68 132.08)
 		)
 		(stroke
@@ -3332,6 +3887,16 @@
 			(type default)
 		)
 		(uuid "dbe34aa8-74a2-4b56-8f2c-4c3433cea132")
+	)
+	(wire
+		(pts
+			(xy 68.58 138.43) (xy 69.85 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd05b05a-69a7-403b-bd32-1ba447a6f7e5")
 	)
 	(wire
 		(pts
@@ -3385,6 +3950,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 138.43) (xy 60.96 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3062223-e215-4635-83ee-51903dcfa095")
+	)
+	(wire
+		(pts
 			(xy 119.38 34.29) (xy 124.46 34.29)
 		)
 		(stroke
@@ -3422,6 +3997,16 @@
 			(type default)
 		)
 		(uuid "e479fdcb-811d-4711-b7fc-b860afe5b685")
+	)
+	(wire
+		(pts
+			(xy 58.42 138.43) (xy 59.69 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6445722-dd24-4dd5-8944-59a16d5d7267")
 	)
 	(wire
 		(pts
@@ -3475,6 +4060,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 143.51) (xy 237.49 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb728dfd-6a51-4b55-b06a-641fe2235562")
+	)
+	(wire
+		(pts
 			(xy 80.01 77.47) (xy 80.01 87.63)
 		)
 		(stroke
@@ -3525,6 +4120,16 @@
 	)
 	(wire
 		(pts
+			(xy 237.49 148.59) (xy 237.49 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef4edc33-ca95-424d-9b21-1636f642e453")
+	)
+	(wire
+		(pts
 			(xy 80.01 118.11) (xy 80.01 128.27)
 		)
 		(stroke
@@ -3532,6 +4137,16 @@
 			(type default)
 		)
 		(uuid "efb4a567-3882-4020-894e-8cc6c7144667")
+	)
+	(wire
+		(pts
+			(xy 80.01 128.27) (xy 80.01 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f03bd46b-6d2b-4ecf-a2d6-751141ffc5df")
 	)
 	(wire
 		(pts
@@ -3552,6 +4167,16 @@
 			(type default)
 		)
 		(uuid "f080f5f9-fb59-4d46-ae57-dbd4e095a4e0")
+	)
+	(wire
+		(pts
+			(xy 222.25 138.43) (xy 222.25 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0b5d5c3-6ea5-466b-9fc1-4d44943a83f3")
 	)
 	(wire
 		(pts
@@ -3602,6 +4227,16 @@
 			(type default)
 		)
 		(uuid "f6c455fa-96a1-4184-92f5-67b944143467")
+	)
+	(wire
+		(pts
+			(xy 106.68 142.24) (xy 83.82 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f79c0b89-81ca-421a-9964-8458eda6eb4e")
 	)
 	(wire
 		(pts
@@ -3853,28 +4488,6 @@
 			)
 		)
 	)
-	(global_label "C1"
-		(shape input)
-		(at 220.98 22.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2a5a1801-e106-45e5-8e67-b86c7dc3fb7e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 215.5153 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "I3"
 		(shape input)
 		(at 41.91 27.94 180)
@@ -3937,6 +4550,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "O7"
+		(shape input)
+		(at 58.42 138.43 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "497ac3d3-58e3-4fba-84cb-a33df65e45cd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 52.8948 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -4139,28 +4774,6 @@
 			)
 		)
 	)
-	(global_label "O8"
-		(shape input)
-		(at 259.08 27.94 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "62002983-1bb2-499f-a183-d330c6299ff1")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 253.5548 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "O14"
 		(shape input)
 		(at 88.9 35.56 0)
@@ -4306,6 +4919,28 @@
 		(uuid "6fdbfdf7-4cfe-47b6-b442-89e694e75610")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 70.6748 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "O8"
+		(shape input)
+		(at 58.42 148.59 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "71f0ef1e-3ba6-41e5-b73b-7647071b3ef1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 52.8948 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4491,28 +5126,6 @@
 			)
 		)
 	)
-	(global_label "O7"
-		(shape input)
-		(at 259.08 22.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "89c66614-0334-483c-8064-a2d683840dd5")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 253.5548 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "O15"
 		(shape input)
 		(at 88.9 38.1 0)
@@ -4619,28 +5232,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "C2"
-		(shape input)
-		(at 220.98 27.94 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "999bd855-cfc0-4928-92d3-299f14fe6e42")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 215.5153 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
@@ -4909,28 +5500,6 @@
 			)
 		)
 	)
-	(global_label "C3"
-		(shape input)
-		(at 220.98 33.02 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "c22f246b-d096-4541-8576-8d0b7e0271eb")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 215.5153 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "O9"
 		(shape input)
 		(at 88.9 22.86 0)
@@ -5173,6 +5742,50 @@
 			)
 		)
 	)
+	(global_label "O16"
+		(shape input)
+		(at 165.1 148.59 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e990a47d-9427-45ce-8d7b-bd41ba7ecb0c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.3653 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "O15"
+		(shape input)
+		(at 165.1 138.43 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ebc36539-47a9-4e16-adbe-fbc9ba2ca54d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.3653 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "C1"
 		(shape input)
 		(at 124.46 34.29 270)
@@ -5257,28 +5870,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "C4"
-		(shape input)
-		(at 220.98 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f5d91af8-756e-46b7-8ff1-3a62e31159c4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 215.5153 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
@@ -5882,73 +6473,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 226.06 27.94 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1304f20d-be7f-4853-8e41-08e4373faf38")
-		(property "Reference" "J4"
-			(at 228.6 26.6699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01"
-			(at 228.6 29.2099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 226.06 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.06 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 226.06 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "026366a5-36e0-47e6-a826-9257a090df21")
-		)
-		(instances
-			(project ""
-				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:D")
 		(at 133.35 97.79 0)
 		(unit 1)
@@ -6189,6 +6713,92 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D")
+		(at 87.63 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1afb59c8-aa81-448e-b3da-ac422bd82175")
+		(property "Reference" "D54"
+			(at 87.63 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 87.63 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 87.63 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 87.63 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 87.63 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 87.63 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 87.63 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "bd46ed27-31bc-4101-8777-9d574cfbc101")
+		)
+		(pin "1"
+			(uuid "9f4cce9d-71b3-4ea6-92c4-d2d983638f2e")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D54")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_SPST")
 		(at 74.93 128.27 0)
 		(unit 1)
@@ -6344,6 +6954,74 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
+		(at 218.44 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1c7a1430-af1b-4fdc-bb24-6c7579e21e8f")
+		(property "Reference" "D63"
+			(at 216.8525 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 216.8525 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 218.44 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 218.44 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "28bfa2a6-3c03-482d-8637-5867b7ec659a")
+		)
+		(pin "2"
+			(uuid "6ebfb62e-b77d-43bf-894e-f58e8ea4cfe9")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D63")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
 		(at 241.3 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6491,6 +7169,92 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 133.35 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "22bb66dd-c7dc-4ca5-871d-8fe5d9b9b926")
+		(property "Reference" "D56"
+			(at 133.35 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 133.35 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 133.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 133.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 133.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 133.35 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "79d59744-a680-41ac-8c93-d87c9af505a8")
+		)
+		(pin "1"
+			(uuid "30661853-f804-42e0-93bd-3b87580ed4ee")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D56")
 					(unit 1)
 				)
 			)
@@ -6737,6 +7501,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 97.79 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "267504c8-6ec1-488e-b397-6f48a026c4d4")
+		(property "Reference" "SW26"
+			(at 97.79 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 97.79 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 97.79 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 97.79 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c59bd98d-cbe0-49ea-abd4-ccdec93e618f")
+		)
+		(pin "2"
+			(uuid "1a48cba0-a8b2-400e-bad8-088c50e888df")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 124.46 30.48 0)
 		(unit 1)
@@ -6869,6 +7701,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D46")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 172.72 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2f8e9c9f-a6af-4971-a2e4-894c0f920428")
+		(property "Reference" "D61"
+			(at 171.1325 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 171.1325 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 172.72 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 172.72 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 172.72 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f8da50d0-f741-4a0d-9cc7-38e19d740ee4")
+		)
+		(pin "2"
+			(uuid "3620f8fe-e6bb-4a19-9e43-d5627b9223d9")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D61")
 					(unit 1)
 				)
 			)
@@ -7081,73 +7981,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 226.06 38.1 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "357469cb-a115-4699-a03e-f748357caf35")
-		(property "Reference" "J6"
-			(at 228.6 36.8299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01"
-			(at 228.6 39.3699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 226.06 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.06 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 226.06 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3d8e9194-bfda-459a-9581-1ce597fb3b88")
-		)
-		(instances
-			(project ""
-				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED")
 		(at 195.58 128.27 0)
 		(unit 1)
@@ -7210,6 +8043,92 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 64.77 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3751278b-3556-45a1-8051-061c55d9c104")
+		(property "Reference" "D53"
+			(at 64.77 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 64.77 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 64.77 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 64.77 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 64.77 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 64.77 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5d228b74-140d-4826-b5c3-3031ffd69149")
+		)
+		(pin "1"
+			(uuid "c01eb1bf-d42f-4632-83de-c17d99d41491")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D53")
 					(unit 1)
 				)
 			)
@@ -7366,6 +8285,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "S3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 143.51 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3e308094-4469-4543-bf92-4115faa0f6f7")
+		(property "Reference" "SW28"
+			(at 143.51 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 143.51 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 143.51 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 143.51 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 143.51 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4984390a-e94e-43a4-9426-e7de982deb02")
+		)
+		(pin "2"
+			(uuid "c0a3f811-5506-416c-9405-1be89a14c709")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW28")
 					(unit 1)
 				)
 			)
@@ -7572,6 +8559,92 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 64.77 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "42a1e940-b308-4a9d-92a3-d8a26efbe4ca")
+		(property "Reference" "D49"
+			(at 64.77 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 64.77 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 64.77 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 64.77 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 64.77 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 64.77 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4b6d0e56-5c8b-4671-928f-bf0e0c0f3d15")
+		)
+		(pin "1"
+			(uuid "2a1ce038-a077-41ef-8d1e-1f948795708b")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D49")
 					(unit 1)
 				)
 			)
@@ -7920,6 +8993,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:LED")
+		(at 195.58 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "59d8156f-ea63-45df-972e-12f997e20135")
+		(property "Reference" "D62"
+			(at 193.9925 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 193.9925 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 195.58 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 195.58 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 195.58 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bbe06bca-2789-4890-a379-eb29a789fb9a")
+		)
+		(pin "2"
+			(uuid "db28bf15-1952-47fd-82f1-be75a6eec6bc")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D62")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 160.02 30.48 0)
 		(unit 1)
@@ -7984,6 +9125,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "S7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 74.93 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5cd2468c-bb6e-48b6-9339-3655d36afb07")
+		(property "Reference" "SW25"
+			(at 74.93 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 74.93 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 74.93 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 74.93 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 74.93 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "38466b4c-41eb-402a-8c37-75fd24bdc12a")
+		)
+		(pin "2"
+			(uuid "814ad817-c406-4226-9677-e7f0e330caa4")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW25")
 					(unit 1)
 				)
 			)
@@ -8120,73 +9329,6 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "SW7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 264.16 27.94 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6265f576-86b2-4a66-9504-c3f8a0b323d0")
-		(property "Reference" "J8"
-			(at 266.7 26.6699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01"
-			(at 266.7 29.2099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 264.16 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 264.16 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 264.16 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ebf8cf51-c5a1-42f3-aa88-5c686e18f984")
-		)
-		(instances
-			(project "sequencer"
-				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -8644,6 +9786,74 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
+		(at 241.3 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "697aab9c-409e-41ab-8a58-240c3e3fc8b9")
+		(property "Reference" "D60"
+			(at 239.7125 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 239.7125 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 241.3 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 241.3 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 241.3 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "20e5f7e9-053e-4caa-b33c-01ba385a5724")
+		)
+		(pin "2"
+			(uuid "214f57b3-d243-41fb-bd38-77d263c9773a")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D60")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
 		(at 172.72 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8975,35 +10185,33 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 226.06 22.86 0)
+		(lib_id "Switch:SW_SPST")
+		(at 143.51 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "7806efad-a0e9-4972-8c0d-12c69d42506b")
-		(property "Reference" "J3"
-			(at 228.6 21.5899 0)
+		(uuid "808404de-b1b9-41e4-bbdc-4f9002683090")
+		(property "Reference" "SW32"
+			(at 143.51 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
-			(at 228.6 24.1299 0)
+		(property "Value" "SW_SPST"
+			(at 143.51 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 226.06 22.86 0)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 143.51 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9012,7 +10220,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 226.06 22.86 0)
+			(at 143.51 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9020,75 +10228,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 226.06 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "03284238-46e4-498d-89bc-86f77c8ac226")
-		)
-		(instances
-			(project ""
-				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 226.06 33.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "79a97bc4-163f-4785-8d47-387672a39088")
-		(property "Reference" "J5"
-			(at 228.6 31.7499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01"
-			(at 228.6 34.2899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 226.06 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.06 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 226.06 33.02 0)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 143.51 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9097,12 +10238,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "d49e3552-c7a7-4720-9c6a-d8659517fe4a")
+			(uuid "b3877e6b-d12c-4546-b23e-ed441ff4b959")
+		)
+		(pin "2"
+			(uuid "0f834f51-76e6-4c1b-8f48-f7ef7f153682")
 		)
 		(instances
-			(project ""
+			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J5")
+					(reference "SW32")
 					(unit 1)
 				)
 			)
@@ -9247,6 +10391,160 @@
 		)
 	)
 	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 97.79 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8ac77106-36fd-410a-ac13-04bfce482e0b")
+		(property "Reference" "SW30"
+			(at 97.79 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 97.79 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 97.79 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 97.79 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b49c4dca-47be-4bf2-b8af-6903b4491b70")
+		)
+		(pin "2"
+			(uuid "a85a352b-c20e-4340-956f-3d75318977c2")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 133.35 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8ada1fb5-821e-48a4-8709-9715ff23c571")
+		(property "Reference" "D52"
+			(at 133.35 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 133.35 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 133.35 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 133.35 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 133.35 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 133.35 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "9d6981bf-0815-4448-a52b-2bca7d74ac79")
+		)
+		(pin "1"
+			(uuid "e8530a97-af31-4ee7-bf73-803d71ea3260")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D52")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:D")
 		(at 133.35 128.27 0)
 		(unit 1)
@@ -9333,35 +10631,33 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x01")
-		(at 264.16 22.86 0)
+		(lib_id "Switch:SW_SPST")
+		(at 120.65 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8fe7700c-ab97-4976-88c6-9bcdcf62a13d")
-		(property "Reference" "J7"
-			(at 266.7 21.5899 0)
+		(uuid "90ac7864-4733-4360-973a-8a5e269c74ed")
+		(property "Reference" "SW31"
+			(at 120.65 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
-			(at 266.7 24.1299 0)
+		(property "Value" "SW_SPST"
+			(at 120.65 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x01_P1.27mm_Vertical"
-			(at 264.16 22.86 0)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 120.65 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9370,7 +10666,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 264.16 22.86 0)
+			(at 120.65 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9378,8 +10674,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 264.16 22.86 0)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 120.65 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9388,12 +10684,101 @@
 			)
 		)
 		(pin "1"
-			(uuid "3b433370-244b-4b5b-8983-851da25f9f86")
+			(uuid "06bd1d3b-8983-4852-9fcf-fa899fe73984")
+		)
+		(pin "2"
+			(uuid "3b94814b-5eaf-45cc-af4d-8a65a339213f")
 		)
 		(instances
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
-					(reference "J7")
+					(reference "SW31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 110.49 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "91d636ef-4eae-4173-8565-bbaf27e8a67d")
+		(property "Reference" "D55"
+			(at 110.49 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 110.49 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 110.49 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 110.49 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 110.49 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 110.49 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8c87782f-c81d-4d12-a012-86dcdf9c4162")
+		)
+		(pin "1"
+			(uuid "c10f0bca-bc53-4d05-bba3-eb470ec008f7")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D55")
 					(unit 1)
 				)
 			)
@@ -10208,6 +11593,74 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
+		(at 241.3 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8c17b27-5b66-4980-ac96-104afa8b7b7b")
+		(property "Reference" "D64"
+			(at 239.7125 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 239.7125 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 241.3 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 241.3 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 241.3 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "293fda3b-8c75-423e-9337-8c91c3792a23")
+		)
+		(pin "2"
+			(uuid "ccbecdcb-6ced-4862-bc97-1905797b8605")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D64")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
 		(at 195.58 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10269,6 +11722,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 195.58 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bca85193-a5cb-49ed-9f66-2ce7199d6198")
+		(property "Reference" "D58"
+			(at 193.9925 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 193.9925 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 195.58 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 195.58 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 195.58 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b09a25bf-6f54-487c-8c19-887f520b7fc2")
+		)
+		(pin "2"
+			(uuid "52b926c4-3028-410f-85ba-98710ffcbd2f")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D58")
 					(unit 1)
 				)
 			)
@@ -11028,6 +12549,92 @@
 	)
 	(symbol
 		(lib_id "Device:D")
+		(at 110.49 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d7b6dd5d-f4f8-4c79-b918-cd92bd4a3d68")
+		(property "Reference" "D51"
+			(at 110.49 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 110.49 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 110.49 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 110.49 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 110.49 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 110.49 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "73cc5ed5-67d6-4e45-b559-301f7c407b5c")
+		)
+		(pin "1"
+			(uuid "85939831-287e-4a15-b4a6-abea0c835065")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D51")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
 		(at 110.49 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11650,6 +13257,74 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
+		(at 172.72 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e8f53bb1-4075-4511-aa6b-cb092a6585da")
+		(property "Reference" "D57"
+			(at 171.1325 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 171.1325 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 172.72 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 172.72 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 172.72 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e9cd3892-79c8-4e72-a2cd-7bb8505b19fb")
+		)
+		(pin "2"
+			(uuid "338f2a02-bcbd-4a1a-9aa5-1acbd8c3e6c9")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D57")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
 		(at 218.44 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11711,6 +13386,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 218.44 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ec549857-21c4-4f8d-885b-24b00e82f5fb")
+		(property "Reference" "D59"
+			(at 216.8525 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LED"
+			(at 216.8525 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 218.44 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 218.44 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "91c252d5-4594-41ba-90cb-b618fded3483")
+		)
+		(pin "2"
+			(uuid "c8a9ee4f-696b-43b7-816d-34c9e973b584")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D59")
 					(unit 1)
 				)
 			)
@@ -11865,6 +13608,160 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 74.93 148.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "efd0d8ae-b00e-4fe8-b33a-2188f316698c")
+		(property "Reference" "SW29"
+			(at 74.93 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 74.93 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 74.93 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 74.93 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 74.93 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "afb7fcdc-bc46-46ec-8707-8086b186ad1b")
+		)
+		(pin "2"
+			(uuid "00eb9496-2442-4ecf-9093-e25cce1475f4")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 87.63 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f021990f-4def-4633-9fec-64dfe20db1a1")
+		(property "Reference" "D50"
+			(at 87.63 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 87.63 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+			(at 87.63 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 87.63 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 87.63 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 87.63 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 87.63 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a8a5bd09-40a0-439b-9840-2f8ea326c0d2")
+		)
+		(pin "1"
+			(uuid "2fa29ebc-b328-46ad-b78e-ceec293d7258")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "D50")
 					(unit 1)
 				)
 			)
@@ -12209,6 +14106,74 @@
 			(project "sequencer"
 				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
 					(reference "SW12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 120.65 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f7ea33af-dd28-4fab-93aa-073221ec8152")
+		(property "Reference" "SW27"
+			(at 120.65 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 120.65 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB"
+			(at 120.65 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 120.65 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "700a3e01-f75a-4e4a-9844-4483be60d523")
+		)
+		(pin "2"
+			(uuid "b14e24d6-7db7-4d32-b4c8-5f8272ea6766")
+		)
+		(instances
+			(project "sequencer"
+				(path "/72defcdb-f905-40cd-87b6-7fbce2bb60cb"
+					(reference "SW27")
 					(unit 1)
 				)
 			)
