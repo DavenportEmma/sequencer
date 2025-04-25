@@ -20,6 +20,7 @@ extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 void edit_step_note(uint8_t step, MIDINote_t note) {
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         step_t* st = &edit_buffer[step];
+        // TODO this won't do for polyphonic sequences
         st->note_on[0].note = note;
 
         if(st->end_of_step == 0xFF) {
@@ -29,6 +30,7 @@ void edit_step_note(uint8_t step, MIDINote_t note) {
         }
 
         st = &edit_buffer[step];
+        // TODO this won't do for polyphonic sequences
         st->note_off[0] = note;
 
         xSemaphoreGive(edit_buffer_mutex);
@@ -47,10 +49,12 @@ void edit_step_note_midi(uint8_t step, uint8_t* buf) {
 
     switch(status) {
         case NOTE_OFF:
+            // TODO this won't do for polyphonic sequences
             edit_buffer[step].note_off[0] = note;
             break;
 
         case NOTE_ON:
+            // TODO this won't do for polyphonic sequences
             edit_buffer[step].note_on[0] = n;
             break;
 
