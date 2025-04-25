@@ -34,6 +34,30 @@ void edit_step_note(uint8_t step, MIDINote_t note) {
     }
 }
 
+void edit_step_note_midi(uint8_t step, uint8_t* buf) {
+    MIDIStatus_t status = buf[0] & 0xF0;
+    MIDINote_t note = buf[1];
+    uint8_t velocity = buf[2];
+
+    note_t n = {
+        .note = note,
+        .velocity = velocity
+    };
+
+    switch(status) {
+        case NOTE_OFF:
+            edit_buffer[step].note_off[0] = note;
+            break;
+
+        case NOTE_ON:
+            edit_buffer[step].note_on[0] = n;
+            break;
+
+        default:
+            break;
+    }
+}
+
 static void toggle_bit(uint32_t* field, uint8_t bit) {
     uint8_t mask_size = 32;
 
