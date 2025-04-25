@@ -39,6 +39,8 @@ typedef enum {
     S_ST_NOTE,
     S_ST_MUTE,
     S_ST_EN,
+    S_ST_PREV,
+    S_ST_NEXT,
 } MenuState_t;
 
 typedef enum {
@@ -52,6 +54,8 @@ typedef enum {
     E_ST_PITCH = 0x69,
     E_ST_EN = 0x5A,
     E_ST_MUTE = 0x5B,
+    E_ST_PREV = 0x5D,
+    E_ST_NEXT = 0x5E,
     E_ST_DEL = 0x5F,
     E_ST_NOTE,
     E_ENCODER_UP = 0xFFFE,  // see tasks.c inside key scan task for why I used
@@ -95,12 +99,18 @@ static const MenuTransition_t state_table[] = {
     {S_ST_MENU, E_ST_NOTE, S_ST_NOTE},
     {S_ST_MENU, E_ST_MUTE, S_ST_MUTE},
     {S_ST_MENU, E_ST_EN, S_ST_EN},
+    {S_ST_MENU, E_ST_PREV, S_ST_PREV},
+    {S_ST_MENU, E_ST_NEXT, S_ST_NEXT},
 
     {S_ST_NOTE, E_AUTO, S_ST_MENU},
 
     {S_ST_MUTE, E_AUTO, S_ST_MENU},
 
     {S_ST_EN, E_AUTO, S_ST_MENU},
+
+    {S_ST_PREV, E_AUTO, S_ST_MENU},
+
+    {S_ST_NEXT, E_AUTO, S_ST_MENU},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))
