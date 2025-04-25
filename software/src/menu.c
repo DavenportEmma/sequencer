@@ -256,6 +256,18 @@ static void st_next(uint16_t key) {
     menu(E_AUTO);
 }
 
+static void st_vel_down(uint16_t key) {
+    edit_step_velocity(ACTIVE_ST, -1);
+
+    menu(E_AUTO);
+}
+
+static void st_vel_up(uint16_t key) {
+    edit_step_velocity(ACTIVE_ST, 1);
+
+    menu(E_AUTO);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -275,6 +287,8 @@ StateMachine_t state_machine[] = {
     { S_ST_EN, st_en },
     { S_ST_PREV, st_prev },
     { S_ST_NEXT, st_next },
+    { S_ST_VEL_DOWN, st_vel_down },
+    { S_ST_VEL_UP, st_vel_up },
 };
 
 void menu(uint16_t key) {

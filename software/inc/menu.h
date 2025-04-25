@@ -41,6 +41,8 @@ typedef enum {
     S_ST_EN,
     S_ST_PREV,
     S_ST_NEXT,
+    S_ST_VEL_DOWN,
+    S_ST_VEL_UP,
 } MenuState_t;
 
 typedef enum {
@@ -101,6 +103,8 @@ static const MenuTransition_t state_table[] = {
     {S_ST_MENU, E_ST_EN, S_ST_EN},
     {S_ST_MENU, E_ST_PREV, S_ST_PREV},
     {S_ST_MENU, E_ST_NEXT, S_ST_NEXT},
+    {S_ST_MENU, E_ENCODER_DOWN, S_ST_VEL_DOWN},
+    {S_ST_MENU, E_ENCODER_UP, S_ST_VEL_UP},
 
     {S_ST_NOTE, E_AUTO, S_ST_MENU},
 
@@ -111,6 +115,10 @@ static const MenuTransition_t state_table[] = {
     {S_ST_PREV, E_AUTO, S_ST_MENU},
 
     {S_ST_NEXT, E_AUTO, S_ST_MENU},
+
+    {S_ST_VEL_DOWN, E_AUTO, S_ST_MENU},
+    
+    {S_ST_VEL_UP, E_AUTO, S_ST_MENU},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))
