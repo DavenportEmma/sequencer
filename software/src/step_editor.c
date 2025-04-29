@@ -114,3 +114,20 @@ void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
     send_hex(USART3, s->note_on[0].velocity);
     send_uart(USART3, "\n\r", 2);
 }
+
+void clear_step(uint8_t step) {
+    step_t* s = &edit_buffer[step];
+
+    for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+        /*
+            why these values?
+            0x01 is outside the standard range of midi note commands so nothing
+            should play. load_step_notes() only plays a note if it's within the
+            range of valid midi notes
+
+            0x3F is half the standard range of midi velocity commands
+        */
+        s->note_on[i].note = 0x01;
+        s->note_on[i].velocity = 0x3F;
+    }
+}
