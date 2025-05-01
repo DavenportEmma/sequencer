@@ -3,7 +3,6 @@
 #include "task.h"
 #include "tasks.h"
 #include "timers.h"
-#include "autoconf.h"
 #include "midi.h"
 #include "keyboard.h"
 #include "menu.h"

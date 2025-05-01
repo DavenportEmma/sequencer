@@ -1,7 +1,6 @@
 #include "step_editor.h"
 #include "FreeRTOS.h"
 #include "semphr.h"
-#include "autoconf.h"
 #include "sequence.h"
 #include "uart.h"
 

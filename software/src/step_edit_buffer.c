@@ -6,7 +6,6 @@
 
 #include "FreeRTOS.h"
 #include "semphr.h"
-#include "autoconf.h"
 #include "midi.h"
 #include "step_edit_buffer.h"
 #include "common.h"

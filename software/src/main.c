@@ -1,4 +1,3 @@
-#include "stm32f722xx.h"
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -6,7 +5,6 @@
 #include "tasks.h"
 #include "midi.h"
 #include "setup.h"
-#include "autoconf.h"
 #include <string.h>
 
 SemaphoreHandle_t sq_mutex;

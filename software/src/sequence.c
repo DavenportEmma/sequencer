@@ -2,7 +2,6 @@
 #include "semphr.h"
 #include "midi.h"
 #include "sequence.h"
-#include "autoconf.h"
 #include "uart.h"
 #include "w25q128jv.h"
 #include "common.h"
