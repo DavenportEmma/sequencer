@@ -36,7 +36,7 @@ void edit_step_note(uint8_t step, MIDINote_t note) {
     }
 }
 
-void edit_step_note_midi(uint8_t step, uint8_t* buf) {
+MIDIStatus_t edit_step_note_midi(uint8_t step, uint8_t* buf) {
     MIDIStatus_t status = buf[0] & 0xF0;
     MIDINote_t note = buf[1];
     uint8_t velocity = buf[2];
@@ -50,15 +50,15 @@ void edit_step_note_midi(uint8_t step, uint8_t* buf) {
         case NOTE_OFF:
             // TODO this won't do for polyphonic sequences
             edit_buffer[step].note_off[0] = note;
-            break;
+            return NOTE_OFF;
 
         case NOTE_ON:
             // TODO this won't do for polyphonic sequences
             edit_buffer[step].note_on[0] = n;
-            break;
+            return NOTE_ON;
 
         default:
-            break;
+            return 0;
     }
 }
 
