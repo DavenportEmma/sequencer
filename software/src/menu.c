@@ -192,6 +192,10 @@ static void st_menu(uint16_t key) {
     uart_enable_rx_intr(USART1);
 }
 
+/*
+    this is a dummy state used to represent a return to the previous state of
+    the state machine
+*/
 static void prev(uint16_t key) { }
 
 static void st_note(uint16_t key) {
