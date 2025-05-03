@@ -36,6 +36,27 @@ MIDIChannel_t read_channel(uint8_t sq_index) {
     return (MIDIChannel_t)rx[0];
 }
 
+uint32_t get_step_data_offset(MIDISequence_t* sq, uint8_t sq_index) {
+    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
+
+    uint32_t offset = 0;
+    // 15 possible sectors for the step data
+    for(int i = 0; i < 15; i++) {
+        offset += 0x1000;
+
+        uint32_t addr = sq_base_addr + offset;
+        uint8_t d = 0xFF;
+
+        SPIRead(addr, &d, &d, 1);
+        
+        if(d != 0xFF) {
+            return offset;
+        }
+    }
+    // TODO handle this error properly
+    return 0xFFFF;
+}
+
 /*
     load the notes contained in the step into the note_on and note_off buffers
 
