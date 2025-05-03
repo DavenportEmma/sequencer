@@ -228,7 +228,11 @@ static void st_note(uint16_t key) {
     int midi = kbuf_ready(uart_intr_kbuf);
 
     if(midi) {
-        edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
+        MIDIStatus_t status = edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
+
+        if(status == NOTE_ON) {
+            advance_active_st();
+        }
 
         kbuf_reset(uart_intr_kbuf);
     } else {
