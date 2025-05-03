@@ -90,6 +90,23 @@ volatile uint8_t ACTIVE_SQ;
 volatile uint8_t ACTIVE_ST; 
 volatile uint8_t SQ_EDIT_READY = 0;
 
+static void advance_active_st() {
+    ACTIVE_ST++;
+
+    if(ACTIVE_ST >= CONFIG_STEPS_PER_SEQUENCE) {
+        ACTIVE_ST = 0;
+    }
+}
+
+static void retreat_active_st() {
+    if(ACTIVE_ST == 0) {
+        ACTIVE_ST = CONFIG_STEPS_PER_SEQUENCE - 1;
+    } else {
+        ACTIVE_ST--;
+    }
+
+}
+
 static void main_menu(uint16_t key) {
     send_uart(USART3, "main_menu\n\r", 11);
 
