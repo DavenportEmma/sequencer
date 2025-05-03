@@ -153,6 +153,12 @@ int edit_buffer_load(uint8_t sq_index) {
             }
         }
 
+        if(sq->step_sector_offset >= 0xF000) {
+            sq->step_sector_offset = 0x1000;
+        } else {
+            sq->step_sector_offset += 0x1000;
+        }
+
         xSemaphoreGive(edit_buffer_mutex);
     }
 
