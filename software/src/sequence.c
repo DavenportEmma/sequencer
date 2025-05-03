@@ -3,7 +3,7 @@
 #include "midi.h"
 #include "sequence.h"
 #include "uart.h"
-#include "w25q128jv.h"
+#include "flash.h"
 #include "common.h"
 #include "m_buf.h"
 
@@ -31,7 +31,7 @@ MIDIChannel_t read_channel(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     uint8_t tx[1] = {0};
     uint8_t rx[1] = {0};
-    SPIRead(sq_base_addr, tx, rx, 1);
+    flash_SPIRead(sq_base_addr, tx, rx, 1);
 
     return (MIDIChannel_t)rx[0];
 }
@@ -47,7 +47,7 @@ uint32_t get_step_data_offset(MIDISequence_t* sq, uint8_t sq_index) {
         uint32_t addr = sq_base_addr + offset;
         uint8_t d = 0xFF;
 
-        SPIRead(addr, &d, &d, 1);
+        flash_SPIRead(addr, &d, &d, 1);
         
         if(d != 0xFF) {
             return offset;
@@ -150,7 +150,7 @@ static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t*
 
     uint32_t current_step_addr = steps_base_addr + (sq->counter * BYTES_PER_STEP);
 
-    SPIRead(current_step_addr, data, data, BYTES_PER_STEP);
+    flash_SPIRead(current_step_addr, data, data, BYTES_PER_STEP);
 }
 
 /*
