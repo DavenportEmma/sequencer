@@ -262,21 +262,13 @@ static void st_en(uint16_t key) {
 }
 
 static void st_prev(uint16_t key) {
-    if(ACTIVE_ST == 0) {
-        ACTIVE_ST = CONFIG_STEPS_PER_SEQUENCE - 1;
-    } else {
-        ACTIVE_ST--;
-    }
+    retreat_active_st();
 
     menu(E_AUTO);
 }
 
 static void st_next(uint16_t key) {
-    ACTIVE_ST++;
-
-    if(ACTIVE_ST >= CONFIG_STEPS_PER_SEQUENCE) {
-        ACTIVE_ST = 0;
-    }
+    advance_active_st();
 
     menu(E_AUTO);
 }
