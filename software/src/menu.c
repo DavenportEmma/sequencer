@@ -291,6 +291,25 @@ static void st_clear(uint16_t key) {
     menu(E_AUTO);
 }
 
+static void sq_clear(uint16_t key) {
+    send_uart(USART3, "clearing sequence\n\r", 19);
+
+    if(!SQ_EDIT_READY) {
+        if(edit_buffer_load(ACTIVE_SQ)) {
+            send_uart(USART3, "error loading sequence\n\r", 24);
+        } else {
+            SQ_EDIT_READY = 1;
+        }
+    }
+
+    edit_buffer_clear();
+
+    edit_buffer_reset();
+    SQ_EDIT_READY=0;
+
+    menu(E_AUTO);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -313,6 +332,7 @@ StateMachine_t state_machine[] = {
     { S_ST_VEL_DOWN, st_vel_down },
     { S_ST_VEL_UP, st_vel_up },
     { S_ST_CLR, st_clear },
+    { S_SQ_CLR, sq_clear },
 };
 
 void menu(uint16_t key) {

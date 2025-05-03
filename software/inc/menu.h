@@ -44,6 +44,7 @@ typedef enum {
     S_ST_VEL_DOWN,
     S_ST_VEL_UP,
     S_ST_CLR,
+    S_SQ_CLR,
 } MenuState_t;
 
 typedef enum {
@@ -52,6 +53,7 @@ typedef enum {
     E_SQ_EN = 0x08,
     E_SQ_SELECT,
     E_SQ_EDIT = 0x0C,
+    E_SQ_CLR = 0x0F,
     E_ST_SELECT,
     E_ST_EDIT = 0x5C,
     E_ST_PITCH = 0x69,
@@ -83,12 +85,15 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_SQ_SELECT, S_SQ_SELECT},
     {S_SQ_MENU, E_SQ_EN, S_SQ_EN},
     {S_SQ_MENU, E_SQ_MIDI, S_SQ_MIDI},
+    {S_SQ_MENU, E_SQ_CLR, S_SQ_CLR},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
     {S_SQ_MIDI, E_ENCODER_DOWN, S_SQ_MIDI},
 
     {S_SQ_EN, E_AUTO, S_PREV},
+
+    {S_SQ_CLR, E_AUTO, S_SQ_MENU},
 
     {S_ST_LANDING, E_MAIN_MENU, S_MAIN_MENU},
     {S_ST_LANDING, E_ST_SELECT, S_ST_SELECT},
