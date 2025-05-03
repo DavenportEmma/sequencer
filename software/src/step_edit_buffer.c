@@ -68,8 +68,10 @@ static void write_buffer_to_memory() {
 
     stringify_buffer(ebuf_data);
 
+    MIDISequence_t* sq = &sequences[ACTIVE_SQ];
+
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * ACTIVE_SQ;
-    uint32_t steps_addr = sq_base_addr + 0x1000;
+    uint32_t steps_addr = sq_base_addr + sq->step_sector_offset;
 
     /*
         If an entire 256 byte page is to be programmed, the last address byte
