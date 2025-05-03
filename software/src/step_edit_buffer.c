@@ -14,6 +14,7 @@
 #include <string.h>
 
 step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
+extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 extern SemaphoreHandle_t edit_buffer_mutex;
 extern uint8_t ACTIVE_SQ;
@@ -121,8 +122,14 @@ void edit_buffer_reset() {
 */
 int edit_buffer_load(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint32_t steps_base_addr = sq_base_addr + 0x1000;
-
+    
+    MIDISequence_t* sq = &sequences[sq_index];
+    if(sq->step_sector_offset == 0) {
+        sq->step_sector_offset = get_step_data_offset(sq, sq_index);
+    }
+    
+    uint32_t steps_base_addr = sq_base_addr + sq->step_sector_offset;
+    
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         uint8_t seq_data[BYTES_PER_SEQ];
         SPIRead(steps_base_addr, seq_data, seq_data, (uint16_t)BYTES_PER_SEQ);
