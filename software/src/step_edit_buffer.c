@@ -9,7 +9,7 @@
 #include "midi.h"
 #include "step_edit_buffer.h"
 #include "common.h"
-#include "w25q128jv.h"
+#include "flash.h"
 #include "sequence.h"
 #include <string.h>
 
@@ -93,7 +93,7 @@ static void write_buffer_to_memory() {
         uint8_t tx[256] = {0xFF};
         uint16_t buf_index = BYTES_PER_SEQ - remaining_bytes;
         memcpy(tx, &ebuf_data[buf_index], len);
-        programPage(steps_addr, tx, tx, len);
+        flash_programPage(steps_addr, tx, tx, len);
 
         steps_addr+=256;
         remaining_bytes-=256;
@@ -134,7 +134,7 @@ int edit_buffer_load(uint8_t sq_index) {
     
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         uint8_t seq_data[BYTES_PER_SEQ];
-        SPIRead(steps_base_addr, seq_data, seq_data, (uint16_t)BYTES_PER_SEQ);
+        flash_SPIRead(steps_base_addr, seq_data, seq_data, (uint16_t)BYTES_PER_SEQ);
 
         for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
             uint8_t st_data[BYTES_PER_STEP];
@@ -165,7 +165,7 @@ int edit_buffer_load(uint8_t sq_index) {
     }
 
     // the sector must be erased so that we can write the updated sequence
-    eraseSector(steps_base_addr);
+    flash_eraseSector(steps_base_addr);
 
     return 0;
 }
