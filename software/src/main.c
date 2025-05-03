@@ -9,6 +9,7 @@
 
 SemaphoreHandle_t sq_mutex;
 SemaphoreHandle_t edit_buffer_mutex;
+SemaphoreHandle_t flash_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
@@ -18,6 +19,7 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 int main(void) {
     edit_buffer_mutex = xSemaphoreCreateMutex();
     sq_mutex = xSemaphoreCreateMutex();
+    flash_mutex = xSemaphoreCreateMutex();
     
     memset(sequences, 0, sizeof(sequences));
     
