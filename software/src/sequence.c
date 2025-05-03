@@ -134,7 +134,20 @@ static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t*
     // get the address for the step pointer in flash memory
     // read MEMORY.md for more info
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint32_t steps_base_addr = sq_base_addr + 0x1000;
+
+     /*
+        on startup the step_sector_addr will be zero. we don't immediately know
+        which sectors the step data is stored. we need to read the first byte
+        of all the sectors allocated to step data for this sequence to figure
+        out which one contains the step data, then assign step_sector_addr to
+        the address offset of this sector from the base sequence address
+    */
+    if(sq->step_sector_offset == 0) {
+        sq->step_sector_offset = get_step_data_offset(sq, sq_index);
+    }
+
+    uint32_t steps_base_addr = sq_base_addr + sq->step_sector_offset;
+
     uint32_t current_step_addr = steps_base_addr + (sq->counter * BYTES_PER_STEP);
 
     SPIRead(current_step_addr, data, data, BYTES_PER_STEP);
