@@ -123,7 +123,7 @@ static void sq_select(uint16_t key) {
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void sq_menu(uint16_t key) {
@@ -139,7 +139,7 @@ static void sq_en(uint16_t key) {
 
     toggle_sequence(ACTIVE_SQ);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void sq_midi(uint16_t key) {
@@ -197,7 +197,7 @@ static void st_select(uint16_t key) {
     send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n\r", 2);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_menu(uint16_t key) {
@@ -248,47 +248,47 @@ static void st_note(uint16_t key) {
         }
     }
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_mute(uint16_t key) {
     mute_step(ACTIVE_SQ, ACTIVE_ST);
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_en(uint16_t key) {
     toggle_step(ACTIVE_SQ, ACTIVE_ST);
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_prev(uint16_t key) {
     retreat_active_st();
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_next(uint16_t key) {
     advance_active_st();
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_vel_down(uint16_t key) {
     edit_step_velocity(ACTIVE_ST, -1);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_vel_up(uint16_t key) {
     edit_step_velocity(ACTIVE_ST, 1);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_clear(uint16_t key) {
     clear_step(ACTIVE_ST);
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 static void sq_clear(uint16_t key) {
@@ -307,7 +307,7 @@ static void sq_clear(uint16_t key) {
     edit_buffer_reset();
     SQ_EDIT_READY=0;
 
-    menu(E_AUTO);
+    menu(E_AUTO, E_NO_HOLD);
 }
 
 /*
@@ -335,7 +335,7 @@ StateMachine_t state_machine[] = {
     { S_SQ_CLR, sq_clear },
 };
 
-void menu(uint16_t key) {
+void menu(uint16_t key, uint16_t hold) {
     uart_disable_rx_intr(USART1);
 
     static MenuState_t current = S_MAIN_MENU;

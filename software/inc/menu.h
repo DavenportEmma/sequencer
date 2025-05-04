@@ -63,6 +63,7 @@ typedef enum {
     E_ST_NEXT = 0x5E,
     E_ST_CLR = 0x5F,
     E_ST_NOTE,
+    E_NO_HOLD = 0xFFFB,
     E_ENCODER_UP = 0xFFFE,  // see tasks.c inside key scan task for why I used
     E_ENCODER_DOWN = 0xFFFC,// these values
     E_AUTO = 0xFFFF,
@@ -137,6 +138,6 @@ typedef struct {
     void (*func)(uint16_t key);
 } StateMachine_t;
 
-void menu(uint16_t key);
+void menu(uint16_t key, uint16_t hold);
 
 #endif // _MENU_H
