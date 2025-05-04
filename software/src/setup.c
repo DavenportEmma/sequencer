@@ -87,13 +87,13 @@ void setup(MIDISequence_t* sequences) {
                     (2 << (ROW_INPUT_2_PIN * 2)) | (2 << (ROW_INPUT_3_PIN * 2)) |
                     (2 << (ROW_INPUT_4_PIN * 2)) | (2 << (ROW_INPUT_5_PIN * 2)) |
                     (2 << (ROW_INPUT_6_PIN * 2)) | (2 << (ROW_INPUT_7_PIN * 2));
+    
+    keyboard_t k;
+    kb_handle_t kb = &k;
 
-    uint8_t buffer[CONFIG_ROLLOVER];
-    kbuf_handle_t kbuf = kbuf_init(buffer, CONFIG_ROLLOVER);
-    
-    kbuf_reset(kbuf);
-    
-    scan(kbuf);
+    kb_reset(kb);
+
+    scan(kb);
 
     #ifdef CONFIG_ENABLE_STARTUP_MEMORY_CLEAR
     if(!kbuf_empty(kbuf)) {
@@ -103,10 +103,8 @@ void setup(MIDISequence_t* sequences) {
     }
     #endif
 
-    kbuf_free(kbuf);
-
     // initialise menu state machine
-    menu(E_MAIN_MENU);
+    menu(E_MAIN_MENU, E_NO_HOLD);
 
     // rotary encoder
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                // enable gpioa
