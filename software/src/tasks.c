@@ -40,12 +40,10 @@ void sq_play_task(void *pvParameters) {
 void key_scan_task(void *pvParameters) {
     TickType_t lastWakeTime;
 
-    uint8_t buffer[CONFIG_ROLLOVER];
-    kbuf_handle_t kbuf = kbuf_init(buffer, CONFIG_ROLLOVER);
-    kbuf_reset(kbuf);
+    keyboard_t k;
+    kb_handle_t kb = &k;
 
-    uint8_t d;
-
+    kb_reset(kb);
     /*
         uart_intr_buf is a vector style buffer for recieving midi commands from
         a midi controller
@@ -58,20 +56,13 @@ void key_scan_task(void *pvParameters) {
         lastWakeTime = xTaskGetTickCount();
         int8_t encoder_dir = get_encoder_direction();
 
-        scan(kbuf);
+        scan(kb);
 
-        if(!kbuf_empty(kbuf) && kbuf_ready(kbuf)) {
-            uint8_t size = kbuf_size(kbuf);
-
-            for(int i = 0; i < size; i++) {
-                kbuf_pop(kbuf, &d);
-                
-                menu(kbuf->buffer[0]);
-            }
-
-            kbuf->ready = 0;
+        if(kb->ready) {
+            menu(kb->key, kb->hold);
+            kb->ready = 0;
         } else if(kbuf_ready(uart_intr_kbuf)) {
-            menu(E_ST_NOTE);
+            menu(E_ST_NOTE, E_NO_HOLD);
         } else if(encoder_dir != 0) {
             /*
                 wtf is this? encoder will either be 1 or -1. we need to pass
@@ -79,14 +70,13 @@ void key_scan_task(void *pvParameters) {
                 clockwise or anti clockwise turn. E_ENCODER_UP and
                 E_ENCODER_DOWN are 1 either side of 0xFFFD
             */
-            menu(0xFFFD + encoder_dir);
+            menu(0xFFFD + encoder_dir, 0xFFFF);
         } else {
-            kbuf_reset(kbuf);
+            kb_reset(kb);
         }
 
         vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(CONFIG_KEY_SCAN_MS));
     }
 
-    kbuf_free(kbuf);
     vTaskDelete(NULL);
 }
