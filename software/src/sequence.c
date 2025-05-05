@@ -327,6 +327,17 @@ void toggle_sequence(uint8_t sq_index) {
     }
 }
 
+void toggle_sequences(uint32_t* select_mask, uint8_t max) {
+    for(int i = 0; i < max; i++) {
+        uint8_t array_index = i / 32;
+        uint8_t bit_position = i % 32;
+
+        if(select_mask[array_index] & (1 << bit_position)) {
+            toggle_sequence(i);
+        }
+    }
+}
+
 void disable_sequence(uint8_t sq_index) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         sequences[sq_index].enabled = 0;
