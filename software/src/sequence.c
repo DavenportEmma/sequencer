@@ -6,6 +6,7 @@
 #include "flash.h"
 #include "common.h"
 #include "m_buf.h"
+#include "util.h"
 
 extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
@@ -214,25 +215,8 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     return 0;
 }
 
-static uint8_t check_bit(uint8_t bit, uint32_t* field, uint8_t max) {
-    uint8_t mask_size = 32;
-
-    if(bit < max) {
-        int8_t mask_index = bit / mask_size;
-        uint32_t mute_mask = 1 << (bit % mask_size);
-
-        if(field[mask_index] & mute_mask) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    return 0;
-}
-
-static uint8_t is_disabled(uint8_t step, uint32_t* enabled_steps) {
-    return check_bit(step, enabled_steps, CONFIG_STEPS_PER_SEQUENCE);
+static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
+    return check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
@@ -244,7 +228,7 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
             (*counter) = 0;
         }
 
-        if(!is_disabled((*counter), enabled_steps)) {
+        if(!is_disabled(enabled_steps, (*counter))) {
             break;
         }
 
@@ -267,7 +251,7 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
 
     uint8_t* counter = &sq->counter;
 
-    if(is_disabled(*counter, sq->enabled_steps)) {
+    if(is_disabled(sq->enabled_steps, (*counter))) {
         MIDICC_t p = {
             .status = CONTROLLER,
             .channel = sq->channel,
@@ -288,8 +272,8 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
     return 0;
 }
 
-static uint8_t is_muted(uint8_t step, uint32_t* muted_steps) {
-    return check_bit(step, muted_steps, CONFIG_STEPS_PER_SEQUENCE);
+static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
+    return check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 /*
@@ -305,7 +289,7 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
             if(sq->enabled) {
                 step_t st;
                 if(load_step(i, &st) == 0) {
-                    uint8_t muted = is_muted(sq->counter, sq->muted_steps);
+                    uint8_t muted = is_muted(sq->muted_steps, sq->counter);
 
                     load_step_notes(
                         note_on_mbuf,
