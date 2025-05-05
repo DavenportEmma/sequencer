@@ -50,8 +50,8 @@ typedef enum {
 typedef enum {
     E_MAIN_MENU = 0x01,
     E_SQ_MIDI = 0x03,
-    E_SQ_SHIFT = 0x05,
-    E_SQ_CTRL = 0x06,
+    E_SHIFT = 0x05,
+    E_CTRL = 0x06,
     E_SQ_EN = 0x08,
     E_SQ_SELECT,
     E_SQ_EDIT = 0x0C,
