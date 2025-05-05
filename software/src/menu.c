@@ -107,7 +107,7 @@ static void retreat_active_st() {
 
 }
 
-static void main_menu(uint16_t key) {
+static void main_menu(uint16_t key, uint16_t hold) {
     send_uart(USART3, "main_menu\n\r", 11);
 
     if(SQ_EDIT_READY) {
@@ -116,7 +116,7 @@ static void main_menu(uint16_t key) {
     }
 }
 
-static void sq_select(uint16_t key) {
+static void sq_select(uint16_t key, uint16_t hold) {
     ACTIVE_SQ = key_to_sq_st(key);
 
     send_uart(USART3, "sq_select ", 10);
@@ -126,13 +126,13 @@ static void sq_select(uint16_t key) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void sq_menu(uint16_t key) {
+static void sq_menu(uint16_t key, uint16_t hold) {
     send_uart(USART3, "sq_menu ", 8);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
 }
 
-static void sq_en(uint16_t key) {
+static void sq_en(uint16_t key, uint16_t hold) {
     send_uart(USART3, "sq_en ", 6);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
@@ -142,7 +142,7 @@ static void sq_en(uint16_t key) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void sq_midi(uint16_t key) {
+static void sq_midi(uint16_t key, uint16_t hold) {
     static MIDIChannel_t channel;
     switch(key) {
         case E_SQ_MIDI:
@@ -176,7 +176,7 @@ static void sq_midi(uint16_t key) {
     }
 }
 
-static void st_landing(uint16_t key) {
+static void st_landing(uint16_t key, uint16_t hold) {
     send_uart(USART3, "st_landing ", 11);
     send_hex(USART3, ACTIVE_SQ);
     send_uart(USART3, "\n\r", 2);
@@ -190,7 +190,7 @@ static void st_landing(uint16_t key) {
     }
 }
 
-static void st_select(uint16_t key) {
+static void st_select(uint16_t key, uint16_t hold) {
     ACTIVE_ST = key_to_sq_st(key);
 
     send_uart(USART3, "st_select ", 10);
@@ -200,7 +200,7 @@ static void st_select(uint16_t key) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_menu(uint16_t key) {
+static void st_menu(uint16_t key, uint16_t hold) {
     send_uart(USART3, "st_menu ", 8);
     send_hex(USART3, ACTIVE_ST);
     send_uart(USART3, "\n\r", 2);
@@ -213,9 +213,9 @@ static void st_menu(uint16_t key) {
     this is a dummy state used to represent a return to the previous state of
     the state machine
 */
-static void prev(uint16_t key) { }
+static void prev(uint16_t key, uint16_t hold) { }
 
-static void st_note(uint16_t key) {
+static void st_note(uint16_t key, uint16_t hold) {
     /*
         if the transition to this state was triggered by a keystroke from the
         on-board 13 key keyboard then `key` is going to be able to be decoded
@@ -251,47 +251,47 @@ static void st_note(uint16_t key) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_mute(uint16_t key) {
+static void st_mute(uint16_t key, uint16_t hold) {
     mute_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_en(uint16_t key) {
+static void st_en(uint16_t key, uint16_t hold) {
     toggle_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_prev(uint16_t key) {
+static void st_prev(uint16_t key, uint16_t hold) {
     retreat_active_st();
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_next(uint16_t key) {
+static void st_next(uint16_t key, uint16_t hold) {
     advance_active_st();
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_vel_down(uint16_t key) {
+static void st_vel_down(uint16_t key, uint16_t hold) {
     edit_step_velocity(ACTIVE_ST, -1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_vel_up(uint16_t key) {
+static void st_vel_up(uint16_t key, uint16_t hold) {
     edit_step_velocity(ACTIVE_ST, 1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void st_clear(uint16_t key) {
+static void st_clear(uint16_t key, uint16_t hold) {
     clear_step(ACTIVE_ST);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void sq_clear(uint16_t key) {
+static void sq_clear(uint16_t key, uint16_t hold) {
     send_uart(USART3, "clearing sequence\n\r", 19);
 
     if(!SQ_EDIT_READY) {
@@ -354,7 +354,7 @@ void menu(uint16_t key, uint16_t hold) {
                 current = state_table[i].next;    
             }
 
-            (state_machine[current].func)(key);
+            (state_machine[current].func)(key, hold);
             break;
         }
     }
