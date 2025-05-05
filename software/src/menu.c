@@ -5,6 +5,7 @@
 #include "step_editor.h"
 #include "midi.h"
 #include "k_buf.h"
+#include "util.h"
 
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
@@ -90,6 +91,9 @@ volatile uint8_t ACTIVE_SQ;
 volatile uint8_t ACTIVE_ST; 
 volatile uint8_t SQ_EDIT_READY = 0;
 
+uint8_t MSEL_FLAG = 0;  // multi select flag is asserted when multi select
+uint32_t MSEL_MASK[2];  // 64 bit field to identify multi selected sq/st
+
 static void advance_active_st() {
     ACTIVE_ST++;
 
@@ -117,7 +121,25 @@ static void main_menu(uint16_t key, uint16_t hold) {
 }
 
 static void sq_select(uint16_t key, uint16_t hold) {
-    ACTIVE_SQ = key_to_sq_st(key);
+    uint8_t sq_val = key_to_sq_st(key);
+
+    if(hold == E_NO_HOLD) {
+        MSEL_FLAG = 0;
+        
+        clear_field(MSEL_MASK, CONFIG_TOTAL_SEQUENCES);
+        
+        set_bit(MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
+    } else if(hold == E_SHIFT) {
+        MSEL_FLAG = 1;
+        
+        set_bit_range(MSEL_MASK, ACTIVE_SQ, sq_val, CONFIG_TOTAL_SEQUENCES);
+    } else if(hold == E_CTRL) {
+        MSEL_FLAG = 1;
+        
+        set_bit(MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
+    }
+
+    ACTIVE_SQ = sq_val;
 
     send_uart(USART3, "sq_select ", 10);
     send_hex(USART3, ACTIVE_SQ);
