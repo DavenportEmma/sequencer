@@ -50,6 +50,8 @@ typedef enum {
 typedef enum {
     E_MAIN_MENU = 0x01,
     E_SQ_MIDI = 0x03,
+    E_SHIFT = 0x05,
+    E_CTRL = 0x06,
     E_SQ_EN = 0x08,
     E_SQ_SELECT,
     E_SQ_EDIT = 0x0C,
@@ -63,6 +65,7 @@ typedef enum {
     E_ST_NEXT = 0x5E,
     E_ST_CLR = 0x5F,
     E_ST_NOTE,
+    E_NO_HOLD = 0xFFFB,
     E_ENCODER_UP = 0xFFFE,  // see tasks.c inside key scan task for why I used
     E_ENCODER_DOWN = 0xFFFC,// these values
     E_AUTO = 0xFFFF,
@@ -134,9 +137,9 @@ static const MenuTransition_t state_table[] = {
 
 typedef struct {
     MenuState_t state;
-    void (*func)(uint16_t key);
+    void (*func)(uint16_t key, uint16_t hold);
 } StateMachine_t;
 
-void menu(uint16_t key);
+void menu(uint16_t key, uint16_t hold);
 
 #endif // _MENU_H
