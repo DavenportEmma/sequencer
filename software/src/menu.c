@@ -111,8 +111,6 @@ static void retreat_active_st() {
 }
 
 static void main_menu(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "main_menu\n\r", 11);
-
     if(SQ_EDIT_READY) {
         edit_buffer_reset();
         SQ_EDIT_READY=0;
@@ -134,24 +132,12 @@ static void sq_select(uint16_t key, uint16_t hold) {
 
     ACTIVE_SQ = sq_val;
 
-    send_uart(USART3, "sq_select ", 10);
-    send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n\r", 2);
-
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void sq_menu(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "sq_menu ", 8);
-    send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n\r", 2);
-}
+static void sq_menu(uint16_t key, uint16_t hold) { }
 
 static void sq_en(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "sq_en ", 6);
-    send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n\r", 2);
-
     if(one_bit_set(MSEL_MASK)) {
         toggle_sequence(ACTIVE_SQ);
     } else {
@@ -166,8 +152,9 @@ static void sq_midi(uint16_t key, uint16_t hold) {
     switch(key) {
         case E_SQ_MIDI:
             disable_sequence(ACTIVE_SQ);
-            send_uart(USART3, "midi channel\n\r", 14);
+
             channel = get_channel(ACTIVE_SQ);
+
             break;
         case E_ENCODER_DOWN:
             if(channel < 0x0F) {
@@ -175,8 +162,6 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             }
 
             set_midi_channel(ACTIVE_SQ, channel);
-            send_hex(USART3, channel);
-            send_uart(USART3, "\n\r", 2);
 
             break;
 
@@ -186,8 +171,6 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             }
 
             set_midi_channel(ACTIVE_SQ, channel);
-            send_hex(USART3, channel);
-            send_uart(USART3, "\n\r", 2);
 
             break;
         default:
@@ -196,10 +179,6 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 }
 
 static void st_landing(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "st_landing ", 11);
-    send_hex(USART3, ACTIVE_SQ);
-    send_uart(USART3, "\n\r", 2);
-
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
             send_uart(USART3, "error loading sequence\n\r", 24);
@@ -212,18 +191,10 @@ static void st_landing(uint16_t key, uint16_t hold) {
 static void st_select(uint16_t key, uint16_t hold) {
     ACTIVE_ST = key_to_sq_st(key);
 
-    send_uart(USART3, "st_select ", 10);
-    send_hex(USART3, ACTIVE_ST);
-    send_uart(USART3, "\n\r", 2);
-
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_menu(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "st_menu ", 8);
-    send_hex(USART3, ACTIVE_ST);
-    send_uart(USART3, "\n\r", 2);
-
     kbuf_reset(uart_intr_kbuf);
     uart_enable_rx_intr(USART1);
 }
@@ -258,11 +229,6 @@ static void st_note(uint16_t key, uint16_t hold) {
         MIDINote_t note = key_to_note(key);
 
         if (note > 0) {
-            send_uart(USART3, "st_note ", 8);
-            send_hex(USART3, ACTIVE_ST);
-            send_uart(USART3, " ", 1);
-            send_hex(USART3, note);
-            send_uart(USART3, "\n\r", 2);
             edit_step_note(ACTIVE_ST, note);
         }
     }
@@ -311,8 +277,6 @@ static void st_clear(uint16_t key, uint16_t hold) {
 }
 
 static void sq_clear(uint16_t key, uint16_t hold) {
-    send_uart(USART3, "clearing sequence\n\r", 19);
-
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
             send_uart(USART3, "error loading sequence\n\r", 24);
