@@ -99,9 +99,6 @@ void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
     }
 
     s->note_on[0].velocity = v;
-
-    send_hex(USART3, s->note_on[0].velocity);
-    send_uart(USART3, "\n\r", 2);
 }
 
 void clear_step(uint8_t step) {
