@@ -10,6 +10,7 @@
 
 extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
+extern SemaphoreHandle_t st_mask_mutex;
 
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
@@ -216,7 +217,14 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
 }
 
 static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
-    return check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+    uint8_t ret;    
+
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
+        ret = check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+        xSemaphoreGive(st_mask_mutex);
+    }
+
+    return ret; 
 }
 
 static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
@@ -273,7 +281,14 @@ static uint8_t load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
 }
 
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
-    return check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+    uint8_t ret;    
+
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
+        ret = check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+        xSemaphoreGive(st_mask_mutex);
+    }
+
+    return ret;
 }
 
 /*
