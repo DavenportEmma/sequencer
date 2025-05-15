@@ -389,12 +389,13 @@ void play_notes(mbuf_handle_t mbuf) {
     }
 }
 
+/*
+    why do these two functions not use mutexes? we use the sq_mutex to protect
+    the sequences array as the sequences are being played. these functions are
+    only called in the sq_midi state which always disables the sequence on entry
+*/
 void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sequences[sq_index].channel = channel;
-        xSemaphoreGive(sq_mutex);
-    }
-
+    sequences[sq_index].channel = channel;
 }
 
 MIDIChannel_t get_channel(uint8_t sq_index) {
