@@ -10,6 +10,7 @@
 
 extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
+extern SemaphoreHandle_t st_mask_mutex;
 
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
@@ -216,7 +217,14 @@ static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
 }
 
 static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
-    return check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+    uint8_t ret;    
+
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
+        ret = check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+        xSemaphoreGive(st_mask_mutex);
+    }
+
+    return ret; 
 }
 
 static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
@@ -244,11 +252,11 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
 /*
     load step data into a step struct then send the note data over midi
 
-    @param sq_index The index of the currently process sequence in sequences
+    @param sq           Pointer to a copy of the active sequence in sq_index
+    @param sq_index     Index of the active sequence in sequences[]
+    @param st           Step struct to be filled with step data
 */
-static uint8_t load_step(uint8_t sq_index, step_t* st) {
-    MIDISequence_t* sq = &sequences[sq_index];
-
+static uint8_t load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     uint8_t* counter = &sq->counter;
 
     if(is_disabled(sq->enabled_steps, (*counter))) {
@@ -273,7 +281,14 @@ static uint8_t load_step(uint8_t sq_index, step_t* st) {
 }
 
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
-    return check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+    uint8_t ret;    
+
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
+        ret = check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
+        xSemaphoreGive(st_mask_mutex);
+    }
+
+    return ret;
 }
 
 /*
@@ -283,30 +298,52 @@ static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
     @param note_off_mbuf    midi packet buffer for note off packets
 */
 void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-            MIDISequence_t* sq = &sequences[i];
-            if(sq->enabled) {
-                step_t st;
-                if(load_step(i, &st) == 0) {
-                    uint8_t muted = is_muted(sq->muted_steps, sq->counter);
+    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+        MIDISequence_t sq;
+        if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+            // copy by value
+            sq = sequences[i];
+            xSemaphoreGive(sq_mutex);
+        }
 
-                    load_step_notes(
-                        note_on_mbuf,
-                        note_off_mbuf,
-                        sq->channel,
-                        muted,
-                        &st);
-                }
-                    // if the end of sequence byte is hit then put the counter back to the start
+        /*
+            TODO look into potential problems that may arise from other tasks
+            modifying sequences[i] in between the first and second mutex takes
+        
+            potential causes
+                midi channel change
+                changing enabled steps
+                changing sequence enable
+                changing muted steps
+        */
+
+        if(sq.enabled) {
+            step_t st;
+            uint8_t err = load_step(&sq, i, &st);
+
+            if(err == 0) {
+                uint8_t muted = is_muted(sq.muted_steps, sq.counter);
+
+                load_step_notes(
+                    note_on_mbuf,
+                    note_off_mbuf,
+                    sq.channel,
+                    muted,
+                    &st);
+            }
+
+            if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+                sequences[i] = sq;
+                // if the end of sequence byte is hit then put the counter back to the start
                 if(st.end_of_step == 0xFF){
-                    sq->counter = 0;
+                    sequences[i].counter = 0;
                 } else {
-                    sq->counter++;
+                    sequences[i].counter++;
                 }
+                xSemaphoreGive(sq_mutex);
             }
         }
-        xSemaphoreGive(sq_mutex);
+
     }
 }
 
@@ -342,21 +379,21 @@ void disable_sequence(uint8_t sq_index) {
     if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         sequences[sq_index].enabled = 0;
 
-        MIDICC_t p = {
-            .status = CONTROLLER,
-            .channel = sequences[sq_index].channel,
-            .control = ALL_NOTES_OFF,
-            .value = 0,
-        };
-
-        send_midi_control(USART1, &p);
-
         #ifdef CONFIG_RESET_SEQ_ON_DISABLE
             sequences[sq_index].counter = 0;
         #endif
 
         xSemaphoreGive(sq_mutex);
     }
+
+    MIDICC_t p = {
+        .status = CONTROLLER,
+        .channel = sequences[sq_index].channel,
+        .control = ALL_NOTES_OFF,
+        .value = 0,
+    };
+
+    send_midi_control(USART1, &p);
 }
 
 void play_notes(mbuf_handle_t mbuf) {
@@ -367,12 +404,13 @@ void play_notes(mbuf_handle_t mbuf) {
     }
 }
 
+/*
+    why do these two functions not use mutexes? we use the sq_mutex to protect
+    the sequences array as the sequences are being played. these functions are
+    only called in the sq_midi state which always disables the sequence on entry
+*/
 void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sequences[sq_index].channel = channel;
-        xSemaphoreGive(sq_mutex);
-    }
-
+    sequences[sq_index].channel = channel;
 }
 
 MIDIChannel_t get_channel(uint8_t sq_index) {

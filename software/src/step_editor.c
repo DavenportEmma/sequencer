@@ -11,6 +11,8 @@ extern step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
 extern SemaphoreHandle_t sq_mutex;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
+extern SemaphoreHandle_t st_mask_mutex;
+
 /*
     edit the note of a step in the step edit buffer
 
@@ -64,29 +66,32 @@ MIDIStatus_t edit_step_note_midi(uint8_t step, uint8_t* buf) {
 }
 
 void mute_step(uint8_t sequence, uint8_t step) {
-    if (xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
         uint32_t* muted_steps = sequences[sequence].muted_steps;
-
         toggle_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-
-        xSemaphoreGive(sq_mutex);
+        xSemaphoreGive(st_mask_mutex);
     }
 }
 
 void toggle_step(uint8_t sequence, uint8_t step) {
-    if (xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
         uint32_t* en_steps = sequences[sequence].enabled_steps;
-
         toggle_bit(en_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-
-        xSemaphoreGive(sq_mutex);
+        xSemaphoreGive(st_mask_mutex);
     }
 }
 
 void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
-    step_t* s = &edit_buffer[step];
+    step_t s;
+    
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        s = edit_buffer[step];
+        xSemaphoreGive(edit_buffer_mutex);
+    }
+
+    // step_t* s = &edit_buffer[step];
     // TODO this won't do for polyphonic sequences
-    uint8_t v = s->note_on[0].velocity;
+    uint8_t v = s.note_on[0].velocity;
 
     if(velocity_dir <= 0) {
         if(v++ > 127) {
@@ -98,11 +103,16 @@ void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
         }
     }
 
-    s->note_on[0].velocity = v;
+    s.note_on[0].velocity = v;
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        edit_buffer[step] = s;
+        xSemaphoreGive(edit_buffer_mutex);
+    }
 }
 
 void clear_step(uint8_t step) {
-    step_t* s = &edit_buffer[step];
+    step_t s;
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
         /*
@@ -113,7 +123,13 @@ void clear_step(uint8_t step) {
 
             0x3F is half the standard range of midi velocity commands
         */
-        s->note_on[i].note = 0x01;
-        s->note_on[i].velocity = 0x3F;
+        s.note_on[i].note = 0x01;
+        s.note_on[i].velocity = 0x3F;
+    }
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        edit_buffer[step] = s;
+        
+        xSemaphoreGive(edit_buffer_mutex);
     }
 }

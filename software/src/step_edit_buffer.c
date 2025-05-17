@@ -171,19 +171,21 @@ int edit_buffer_load(uint8_t sq_index) {
 }
 
 void edit_buffer_clear() {
+    note_t note_template[CONFIG_MAX_POLYPHONY];
+    for (int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+        note_template[i].note = 0x01;
+        note_template[i].velocity = 0x3F;
+    }
+
+    step_t st;
+    st.end_of_step = 0x00;
+    memset(st.note_off, 0x01, sizeof(st.note_off));
+    memcpy(st.note_on, note_template, sizeof(note_template));
+
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        note_t note_template[CONFIG_MAX_POLYPHONY];
-        for (int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-            note_template[i].note = 0x01;
-            note_template[i].velocity = 0x3F;
-        }
 
         for (int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
-            edit_buffer[i].end_of_step = 0x00;
-
-            memset(edit_buffer[i].note_off, 0x01, sizeof(edit_buffer[i].note_off));
-
-            memcpy(edit_buffer[i].note_on, note_template, sizeof(note_template));
+            edit_buffer[i] = st;
         }
 
         edit_buffer[CONFIG_STEPS_PER_SEQUENCE-1].end_of_step = 0xFF;
