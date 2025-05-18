@@ -89,8 +89,6 @@ void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
         xSemaphoreGive(edit_buffer_mutex);
     }
 
-    // step_t* s = &edit_buffer[step];
-    // TODO this won't do for polyphonic sequences
     uint8_t v = s.note_on[0].velocity;
 
     if(velocity_dir <= 0) {
@@ -103,7 +101,9 @@ void edit_step_velocity(uint8_t step, int8_t velocity_dir) {
         }
     }
 
-    s.note_on[0].velocity = v;
+    for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+        s.note_on[i].velocity = v;
+    }
 
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
         edit_buffer[step] = s;
