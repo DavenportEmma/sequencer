@@ -235,11 +235,14 @@ static void st_note(uint16_t key, uint16_t hold) {
     int midi = kbuf_ready(uart_intr_kbuf);
 
     if(midi) {
+        #pragma GCC diagnostic ignored "-Wunused-variable"
         MIDIStatus_t status = edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
 
+        #ifdef CONFIG_AUTO_INC_STEP_ON_MIDI_IN
         if(status == NOTE_ON) {
             advance_active_st();
         }
+        #endif
 
         kbuf_reset(uart_intr_kbuf);
     } else {
