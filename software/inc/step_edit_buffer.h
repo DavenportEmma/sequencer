@@ -5,7 +5,6 @@
 
 void edit_buffer_reset();
 int edit_buffer_load(uint8_t sq_index);
-void edit_step_note(uint8_t step, MIDINote_t note);
 void edit_buffer_clear();
 
 #endif // _STEP_EDIT_BUFFER
