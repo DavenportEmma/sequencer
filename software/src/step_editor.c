@@ -125,6 +125,7 @@ void clear_step(uint8_t step) {
         */
         s.note_on[i].note = 0x01;
         s.note_on[i].velocity = 0x3F;
+        s.note_off[i] = 0x01;
     }
 
     if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
