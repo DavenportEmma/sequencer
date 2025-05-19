@@ -234,24 +234,35 @@ static void st_note(uint16_t key, uint16_t hold) {
     */
     int midi = kbuf_ready(uart_intr_kbuf);
 
-    if(midi) {
-        #pragma GCC diagnostic ignored "-Wunused-variable"
-        MIDIStatus_t status = edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
+    MIDIStatus_t status = NOTE_ON;
+    MIDINote_t note;
+    uint8_t velocity = 0x3F;
+    uint8_t auto_fill_next_note_off = 0;
 
-        #ifdef CONFIG_AUTO_INC_STEP_ON_MIDI_IN
-        if(status == NOTE_ON) {
-            advance_active_st();
-        }
-        #endif
+    if(midi) {
+        uint8_t* buf = uart_intr_kbuf->buffer;
+
+        status = buf[0] & 0xF0;
+        note = buf[1];
+        velocity = buf[2];
 
         kbuf_reset(uart_intr_kbuf);
-    } else {
-        MIDINote_t note = key_to_note(key);
 
-        if (note > 0) {
-            edit_step_note(ACTIVE_ST, note);
-        }
+    } else {
+        note = key_to_note(key);
+        auto_fill_next_note_off = 1;
     }
+    
+    // key to note returns 0 for a keystroke outside of 13 key keyboard
+    if(note > 0) {
+        edit_step_note(ACTIVE_ST, status, note, velocity, auto_fill_next_note_off);
+    }
+
+    #ifdef CONFIG_AUTO_INC_STEP_ON_MIDI_IN
+    if(status == NOTE_ON) {
+        advance_active_st();
+    }
+    #endif
 
     menu(E_AUTO, E_NO_HOLD);
 }
