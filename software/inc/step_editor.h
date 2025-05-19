@@ -3,7 +3,13 @@
 
 #include "midi.h"
 
-void edit_step_note(uint8_t step, MIDINote_t note);
+void edit_step_note(
+    uint8_t step,
+    MIDIStatus_t status,
+    MIDINote_t note,
+    uint8_t velocity,
+    uint8_t auto_fill_next_note_off
+);
 MIDIStatus_t edit_step_note_midi(uint8_t step, uint8_t* buf);
 void mute_step(uint8_t sequence, uint8_t step);
 void toggle_step(uint8_t sequence, uint8_t step);
