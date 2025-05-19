@@ -4,6 +4,7 @@
 #include "sequence.h"
 #include "uart.h"
 #include "util.h"
+#include "midi.h"
 
 extern SemaphoreHandle_t edit_buffer_mutex;
 extern step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
@@ -14,54 +15,108 @@ extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 extern SemaphoreHandle_t st_mask_mutex;
 
 /*
-    edit the note of a step in the step edit buffer
-
-    @param step     the index (0-63) of the step to be edited
-    @param note     the new note value for the step
+    i'm using the msb of the note to determine the lru note of the fifo
+    set the msb to 1 for the current note, and 0 for the next note so the
+    sequencer knows which note to overwrite next
 */
-void edit_step_note(uint8_t step, MIDINote_t note) {
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        step_t* st = &edit_buffer[step];
-        // TODO this won't do for polyphonic sequences
-        st->note_on[0].note = note;
+static void fifo_push_note_on(step_t* s, int size, uint8_t note, uint8_t vel) {
+    note_t* note_on = s->note_on;
 
-        if(st->end_of_step == 0xFF) {
-            step = 0;
-        } else {
-            step++;
+    for(int i = 0; i < size; i++) {
+        uint8_t n = note_on[i].note;
+
+        if((n & 0x80) == 0) {
+            uint8_t next = i+1;
+            if(i == size) {
+                next = 0;
+            }
+
+            if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+                note_on[i].note = note | 0x80;
+                note_on[i].velocity = vel;
+
+                note_on[next].note = note_on[next].note & 0x7F; 
+
+                xSemaphoreGive(edit_buffer_mutex);
+            }
         }
-
-        st = &edit_buffer[step];
-        // TODO this won't do for polyphonic sequences
-        st->note_off[0] = note;
-
-        xSemaphoreGive(edit_buffer_mutex);
     }
 }
 
-MIDIStatus_t edit_step_note_midi(uint8_t step, uint8_t* buf) {
-    MIDIStatus_t status = buf[0] & 0xF0;
-    MIDINote_t note = buf[1];
-    uint8_t velocity = buf[2];
+static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
+    uint8_t* note_off = s->note_off;
 
-    note_t n = {
-        .note = note,
-        .velocity = velocity
-    };
+    for(int i = 0; i < size; i++) {
+        if((note_off[i] & 0x80) == 0) {
+            uint8_t next = i+1;
+            if(i == size) {
+                next = 0;
+            }
+
+            if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+                note_off[i] = note | 0x80;
+
+                note_off[next] = note_off[next] & 0x7F; 
+
+                xSemaphoreGive(edit_buffer_mutex);
+            }
+        }
+    }
+}
+
+/*
+    edit the note of a step in the step edit buffer
+
+    @param active_sq the index of the actively edited sequence
+    @param step     the index (0-63) of the step to be edited
+    @param status   NOTE_ON or NOTE_OFF
+    @param note     the new note value for the step
+    @param velocity the new velocity for the note
+    @param auto_fill_next_note_off
+*/
+void edit_step_note(
+    uint8_t step,
+    MIDIStatus_t status,
+    MIDINote_t note,
+    uint8_t velocity,
+    uint8_t auto_fill_next_note_off
+) {
+    step_t s, next_s;
+    uint8_t next_s_index = step+1 >= CONFIG_STEPS_PER_SEQUENCE ? 0 : step+1;
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        s = edit_buffer[step];
+        next_s = edit_buffer[next_s_index];
+        xSemaphoreGive(edit_buffer_mutex);
+    }
 
     switch(status) {
-        case NOTE_OFF:
-            // TODO this won't do for polyphonic sequences
-            edit_buffer[step].note_off[0] = note;
-            return NOTE_OFF;
-
         case NOTE_ON:
-            // TODO this won't do for polyphonic sequences
-            edit_buffer[step].note_on[0] = n;
-            return NOTE_ON;
+            fifo_push_note_on(&s, CONFIG_MAX_POLYPHONY, (uint8_t)note, velocity);
+
+            if(auto_fill_next_note_off) {
+                fifo_push_note_off(&next_s, CONFIG_MAX_POLYPHONY, (uint8_t)note);
+            }
+
+            break;
+
+        case NOTE_OFF:
+            fifo_push_note_off(&s, CONFIG_MAX_POLYPHONY, (uint8_t)note);
+
+            break;
 
         default:
-            return 0;
+            break;
+    }
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        edit_buffer[step] = s;
+
+        if(auto_fill_next_note_off) {
+            edit_buffer[next_s_index] = next_s;
+        }
+
+        xSemaphoreGive(edit_buffer_mutex);
     }
 }
 
