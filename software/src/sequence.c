@@ -162,11 +162,7 @@ static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t*
     @param st       Pointer to a step struct to be filled with the data from
                     the data buffer
 */
-void bytes_to_step(uint8_t* data, step_t* st) {
-    int i = 0;
-
-    while(data[i] != NOTE_OFF) { i++; }
-    i++;    // iterate past NOTE_OFF byte
+uint8_t bytes_to_step(uint8_t* data, step_t* st) {
 
     int note_index = 0;
     while(data[i] != NOTE_ON) {
