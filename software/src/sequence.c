@@ -163,26 +163,44 @@ static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t*
                     the data buffer
 */
 uint8_t bytes_to_step(uint8_t* data, step_t* st) {
-
-    int note_index = 0;
-    while(data[i] != NOTE_ON) {
-        st->note_off[note_index] = data[i];
-
-        note_index++;
-        i++;
+    int data_index = 0;
+    
+    if(data[data_index] != NOTE_OFF) {
+        return 1;
     }
 
-    i++;    // iterate past NOTE_ON byte
-    note_index = 0;
-    while(data[i] != SEQ_END && data[i] != STEP_END) {
-        st->note_on[note_index].note = data[i];
-        st->note_on[note_index].velocity = data[i+1];
-
-        note_index+=2;
-        i+=2;
+    data_index++;
+    
+    for(int j = 0; j < CONFIG_MAX_POLYPHONY; j++) {
+        MIDINote_t n = (MIDINote_t)data[data_index];
+        st->note_off[j] = n;
+        data_index++;
     }
 
-    st->end_of_step = data[i];
+    if(data[data_index] != NOTE_ON) {
+        return 1;
+    }
+
+    data_index++;
+
+    for(int j = 0; j < CONFIG_MAX_POLYPHONY; j++) {
+        note_t n;
+
+        n.note = data[data_index];
+        n.velocity = data[data_index+1];
+
+        st->note_on[j] = n;
+
+        data_index+=2;
+    }
+
+    if(data[data_index] != SEQ_END && data[data_index] != STEP_END) {
+        return 1;
+    }
+
+    st->end_of_step = data[data_index];
+
+    return 0;
 }
 
 /*
