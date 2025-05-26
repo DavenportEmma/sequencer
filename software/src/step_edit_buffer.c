@@ -152,7 +152,9 @@ int edit_buffer_load(uint8_t sq_index) {
         }
         
         step_t st;
-        bytes_to_step(st_data, &st);
+        if(bytes_to_step(st_data, &st)) {
+            return 1;
+        }
         
         steps[i] = st;
 
