@@ -112,6 +112,7 @@ static void retreat_active_st() {
 }
 
 static void main_menu(uint16_t key, uint16_t hold) {
+    clear_display();
     display_line("select sequence", 0);
 
     if(SQ_EDIT_READY) {
@@ -183,6 +184,11 @@ static void sq_midi(uint16_t key, uint16_t hold) {
         default:
             break;
     }
+
+    char s[] = "00";
+    num_to_str((uint8_t)(channel+1), s, 2);
+
+    display_line(s, 1);
 }
 
 static void st_landing(uint16_t key, uint16_t hold) {
