@@ -16,6 +16,7 @@ target_sources(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/rotary_encoder.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/flash.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/util.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/display.c
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
