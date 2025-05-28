@@ -9,6 +9,15 @@ static uint16_t utf_to_index(char c) {
     return c * 5;
 }
 
+void num_to_str(uint8_t n, char* s, uint8_t len) {
+    while(len > 0) {
+        uint8_t i = (n % 10);
+        s[len-1] = i + 48;
+        n /= 10;
+        len--;
+    }
+}
+
 void display_line(char* s, uint8_t line) {
     uint16_t line_index = line * WIDTH;
     uint16_t eol = line_index + WIDTH-1;
