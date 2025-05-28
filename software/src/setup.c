@@ -6,6 +6,12 @@
 #include "keyboard.h"
 #include "menu.h"
 #include "sequence.h"
+#include "i2c.h"
+#include "ssd1306.h"
+#include "FreeRTOS.h"
+#include <string.h>
+
+uint8_t* display_buffer;
 
 void setup(MIDISequence_t* sequences) {
     /*
@@ -71,6 +77,12 @@ void setup(MIDISequence_t* sequences) {
         sequences[i].channel = read_channel(i);
     }
 
+    init_i2c();
+    init_ssd1306();
+
+    display_buffer = pvPortMalloc(1024);
+    memset(display_buffer, 0, 1024);
+
     // shift register
     // initialise gpio
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
@@ -115,6 +127,6 @@ void setup(MIDISequence_t* sequences) {
     EXTI->RTSR |= (EXTI_RTSR_TR11 | EXTI_RTSR_TR12);    // enable rising edge int
 
     NVIC_EnableIRQ(EXTI15_10_IRQn);
-
+    
     send_uart(USART3, "Finished initialisation\n\r", 25);
 }

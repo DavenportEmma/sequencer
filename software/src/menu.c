@@ -6,6 +6,7 @@
 #include "midi.h"
 #include "k_buf.h"
 #include "util.h"
+#include "display.h"
 
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
@@ -111,6 +112,8 @@ static void retreat_active_st() {
 }
 
 static void main_menu(uint16_t key, uint16_t hold) {
+    display_line("select sequence", 0);
+
     if(SQ_EDIT_READY) {
         edit_buffer_reset();
         SQ_EDIT_READY=0;
@@ -135,7 +138,9 @@ static void sq_select(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
-static void sq_menu(uint16_t key, uint16_t hold) { }
+static void sq_menu(uint16_t key, uint16_t hold) {
+    display_line("edit sequence", 0);
+}
 
 static void sq_en(uint16_t key, uint16_t hold) {
     if(one_bit_set(MSEL_MASK)) {
@@ -148,6 +153,8 @@ static void sq_en(uint16_t key, uint16_t hold) {
 }
 
 static void sq_midi(uint16_t key, uint16_t hold) {
+    display_line("midi", 0);
+
     static MIDIChannel_t channel;
     switch(key) {
         case E_SQ_MIDI:
@@ -179,9 +186,11 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 }
 
 static void st_landing(uint16_t key, uint16_t hold) {
+    display_line("select step", 0);
+
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
-            send_uart(USART3, "error loading sequence\n\r", 24);
+            display_line("error", 1);
         } else {
             SQ_EDIT_READY = 1;
         }
@@ -195,6 +204,8 @@ static void st_select(uint16_t key, uint16_t hold) {
 }
 
 static void st_menu(uint16_t key, uint16_t hold) {
+    display_line("edit step", 0);
+
     kbuf_reset(uart_intr_kbuf);
     uart_enable_rx_intr(USART1);
 }
@@ -279,7 +290,7 @@ static void st_clear(uint16_t key, uint16_t hold) {
 static void sq_clear(uint16_t key, uint16_t hold) {
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
-            send_uart(USART3, "error loading sequence\n\r", 24);
+            display_line("error", 1);
         } else {
             SQ_EDIT_READY = 1;
         }
