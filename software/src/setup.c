@@ -10,6 +10,7 @@
 #include "ssd1306.h"
 #include "FreeRTOS.h"
 #include <string.h>
+#include "display.h"
 
 uint8_t* display_buffer;
 
@@ -82,6 +83,7 @@ void setup(MIDISequence_t* sequences) {
 
     display_buffer = pvPortMalloc(1024);
     memset(display_buffer, 0, 1024);
+    clear_display();
 
     // shift register
     // initialise gpio
