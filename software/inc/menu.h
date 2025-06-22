@@ -48,7 +48,7 @@ typedef enum {
 } MenuState_t;
 
 typedef enum {
-    E_MAIN_MENU = 0x01,
+    E_MAIN_MENU = 0x00,
     E_SQ_MIDI = 0x03,
     E_SHIFT = 0x05,
     E_CTRL = 0x06,
