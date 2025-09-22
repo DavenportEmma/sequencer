@@ -8,6 +8,8 @@
 #include "util.h"
 #include "display.h"
 
+#define CONFIG_DEBUG_PRINT
+
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
@@ -115,6 +117,10 @@ static void main_menu(uint16_t key, uint16_t hold) {
     clear_display();
     display_line("select sequence", 0);
 
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "select sequence\n\r", 17);
+    #endif
+
     if(SQ_EDIT_READY) {
         edit_buffer_reset();
         SQ_EDIT_READY=0;
@@ -141,9 +147,19 @@ static void sq_select(uint16_t key, uint16_t hold) {
 
 static void sq_menu(uint16_t key, uint16_t hold) {
     display_line("edit sequence", 0);
+    
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "edit sequence ", 14);
+        send_hex(USART3, ACTIVE_SQ);
+        send_uart(USART3, "\n\r", 2);
+    #endif
 }
 
 static void sq_en(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "enable sequence\n\r", 17);
+    #endif
+
     if(one_bit_set(MSEL_MASK)) {
         toggle_sequence(ACTIVE_SQ);
     } else {
@@ -185,6 +201,12 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             break;
     }
 
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "midi ", 5);
+        send_hex(USART3, channel);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     char s[] = "00";
     num_to_str((uint8_t)(channel+1), s, 2);
 
@@ -193,6 +215,10 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 
 static void st_landing(uint16_t key, uint16_t hold) {
     display_line("select step", 0);
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "select step\n\r", 13);
+    #endif
 
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
@@ -206,11 +232,23 @@ static void st_landing(uint16_t key, uint16_t hold) {
 static void st_select(uint16_t key, uint16_t hold) {
     ACTIVE_ST = key_to_sq_st(key);
 
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "step ", 5);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_menu(uint16_t key, uint16_t hold) {
     display_line("edit step", 0);
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "edit step ", 10);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
 
     kbuf_reset(uart_intr_kbuf);
     uart_enable_rx_intr(USART1);
@@ -256,6 +294,11 @@ static void st_note(uint16_t key, uint16_t hold) {
     // key to note returns 0 for a keystroke outside of 13 key keyboard
     if(note > 0) {
         edit_step_note(ACTIVE_ST, status, note, velocity, auto_fill_next_note_off);
+        
+        #ifdef CONFIG_DEBUG_PRINT
+            send_hex(USART3, note);
+            send_uart(USART3, "\n\r", 2);
+        #endif
     }
 
     #ifdef CONFIG_AUTO_INC_STEP_ON_MIDI_IN
@@ -268,11 +311,23 @@ static void st_note(uint16_t key, uint16_t hold) {
 }
 
 static void st_mute(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "mute ", 5);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     mute_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_en(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "enable ", 7);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     toggle_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -290,24 +345,40 @@ static void st_next(uint16_t key, uint16_t hold) {
 }
 
 static void st_vel_down(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "decrease velocity\n\r", 19);
+    #endif
+
     edit_step_velocity(ACTIVE_ST, -1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_vel_up(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "increase velocity\n\r", 19);
+    #endif
+    
     edit_step_velocity(ACTIVE_ST, 1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_clear(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "clear step\n\r", 12);
+    #endif
+    
     clear_step(ACTIVE_ST);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void sq_clear(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "clear sequence\n\r", 16);
+    #endif
+
     if(!SQ_EDIT_READY) {
         if(edit_buffer_load(ACTIVE_SQ)) {
             display_line("error", 1);
