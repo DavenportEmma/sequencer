@@ -132,7 +132,7 @@ int edit_buffer_load(uint8_t sq_index) {
     }
     
     if(sq->step_sector_offset == 0) {
-        sq->step_sector_offset = get_step_data_offset(sq, sq_index);
+        sq->step_sector_offset = get_step_data_offset(sq_index);
     }
     
     uint32_t steps_base_addr = sq_base_addr + sq->step_sector_offset;
