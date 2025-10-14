@@ -1,4 +1,4 @@
-sequencer flash memory
+# sequencer flash memory
 
 
 Here is a diagram of how the memory in the W25Q128JV flash chip is organised.
@@ -7,8 +7,15 @@ Here is a diagram of how the memory in the W25Q128JV flash chip is organised.
 
 Pages cannot be written to without a prior erase. This is a NOR flash chip which means that bits can only be set to 0, an erase is the only operation that can set a bit to 1. Erase operations can only be done per sector so updating an individual page cannot be done without erasing the entire sector (16 pages).
 
-sequences in memory
+## sequences in memory
 Each sequence has its own block (64kB). The first sector in the block stores sequence metadata (channel, tempo, etc).
+
+Here is the structure of the first page in the first sector
+
+```
+0           1 - 255
+CHANNEL     UNASSIGNED
+```
 
 Reading from memory will happen a lot more than writing so it's ok to optimise for read speed. There is also way more memory than needed so we don't need to optimise for limited storage.
 
