@@ -16,7 +16,7 @@ typedef struct {
 } step_t;
 
 MIDIChannel_t read_channel(uint8_t sq_index);
-uint32_t get_step_data_offset(MIDISequence_t* sq, uint8_t sq_index);
+uint32_t get_step_data_offset(uint8_t sq_index);
 void toggle_sequence(uint8_t seq);
 void toggle_sequences(uint32_t* select_mask, uint8_t max);
 void disable_sequence(uint8_t sq_index);
