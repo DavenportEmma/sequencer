@@ -74,8 +74,9 @@ void setup(MIDISequence_t* sequences) {
         send_uart(USART3, "Error initialising SPI flash chip\n\r", 34);
     }
 
-    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        sequences[i].channel = read_channel(i);
+    err = init_sequences();
+    if(err) {
+        send_uart(USART3, "Error initialising sequences\n\r", 30);
     }
 
     init_i2c();
