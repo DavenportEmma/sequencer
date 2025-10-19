@@ -18,7 +18,7 @@ void flash_programPage(uint32_t addr, uint8_t* tx, uint8_t* rx, uint16_t len) {
     }
 }
 
-void flash_SPIRead(uint32_t addr, uint8_t* tx, uint8_t* rx, uint16_t len) {
+void flash_SPIRead(uint32_t addr, uint8_t* tx, uint8_t* rx, uint32_t len) {
     if(xSemaphoreTake(flash_mutex, portMAX_DELAY) == pdTRUE) {
         SPIRead(addr, tx, rx, len);
         xSemaphoreGive(flash_mutex);
