@@ -384,13 +384,12 @@ static void sq_clear(uint16_t key, uint16_t hold) {
             display_line("error", 1);
         } else {
             SQ_EDIT_READY = 1;
-        }
-    }
+static void save(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "saving\n\r", 8);
+    #endif
 
-    edit_buffer_clear();
-
-    edit_buffer_reset();
-    SQ_EDIT_READY=0;
+    save_data();
 
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -418,6 +417,7 @@ StateMachine_t state_machine[] = {
     { S_ST_VEL_UP, st_vel_up },
     { S_ST_CLR, st_clear },
     { S_SQ_CLR, sq_clear },
+    { S_SAVE, save },
 };
 
 void menu(uint16_t key, uint16_t hold) {
