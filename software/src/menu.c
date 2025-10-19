@@ -1,12 +1,14 @@
 #include "uart.h"
 #include "menu.h"
 #include "sequence.h"
-#include "step_edit_buffer.h"
+// #include "step_edit_buffer.h"
 #include "step_editor.h"
 #include "midi.h"
 #include "k_buf.h"
 #include "util.h"
 #include "display.h"
+
+#define CONFIG_DEBUG_PRINT
 
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
@@ -90,7 +92,6 @@ static MIDINote_t key_to_note(uint16_t key) {
 
 volatile uint8_t ACTIVE_SQ; 
 volatile uint8_t ACTIVE_ST; 
-volatile uint8_t SQ_EDIT_READY = 0;
 
 uint32_t MSEL_MASK[2];  // 64 bit field to identify multi selected sq/st
 
@@ -115,10 +116,9 @@ static void main_menu(uint16_t key, uint16_t hold) {
     clear_display();
     display_line("select sequence", 0);
 
-    if(SQ_EDIT_READY) {
-        edit_buffer_reset();
-        SQ_EDIT_READY=0;
-    }
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "select sequence\n\r", 17);
+    #endif
 }
 
 static void sq_select(uint16_t key, uint16_t hold) {
@@ -141,9 +141,19 @@ static void sq_select(uint16_t key, uint16_t hold) {
 
 static void sq_menu(uint16_t key, uint16_t hold) {
     display_line("edit sequence", 0);
+    
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "edit sequence ", 14);
+        send_hex(USART3, ACTIVE_SQ);
+        send_uart(USART3, "\n\r", 2);
+    #endif
 }
 
 static void sq_en(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "enable sequence\n\r", 17);
+    #endif
+
     if(one_bit_set(MSEL_MASK)) {
         toggle_sequence(ACTIVE_SQ);
     } else {
@@ -185,6 +195,12 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             break;
     }
 
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "midi ", 5);
+        send_hex(USART3, channel);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     char s[] = "00";
     num_to_str((uint8_t)(channel+1), s, 2);
 
@@ -194,23 +210,31 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 static void st_landing(uint16_t key, uint16_t hold) {
     display_line("select step", 0);
 
-    if(!SQ_EDIT_READY) {
-        if(edit_buffer_load(ACTIVE_SQ)) {
-            display_line("error", 1);
-        } else {
-            SQ_EDIT_READY = 1;
-        }
-    }
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "select step\n\r", 13);
+    #endif
 }
 
 static void st_select(uint16_t key, uint16_t hold) {
     ACTIVE_ST = key_to_sq_st(key);
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "step ", 5);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_menu(uint16_t key, uint16_t hold) {
     display_line("edit step", 0);
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "edit step ", 10);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
 
     kbuf_reset(uart_intr_kbuf);
     uart_enable_rx_intr(USART1);
@@ -234,31 +258,62 @@ static void st_note(uint16_t key, uint16_t hold) {
     */
     int midi = kbuf_ready(uart_intr_kbuf);
 
-    if(midi) {
-        MIDIStatus_t status = edit_step_note_midi(ACTIVE_ST, uart_intr_kbuf->buffer);
+    MIDIStatus_t status = NOTE_ON;
+    MIDINote_t note;
+    uint8_t velocity = 0x3F;
+    uint8_t auto_fill_next_note_off = 0;
 
-        if(status == NOTE_ON) {
-            advance_active_st();
-        }
+    if(midi) {
+        uint8_t* buf = uart_intr_kbuf->buffer;
+
+        status = buf[0] & 0xF0;
+        note = buf[1];
+        velocity = buf[2];
 
         kbuf_reset(uart_intr_kbuf);
-    } else {
-        MIDINote_t note = key_to_note(key);
 
-        if (note > 0) {
-            edit_step_note(ACTIVE_ST, note);
-        }
+    } else {
+        note = key_to_note(key);
+        auto_fill_next_note_off = 1;
     }
+    
+    // key to note returns 0 for a keystroke outside of 13 key keyboard
+    if(note > 0) {
+        edit_step_note(ACTIVE_SQ, ACTIVE_ST, status, note, velocity, auto_fill_next_note_off);
+        
+        #ifdef CONFIG_DEBUG_PRINT
+            send_hex(USART3, note);
+            send_uart(USART3, "\n\r", 2);
+        #endif
+    }
+
+    #ifdef CONFIG_AUTO_INC_STEP_ON_MIDI_IN
+    if(status == NOTE_ON) {
+        advance_active_st();
+    }
+    #endif
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_mute(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "mute ", 5);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     mute_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_en(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "enable ", 7);
+        send_hex(USART3, ACTIVE_ST);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
     toggle_step(ACTIVE_SQ, ACTIVE_ST);
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -276,36 +331,51 @@ static void st_next(uint16_t key, uint16_t hold) {
 }
 
 static void st_vel_down(uint16_t key, uint16_t hold) {
-    edit_step_velocity(ACTIVE_ST, -1);
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "decrease velocity\n\r", 19);
+    #endif
+
+    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, -1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_vel_up(uint16_t key, uint16_t hold) {
-    edit_step_velocity(ACTIVE_ST, 1);
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "increase velocity\n\r", 19);
+    #endif
+    
+    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, 1);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void st_clear(uint16_t key, uint16_t hold) {
-    clear_step(ACTIVE_ST);
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "clear step\n\r", 12);
+    #endif
+    
+    clear_step(ACTIVE_SQ, ACTIVE_ST);
 
     menu(E_AUTO, E_NO_HOLD);
 }
 
 static void sq_clear(uint16_t key, uint16_t hold) {
-    if(!SQ_EDIT_READY) {
-        if(edit_buffer_load(ACTIVE_SQ)) {
-            display_line("error", 1);
-        } else {
-            SQ_EDIT_READY = 1;
-        }
-    }
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "clear sequence\n\r", 16);
+    #endif
 
-    edit_buffer_clear();
+    clear_sequence(ACTIVE_SQ);
 
-    edit_buffer_reset();
-    SQ_EDIT_READY=0;
+    menu(E_AUTO, E_NO_HOLD);
+}
+
+static void save(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "saving\n\r", 8);
+    #endif
+
+    save_data();
 
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -333,6 +403,7 @@ StateMachine_t state_machine[] = {
     { S_ST_VEL_UP, st_vel_up },
     { S_ST_CLR, st_clear },
     { S_SQ_CLR, sq_clear },
+    { S_SAVE, save },
 };
 
 void menu(uint16_t key, uint16_t hold) {

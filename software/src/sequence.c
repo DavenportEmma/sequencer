@@ -7,18 +7,17 @@
 #include "common.h"
 #include "m_buf.h"
 #include "util.h"
+#include <string.h>
 
 extern SemaphoreHandle_t sq_mutex;
-extern SemaphoreHandle_t edit_buffer_mutex;
 extern SemaphoreHandle_t st_mask_mutex;
 
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
-extern step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
+extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 
 extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
-extern uint8_t SQ_EDIT_READY;
 
 /*
     read the midi channel of the sequence from flash memory. The sequence
@@ -29,34 +28,21 @@ extern uint8_t SQ_EDIT_READY;
 
     @return The midi channel of the sequence
 */
-MIDIChannel_t read_channel(uint8_t sq_index) {
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-    uint8_t tx[1] = {0};
-    uint8_t rx[1] = {0};
-    flash_SPIRead(sq_base_addr, tx, rx, 1);
+uint8_t init_sequences() {
+    uint32_t addr = 0x000000;
+    // TODO handle this metadata shite
+    uint8_t metadata[256];
+    flash_SPIRead(addr, metadata, metadata, 256);
 
-    return (MIDIChannel_t)rx[0];
-}
-
-uint32_t get_step_data_offset(MIDISequence_t* sq, uint8_t sq_index) {
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-
-    uint32_t offset = 0;
-    // 15 possible sectors for the step data
-    for(int i = 0; i < 15; i++) {
-        offset += 0x1000;
-
-        uint32_t addr = sq_base_addr + offset;
-        uint8_t d = 0xFF;
-
-        flash_SPIRead(addr, &d, &d, 1);
-        
-        if(d != 0xFF) {
-            return offset;
-        }
+    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+        sequences[i].channel = metadata[i*4];
     }
-    // TODO handle this error properly
-    return 0xFFFF;
+
+    addr+=256;
+
+    flash_SPIRead(addr, (uint8_t*)steps, (uint8_t*)steps, sizeof(steps));
+
+    return 0;
 }
 
 /*
@@ -78,7 +64,7 @@ static void load_step_notes(
     step_t* st
 ) {
     for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        MIDINote_t n = st->note_off[i];
+        MIDINote_t n = st->note_off[i] & 0x7F;
 
         if(n <= C8 && n >= A0) {
             MIDIPacket_t p = {
@@ -94,7 +80,7 @@ static void load_step_notes(
 
     if(!muted) {
         for(int i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-            MIDINote_t n = st->note_on[i].note;
+            MIDINote_t n = st->note_on[i].note & 0x7F;
     
             if(n <= C8 && n >= A0) {
                 MIDIPacket_t p = {
@@ -108,112 +94,6 @@ static void load_step_notes(
             }
         }
     }
-}
-
-/*
-    read step from the sequence currently loaded into the edit buffer
-    
-    @param sq   A pointer to the struct of the current sequence in sequences
-    @param st   A pointer to the step struct to be assigned to the current step
-                in the sequence
-*/
-static void read_step_from_edit_buffer(MIDISequence_t* sq, step_t* st) {
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        *st = edit_buffer[sq->counter];
-        
-        xSemaphoreGive(edit_buffer_mutex);
-    }
-}
-
-/*
-    read step from flash memory
-
-    @param sq       A pointer to the struct of the current sequence in sequences
-    @param sq_index The index of the currently processed sequence in sequences
-    @param data     The buffer to be filled with step data from flash
-*/
-static void read_step_from_memory(MIDISequence_t* sq, uint8_t sq_index, uint8_t* data) {
-    // get the address for the step pointer in flash memory
-    // read MEMORY.md for more info
-    uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
-
-     /*
-        on startup the step_sector_addr will be zero. we don't immediately know
-        which sectors the step data is stored. we need to read the first byte
-        of all the sectors allocated to step data for this sequence to figure
-        out which one contains the step data, then assign step_sector_addr to
-        the address offset of this sector from the base sequence address
-    */
-    if(sq->step_sector_offset == 0) {
-        sq->step_sector_offset = get_step_data_offset(sq, sq_index);
-    }
-
-    uint32_t steps_base_addr = sq_base_addr + sq->step_sector_offset;
-
-    uint32_t current_step_addr = steps_base_addr + (sq->counter * BYTES_PER_STEP);
-
-    flash_SPIRead(current_step_addr, data, data, BYTES_PER_STEP);
-}
-
-/*
-    convert a buffer of bytes to a step struct
-
-    @param data     Bytes buffer to be converted to a step
-    @param st       Pointer to a step struct to be filled with the data from
-                    the data buffer
-*/
-void bytes_to_step(uint8_t* data, step_t* st) {
-    int i = 0;
-
-    while(data[i] != NOTE_OFF) { i++; }
-    i++;    // iterate past NOTE_OFF byte
-
-    int note_index = 0;
-    while(data[i] != NOTE_ON) {
-        st->note_off[note_index] = data[i];
-
-        note_index++;
-        i++;
-    }
-
-    i++;    // iterate past NOTE_ON byte
-    note_index = 0;
-    while(data[i] != SEQ_END && data[i] != STEP_END) {
-        st->note_on[note_index].note = data[i];
-        st->note_on[note_index].velocity = data[i+1];
-
-        note_index+=2;
-        i+=2;
-    }
-
-    st->end_of_step = data[i];
-}
-
-/*
-    read a step from the edit buffer or from memory depending on if the current
-    sequence is being edited or not
-    
-    @param sq       A pointer to the currently processed sequence in sequences
-    @param sq_index The index of the currently processed sequence in sequences
-    @param st       A pointer to the step struct to be filled with data
-
-    @return 1 if the data being read is malformed
-*/
-static int read_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
-    if(ACTIVE_SQ == sq_index && SQ_EDIT_READY == 1) {
-        read_step_from_edit_buffer(sq, st);
-    } else {
-        uint8_t data[BYTES_PER_STEP];
-        read_step_from_memory(sq, sq_index, data);
-
-        if(data[0] != NOTE_OFF) {
-            return 1;
-        }
-        
-        bytes_to_step(data, st);
-    }
-
-    return 0;
 }
 
 static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
@@ -244,8 +124,6 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
         if((*counter) == prev_counter) {
             break;
         }
-
-
     }
 }
 
@@ -256,7 +134,7 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
     @param sq_index     Index of the active sequence in sequences[]
     @param st           Step struct to be filled with step data
 */
-static uint8_t load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
+static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
     uint8_t* counter = &sq->counter;
 
     if(is_disabled(sq->enabled_steps, (*counter))) {
@@ -272,12 +150,10 @@ static uint8_t load_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
         goto_next_enabled_step(counter, sq->enabled_steps);
     }
 
-    if(read_step(sq, sq_index, st)) {
-        send_uart(USART3, "Error data alignment\n\r", 22);
-        return 1;
-    }
+    uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
+    uint16_t index = seq_base_index + (uint16_t)sq->counter;
 
-    return 0;
+    return steps[index];
 }
 
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
@@ -318,28 +194,20 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
         */
 
         if(sq.enabled) {
-            step_t st;
-            uint8_t err = load_step(&sq, i, &st);
+            step_t st = get_step(&sq, i);
 
-            if(err == 0) {
-                uint8_t muted = is_muted(sq.muted_steps, sq.counter);
+            uint8_t muted = is_muted(sq.muted_steps, sq.counter);
 
-                load_step_notes(
-                    note_on_mbuf,
-                    note_off_mbuf,
-                    sq.channel,
-                    muted,
-                    &st);
-            }
+            load_step_notes(
+                note_on_mbuf,
+                note_off_mbuf,
+                sq.channel,
+                muted,
+                &st);
 
             if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+                goto_next_enabled_step(&sq.counter, sq.enabled_steps);
                 sequences[i] = sq;
-                // if the end of sequence byte is hit then put the counter back to the start
-                if(st.end_of_step == 0xFF){
-                    sequences[i].counter = 0;
-                } else {
-                    sequences[i].counter++;
-                }
                 xSemaphoreGive(sq_mutex);
             }
         }
@@ -394,6 +262,57 @@ void disable_sequence(uint8_t sq_index) {
     };
 
     send_midi_control(USART1, &p);
+}
+
+void clear_sequence(uint8_t sq_index) {
+    disable_sequence(sq_index);
+
+    uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
+    uint16_t end_of_sequence = seq_base_index + CONFIG_STEPS_PER_SEQUENCE;
+
+    note_t note_on[CONFIG_MAX_POLYPHONY] = {0};
+    MIDINote_t note_off[CONFIG_MAX_POLYPHONY] = {0};
+
+    for(uint32_t i = seq_base_index; i < end_of_sequence; i++) {
+        memcpy(steps[i].note_on, note_on, sizeof(note_on));
+        memcpy(steps[i].note_off, note_off, sizeof(note_off));
+    }
+}
+
+static void save_array(uint32_t base_addr, uint8_t* ptr, uint32_t size) {
+    uint16_t page_size = 0x100;
+    uint8_t rx[256];
+
+    for(uint32_t offset = 0; offset < size; offset+=page_size) {
+        uint16_t bytes_to_write = page_size;
+
+        if(offset + page_size > size) {
+            bytes_to_write = size - offset;
+        }
+
+        flash_programPage(base_addr, ptr + offset, rx, bytes_to_write);
+
+        base_addr += bytes_to_write;
+    }
+}
+
+void save_data() {
+    flash_eraseSector(0x000000);
+    flash_eraseSector(0x010000);
+
+    uint32_t addr = 0;
+    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+        uint8_t tx[4] = {(uint8_t)sequences[i].channel, 0, 0, 0};
+
+        flash_programPage(addr, tx, tx, 4);
+
+        addr+=4;
+        if(addr >= 256) {
+            break;
+        }
+    }
+
+    save_array(0x100, (uint8_t*)steps, sizeof(steps));
 }
 
 void play_notes(mbuf_handle_t mbuf) {

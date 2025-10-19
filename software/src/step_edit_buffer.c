@@ -15,7 +15,7 @@
 
 step_t edit_buffer[CONFIG_STEPS_PER_SEQUENCE];
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
-
+extern SemaphoreHandle_t sq_mutex;
 extern SemaphoreHandle_t edit_buffer_mutex;
 extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
@@ -125,45 +125,57 @@ void edit_buffer_reset() {
 int edit_buffer_load(uint8_t sq_index) {
     uint32_t sq_base_addr = CONFIG_SEQ_ADDR_OFFSET * sq_index;
     
-    MIDISequence_t* sq = &sequences[sq_index];
+    MIDISequence_t* sq;
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
+        sq = &sequences[sq_index];
+        xSemaphoreGive(sq_mutex);
+    }
+    
     if(sq->step_sector_offset == 0) {
-        sq->step_sector_offset = get_step_data_offset(sq, sq_index);
+        sq->step_sector_offset = get_step_data_offset(sq_index);
     }
     
     uint32_t steps_base_addr = sq_base_addr + sq->step_sector_offset;
     
-    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
-        uint8_t seq_data[BYTES_PER_SEQ];
-        flash_SPIRead(steps_base_addr, seq_data, seq_data, (uint16_t)BYTES_PER_SEQ);
+    uint8_t seq_data[BYTES_PER_SEQ];
+    flash_SPIRead(steps_base_addr, seq_data, seq_data, (uint16_t)BYTES_PER_SEQ);
+    
+    step_t steps[CONFIG_STEPS_PER_SEQUENCE];
 
-        for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
-            uint8_t st_data[BYTES_PER_STEP];
-            
-            memcpy(st_data, &seq_data[BYTES_PER_STEP * i], BYTES_PER_STEP);
-
-            if(st_data[0] != NOTE_OFF) {
-                return 1;
-            }
-
-            step_t st;
-            bytes_to_step(st_data, &st);
-            
-            edit_buffer[i] = st;
-
-            if(st.end_of_step == 0xFF) {
-                break;
-            }
+    for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
+        uint8_t st_data[BYTES_PER_STEP];
+        
+        memcpy(st_data, &seq_data[BYTES_PER_STEP * i], BYTES_PER_STEP);
+        
+        if(st_data[0] != NOTE_OFF) {
+            return 1;
         }
+        
+        step_t st;
+        if(bytes_to_step(st_data, &st)) {
+            return 1;
+        }
+        
+        steps[i] = st;
 
+        if(st.end_of_step == 0xFF) {
+            break;
+        }
+    }
+
+    if(xSemaphoreTake(edit_buffer_mutex, portMAX_DELAY) == pdTRUE) {
+        memcpy(edit_buffer, &steps[0], BYTES_PER_SEQ);
+        xSemaphoreGive(edit_buffer_mutex);
+    }
+
+    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
         if(sq->step_sector_offset >= 0xF000) {
             sq->step_sector_offset = 0x1000;
         } else {
             sq->step_sector_offset += 0x1000;
         }
-
-        xSemaphoreGive(edit_buffer_mutex);
+        xSemaphoreGive(sq_mutex);
     }
-
     // the sector must be erased so that we can write the updated sequence
     flash_eraseSector(steps_base_addr);
 

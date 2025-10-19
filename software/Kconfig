@@ -8,4 +8,8 @@ config ENABLE_STARTUP_MEMORY_CLEAR
     bool "enable the ability to delete the entire flash memory by holding a key on startup"
     default n
 
+config AUTO_INC_STEP_ON_MIDI_IN
+    bool "automatically increment the current step when a midi in packet is received"
+    default y
+
 endmenu # Sequencer Configuration

@@ -45,6 +45,7 @@ typedef enum {
     S_ST_VEL_UP,
     S_ST_CLR,
     S_SQ_CLR,
+    S_SAVE,
 } MenuState_t;
 
 typedef enum {
@@ -55,6 +56,7 @@ typedef enum {
     E_SQ_EN = 0x08,
     E_SQ_SELECT,
     E_SQ_EDIT = 0x0C,
+    E_SAVE = 0x0E,
     E_SQ_CLR = 0x0F,
     E_ST_SELECT,
     E_ST_EDIT = 0x5C,
@@ -80,6 +82,7 @@ typedef struct {
 static const MenuTransition_t state_table[] = {
     {S_MAIN_MENU, E_MAIN_MENU, S_MAIN_MENU},
     {S_MAIN_MENU, E_SQ_SELECT, S_SQ_SELECT},
+    {S_MAIN_MENU, E_SAVE, S_SAVE},
 
     {S_SQ_SELECT, E_AUTO, S_SQ_MENU},
 
@@ -89,10 +92,12 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_SQ_EN, S_SQ_EN},
     {S_SQ_MENU, E_SQ_MIDI, S_SQ_MIDI},
     {S_SQ_MENU, E_SQ_CLR, S_SQ_CLR},
+    {S_SQ_MENU, E_SAVE, S_SAVE},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
     {S_SQ_MIDI, E_ENCODER_DOWN, S_SQ_MIDI},
+    {S_SQ_MIDI, E_SAVE, S_SAVE},
 
     {S_SQ_EN, E_AUTO, S_PREV},
 
@@ -101,6 +106,7 @@ static const MenuTransition_t state_table[] = {
     {S_ST_LANDING, E_MAIN_MENU, S_MAIN_MENU},
     {S_ST_LANDING, E_ST_SELECT, S_ST_SELECT},
     {S_ST_LANDING, E_SQ_EN, S_SQ_EN},
+    {S_ST_LANDING, E_SAVE, S_SAVE},
     
     {S_ST_SELECT, E_AUTO, S_ST_MENU},
 
@@ -115,6 +121,7 @@ static const MenuTransition_t state_table[] = {
     {S_ST_MENU, E_ENCODER_DOWN, S_ST_VEL_DOWN},
     {S_ST_MENU, E_ENCODER_UP, S_ST_VEL_UP},
     {S_ST_MENU, E_ST_CLR, S_ST_CLR},
+    {S_ST_MENU, E_SAVE, S_SAVE},
 
     {S_ST_NOTE, E_AUTO, S_ST_MENU},
 
@@ -131,6 +138,8 @@ static const MenuTransition_t state_table[] = {
     {S_ST_VEL_UP, E_AUTO, S_ST_MENU},
 
     {S_ST_CLR, E_AUTO, S_ST_MENU},
+
+    {S_SAVE, E_AUTO, S_PREV},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))
