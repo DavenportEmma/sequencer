@@ -20,14 +20,14 @@ void EXTI15_10_IRQHandler(void) {
 
         if(EXTI->PR & (1 << 11)) {
             if(pin12) {
-                direction = -1;
+                direction = 1;
             }
             EXTI->PR |= (1 << 11);      // clear interrupt flag
         }
 
         if(EXTI->PR & (1 << 12)) {
             if(pin11) {
-                direction = 1;
+                direction = -1;
             }
             EXTI->PR |= (1 << 12);      // clear interrupt flag
         }
