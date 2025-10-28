@@ -19,6 +19,8 @@ extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
 
+static uint32_t enabled_sequences[2];
+
 /*
     read the midi channel of the sequence from flash memory. The sequence
     metadata is stored in the first sector of the block. The midi channel
@@ -29,6 +31,8 @@ extern uint8_t ACTIVE_ST;
     @return The midi channel of the sequence
 */
 uint8_t init_sequences() {
+    memset(enabled_sequences, 0, sizeof(uint32_t) * 2);
+
     uint32_t addr = 0x000000;
     // TODO handle this metadata shite
     uint8_t metadata[256];
@@ -167,6 +171,55 @@ static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
     return ret;
 }
 
+static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
+    MIDISequence_t* sq = &sequences[sq_index];
+    /*
+        TODO look into potential problems that may arise from other tasks
+        modifying sequences[i] in between the first and second mutex takes
+    
+        potential causes
+            midi channel change
+            changing enabled steps
+            changing sequence enable
+            changing muted steps
+    */
+
+    if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+        /*
+        
+        TODO if sq.counter == 0 then go through sq.queue[] and enable all
+        of the sequences that are queued on this one.
+
+        TODO what if sq is sequence 63 and sequence 0 is queued on sq?
+        if we just enable it, sequence 0 will start on the next beat,
+        being one step behind sq
+
+        TODO call disable_sequence if a sequence is disabled to prevent
+        any hanging note_on commands that don't have a note_off
+            
+        */
+
+        if(sq->counter == 0) {
+            enabled_sequences[0] ^= sq->queue[0];
+            enabled_sequences[1] ^= sq->queue[1];
+            memset(sq->queue, 0, sizeof(uint32_t) * 2);
+        }
+
+        step_t st = get_step(sq, sq_index);
+
+        uint8_t muted = is_muted(sq->muted_steps, sq->counter);
+
+        load_step_notes(
+            note_on_mbuf,
+            note_off_mbuf,
+            sq->channel,
+            muted,
+            &st);
+
+        goto_next_enabled_step(&sq->counter, &sq->enabled_steps);
+    }
+}
+
 /*
     play the current steps in the currently active sequences
 
@@ -175,43 +228,7 @@ static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
 */
 void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        MIDISequence_t sq;
-        if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-            // copy by value
-            sq = sequences[i];
-            xSemaphoreGive(sq_mutex);
-        }
-
-        /*
-            TODO look into potential problems that may arise from other tasks
-            modifying sequences[i] in between the first and second mutex takes
-        
-            potential causes
-                midi channel change
-                changing enabled steps
-                changing sequence enable
-                changing muted steps
-        */
-
-        if(sq.enabled) {
-            step_t st = get_step(&sq, i);
-
-            uint8_t muted = is_muted(sq.muted_steps, sq.counter);
-
-            load_step_notes(
-                note_on_mbuf,
-                note_off_mbuf,
-                sq.channel,
-                muted,
-                &st);
-
-            if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-                goto_next_enabled_step(&sq.counter, sq.enabled_steps);
-                sequences[i] = sq;
-                xSemaphoreGive(sq_mutex);
-            }
-        }
-
+        load_sequence(i, note_on_mbuf, note_off_mbuf);
     }
 }
 
@@ -221,15 +238,10 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     @param sq_index The index of the currently process sequence in sequences
 */
 void toggle_sequence(uint8_t sq_index) {
-    uint8_t sq_en = sequences[sq_index].enabled;
-    if(sq_en) {
-        disable_sequence(sq_index);
-    } else {
-        if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-            sequences[sq_index].enabled = 1;
-            xSemaphoreGive(sq_mutex);        
-        }
-    }
+    uint8_t array_index = sq_index / 32;
+    uint8_t bit_position = sq_index % 32;
+
+    enabled_sequences[array_index] ^= (1 << bit_position);
 }
 
 void toggle_sequences(uint32_t* select_mask, uint8_t max) {
@@ -243,16 +255,22 @@ void toggle_sequences(uint32_t* select_mask, uint8_t max) {
     }
 }
 
+void enable_sequence(uint8_t sq_index) {
+    uint8_t array_index = sq_index / 32;
+    uint8_t bit_position = sq_index % 32;
+
+    enabled_sequences[array_index] |= (1 << bit_position);
+}
+
 void disable_sequence(uint8_t sq_index) {
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        sequences[sq_index].enabled = 0;
+    #ifdef CONFIG_RESET_SEQ_ON_DISABLE
+        sequences[sq_index].counter = 0;
+    #endif
 
-        #ifdef CONFIG_RESET_SEQ_ON_DISABLE
-            sequences[sq_index].counter = 0;
-        #endif
+    uint8_t array_index = sq_index / 32;
+    uint8_t bit_position = sq_index % 32;
 
-        xSemaphoreGive(sq_mutex);
-    }
+    enabled_sequences[array_index] &= ~(1 << bit_position);
 
     MIDICC_t p = {
         .status = CONTROLLER,
