@@ -7,6 +7,7 @@
 #include "k_buf.h"
 #include "util.h"
 #include "display.h"
+#include <string.h>
 
 #define CONFIG_DEBUG_PRINT
 
@@ -31,6 +32,7 @@ static MenuEvent_t decode_key(MenuState_t current, uint16_t key) {
     switch(current) {
         case S_MAIN_MENU:
         case S_SQ_MENU:
+        case S_QUEUE_TRIG_SEL:
             if(key > 0x0F && key < 0x50) {
                 return E_SQ_SELECT;
             }
@@ -380,6 +382,27 @@ static void save(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
+static void sq_queue_trig_sel(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "select queue trigger\n\r", 22);
+    #endif
+}
+
+static void sq_queue(uint16_t key, uint16_t hold) {
+    uint8_t sq_val = key_to_sq_st(key);
+    
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "triggering on sq ", 17);
+        send_hex(USART3, sq_val);
+        send_uart(USART3, "\n\r", 2);
+
+    #endif
+
+    memcpy(sequences[sq_val].queue, MSEL_MASK, sizeof(MSEL_MASK));
+
+    menu(E_AUTO, E_NO_HOLD);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -404,6 +427,8 @@ StateMachine_t state_machine[] = {
     { S_ST_CLR, st_clear },
     { S_SQ_CLR, sq_clear },
     { S_SAVE, save },
+    { S_QUEUE_TRIG_SEL, sq_queue_trig_sel},
+    { S_QUEUE, sq_queue},
 };
 
 void menu(uint16_t key, uint16_t hold) {
