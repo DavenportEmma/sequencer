@@ -8,9 +8,7 @@
 #include <string.h>
 #include "sequence.h"
 
-SemaphoreHandle_t sq_mutex;
 SemaphoreHandle_t flash_mutex;
-SemaphoreHandle_t st_mask_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 
@@ -19,9 +17,7 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 }
 
 int main(void) {
-    sq_mutex = xSemaphoreCreateMutex();
     flash_mutex = xSemaphoreCreateMutex();
-    st_mask_mutex = xSemaphoreCreateMutex();
     
     memset(sequences, 0, sizeof(sequences));
     memset(steps, 0, sizeof(steps));
