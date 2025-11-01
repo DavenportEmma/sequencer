@@ -11,8 +11,9 @@
 #include "FreeRTOS.h"
 #include <string.h>
 #include "display.h"
+#include "common.h"
 
-uint8_t* display_buffer;
+uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 
 void setup(MIDISequence_t* sequences) {
     /*
@@ -82,7 +83,6 @@ void setup(MIDISequence_t* sequences) {
     init_i2c();
     init_ssd1306();
 
-    display_buffer = pvPortMalloc(1024);
     memset(display_buffer, 0, 1024);
     clear_display();
 
