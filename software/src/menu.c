@@ -403,6 +403,17 @@ static void sq_queue(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
+static void sq_break(uint16_t key, uint16_t hold) {
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "break sq ", 9);
+        send_hex(USART3, ACTIVE_SQ);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+
+    break_sequence(ACTIVE_SQ);
+    menu(E_AUTO, E_NO_HOLD);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -427,8 +438,9 @@ StateMachine_t state_machine[] = {
     { S_ST_CLR, st_clear },
     { S_SQ_CLR, sq_clear },
     { S_SAVE, save },
-    { S_QUEUE_TRIG_SEL, sq_queue_trig_sel},
-    { S_QUEUE, sq_queue},
+    { S_QUEUE_TRIG_SEL, sq_queue_trig_sel },
+    { S_QUEUE, sq_queue },
+    { S_BREAK, sq_break }
 };
 
 void menu(uint16_t key, uint16_t hold) {

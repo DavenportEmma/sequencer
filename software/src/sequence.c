@@ -185,6 +185,12 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
             memset(sq->queue, 0, sizeof(uint32_t) * 2);
         }
 
+        if(check_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES) && sq->counter == 0) {
+            disable_sequence(sq_index);
+            clear_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
+            return;
+        }
+
         step_t st = get_step(sq, sq_index);
 
         uint8_t muted = is_muted(sq->muted_steps, sq->counter);
@@ -196,7 +202,7 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
             muted,
             &st);
 
-        goto_next_enabled_step(&sq->counter, &sq->enabled_steps);
+        goto_next_enabled_step(&sq->counter, sq->enabled_steps);
     }
 }
 
@@ -242,10 +248,12 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     @param sq_index The index of the currently process sequence in sequences
 */
 void toggle_sequence(uint8_t sq_index) {
-    uint8_t array_index = sq_index / 32;
-    uint8_t bit_position = sq_index % 32;
+    if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+        disable_sequence(sq_index);
+    } else {
+        enable_sequence(sq_index);
+    }
 
-    enabled_sequences[array_index] ^= (1 << bit_position);
 }
 
 void toggle_sequences(uint32_t* select_mask, uint8_t max) {
@@ -284,6 +292,13 @@ void disable_sequence(uint8_t sq_index) {
     };
 
     send_midi_control(USART1, &p);
+}
+
+void break_sequence(uint8_t sq_index) {
+    uint8_t array_index = sq_index / 32;
+    uint8_t bit_position = sq_index % 32;
+
+    break_sequences[array_index] |= (1 << bit_position);
 }
 
 void clear_sequence(uint8_t sq_index) {
