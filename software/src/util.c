@@ -46,6 +46,17 @@ void set_bit(uint32_t* field, uint8_t bit, uint8_t max) {
     }
 }
 
+void clear_bit(uint32_t* field, uint8_t bit, uint8_t max) {
+    uint8_t mask_size = 32;
+
+    if (bit < max) {
+        uint8_t mask_index = bit / mask_size;
+        uint32_t mute_mask = 1 << (bit % mask_size);
+
+        field[mask_index] &= ~(mute_mask);
+    }
+}
+
 void set_bit_range(uint32_t* field, uint8_t start, uint8_t end, uint8_t max) {
     if (start > 63 || end > 63) {
         return;
