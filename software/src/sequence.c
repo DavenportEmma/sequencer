@@ -20,6 +20,8 @@ extern uint8_t ACTIVE_SQ;
 extern uint8_t ACTIVE_ST;
 
 static uint32_t enabled_sequences[2];
+static uint32_t break_sequences[2];
+static uint32_t queued_sequences[2];
 
 /*
     read the midi channel of the sequence from flash memory. The sequence
@@ -185,23 +187,10 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
     */
 
     if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
-        /*
-        
-        TODO if sq.counter == 0 then go through sq.queue[] and enable all
-        of the sequences that are queued on this one.
-
-        TODO what if sq is sequence 63 and sequence 0 is queued on sq?
-        if we just enable it, sequence 0 will start on the next beat,
-        being one step behind sq
-
-        TODO call disable_sequence if a sequence is disabled to prevent
-        any hanging note_on commands that don't have a note_off
-            
-        */
-
+        // queue all sequences that are triggered on this one
         if(sq->counter == 0) {
-            enabled_sequences[0] ^= sq->queue[0];
-            enabled_sequences[1] ^= sq->queue[1];
+            queued_sequences[0] |= sq->queue[0];
+            queued_sequences[1] |= sq->queue[1];
             memset(sq->queue, 0, sizeof(uint32_t) * 2);
         }
 
@@ -230,6 +219,30 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
         load_sequence(i, note_on_mbuf, note_off_mbuf);
     }
+
+    /*
+        if a sequence is queued but is already playing then we don't want to
+        restart it so we will unset that bit in queued_sequences
+    */
+    queued_sequences[0] &= ~enabled_sequences[0];
+    queued_sequences[1] &= ~enabled_sequences[1];
+
+    /*
+        there may be a case where sequence N is triggering on sequence M where
+        N < M. N will have already been processed in the first load_sequences()
+        but will not be playing yet as it hasn't been enabled. we look at
+        the sequences that are queued are are not already enabled, then enable
+        them. This will keep N in sync with M
+    */
+    for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+        if(check_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES)) {
+            enable_sequence(i);
+            load_sequence(i, note_on_mbuf, note_off_mbuf);
+            clear_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES);
+        }
+    }
+
+    return;
 }
 
 /*
