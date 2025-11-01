@@ -2,8 +2,9 @@
 #include "ssd1306.h"
 #include "ascii.h"
 #include <string.h>
+#include "common.h"
 
-extern uint8_t* display_buffer;
+extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 
 static uint16_t utf_to_index(char c) {
     return c * 5;
@@ -39,6 +40,6 @@ void display_line(char* s, uint8_t line) {
 }
 
 void clear_display() {
-    memset(display_buffer, 0, 1024);
+    memset(display_buffer, 0, DISPLAY_BUFFER_SIZE);
     display_ssd1306(display_buffer);
 }
