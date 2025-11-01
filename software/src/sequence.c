@@ -9,9 +9,6 @@
 #include "util.h"
 #include <string.h>
 
-extern SemaphoreHandle_t sq_mutex;
-extern SemaphoreHandle_t st_mask_mutex;
-
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
@@ -105,10 +102,7 @@ static void load_step_notes(
 static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
     uint8_t ret;    
 
-    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
-        ret = check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-        xSemaphoreGive(st_mask_mutex);
-    }
+    ret = check_bit(enabled_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 
     return ret; 
 }
@@ -165,10 +159,7 @@ static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
     uint8_t ret;    
 
-    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
-        ret = check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-        xSemaphoreGive(st_mask_mutex);
-    }
+    ret = check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 
     return ret;
 }
