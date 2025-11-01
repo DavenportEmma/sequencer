@@ -1,3 +1,5 @@
+#include "util.h"
+
 void toggle_bit(uint32_t* field, uint8_t bit, uint8_t max) {
     uint8_t mask_size = 32;
 

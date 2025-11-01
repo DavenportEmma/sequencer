@@ -1,6 +1,7 @@
 #ifndef _MENU_H
 #define _MENU_H
 #include <stddef.h>
+#include <stdint.h>
 
 /*
 SQ_MENU     = 0x09,
@@ -48,6 +49,7 @@ typedef enum {
     S_SAVE,
     S_QUEUE_TRIG_SEL,
     S_QUEUE,
+    S_BREAK,
 } MenuState_t;
 
 typedef enum {
@@ -57,6 +59,7 @@ typedef enum {
     E_CTRL = 0x06,
     E_QUEUE = 0x07,
     E_SQ_EN = 0x08,
+    E_BREAK = 0x09,
     E_SQ_SELECT,
     E_SQ_EDIT = 0x0C,
     E_SAVE = 0x0E,
@@ -97,11 +100,13 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_SQ_CLR, S_SQ_CLR},
     {S_SQ_MENU, E_SAVE, S_SAVE},
     {S_SQ_MENU, E_QUEUE, S_QUEUE_TRIG_SEL},
+    {S_SQ_MENU, E_BREAK, S_BREAK},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
     {S_SQ_MIDI, E_ENCODER_DOWN, S_SQ_MIDI},
     {S_SQ_MIDI, E_SAVE, S_SAVE},
+    {S_SQ_MIDI, E_SQ_MIDI, S_SQ_MENU},
 
     {S_SQ_EN, E_AUTO, S_PREV},
 
@@ -146,7 +151,10 @@ static const MenuTransition_t state_table[] = {
     {S_SAVE, E_AUTO, S_PREV},
 
     {S_QUEUE_TRIG_SEL, E_SQ_SELECT, S_QUEUE},
+    {S_QUEUE_TRIG_SEL, E_MAIN_MENU, S_MAIN_MENU},
     {S_QUEUE, E_AUTO, S_MAIN_MENU},
+
+    {S_BREAK, E_AUTO, S_PREV},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))

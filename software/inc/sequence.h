@@ -3,6 +3,7 @@
 
 #include "midi.h"
 #include "m_buf.h"
+#include "autoconf.h"
 
 typedef struct {
     MIDINote_t note;
@@ -21,6 +22,7 @@ void toggle_sequences(uint32_t* select_mask, uint8_t max);
 void enable_sequence(uint8_t sq_index);
 void disable_sequence(uint8_t sq_index);
 void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf);
+void break_sequence(uint8_t sq_index);
 void clear_sequence(uint8_t sq_index);
 void save_data();
 void play_notes(mbuf_handle_t m);
