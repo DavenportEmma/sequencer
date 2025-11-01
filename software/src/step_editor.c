@@ -8,10 +8,7 @@
 
 extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 
-extern SemaphoreHandle_t sq_mutex;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
-
-extern SemaphoreHandle_t st_mask_mutex;
 
 /*
     i'm using the msb of the note to determine the lru note of the fifo
@@ -103,31 +100,22 @@ void edit_step_note(
             break;
     }
 
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        steps[index] = s;
+    steps[index] = s;
 
-        if(auto_fill_next_note_off) {
-            steps[next_s_index] = next_s;
-        }
-
-        xSemaphoreGive(sq_mutex);
+    if(auto_fill_next_note_off) {
+        steps[next_s_index] = next_s;
     }
+
 }
 
 void mute_step(uint8_t sequence, uint8_t step) {
-    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
-        uint32_t* muted_steps = sequences[sequence].muted_steps;
-        toggle_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-        xSemaphoreGive(st_mask_mutex);
-    }
+    uint32_t* muted_steps = sequences[sequence].muted_steps;
+    toggle_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 void toggle_step(uint8_t sequence, uint8_t step) {
-    if(xSemaphoreTake(st_mask_mutex, portMAX_DELAY) == pdTRUE) {
-        uint32_t* en_steps = sequences[sequence].enabled_steps;
-        toggle_bit(en_steps, step, CONFIG_STEPS_PER_SEQUENCE);
-        xSemaphoreGive(st_mask_mutex);
-    }
+    uint32_t* en_steps = sequences[sequence].enabled_steps;
+    toggle_bit(en_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 void edit_step_velocity(uint8_t sq, uint8_t step, int8_t velocity_dir) {
@@ -152,10 +140,7 @@ void edit_step_velocity(uint8_t sq, uint8_t step, int8_t velocity_dir) {
         s.note_on[i].velocity = v;
     }
 
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        steps[index] = s;
-        xSemaphoreGive(sq_mutex);
-    }
+    steps[index] = s;
 }
 
 void clear_step(uint8_t sq, uint8_t step) {
@@ -176,9 +161,5 @@ void clear_step(uint8_t sq, uint8_t step) {
         s.note_off[i] = 0x01;
     }
 
-    if(xSemaphoreTake(sq_mutex, portMAX_DELAY) == pdTRUE) {
-        steps[index] = s;
-        
-        xSemaphoreGive(sq_mutex);
-    }
+    steps[index] = s;
 }
