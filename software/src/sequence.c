@@ -153,6 +153,8 @@ static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
     uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
     uint16_t index = seq_base_index + (uint16_t)sq->counter;
 
+    goto_next_enabled_step(&sq->counter, sq->enabled_steps);
+
     return steps[index];
 }
 
@@ -178,19 +180,9 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
     */
 
     if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+        uint8_t prev_counter = sq->counter;
+
         // queue all sequences that are triggered on this one
-        if(sq->counter == 0) {
-            queued_sequences[0] |= sq->queue[0];
-            queued_sequences[1] |= sq->queue[1];
-            memset(sq->queue, 0, sizeof(uint32_t) * 2);
-        }
-
-        if(check_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES) && sq->counter == 0) {
-            disable_sequence(sq_index);
-            clear_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
-            return;
-        }
-
         step_t st = get_step(sq, sq_index);
 
         uint8_t muted = is_muted(sq->muted_steps, sq->counter);
@@ -202,7 +194,16 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
             muted,
             &st);
 
-        goto_next_enabled_step(&sq->counter, sq->enabled_steps);
+        if(sq->counter <= prev_counter) {
+            queued_sequences[0] |= sq->queue[0];
+            queued_sequences[1] |= sq->queue[1];
+            memset(sq->queue, 0, sizeof(uint32_t) * 2);
+
+            if(check_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+                disable_sequence(sq_index);
+                clear_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
+            }
+        }
     }
 }
 
