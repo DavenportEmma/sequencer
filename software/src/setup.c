@@ -44,7 +44,7 @@ void setup(MIDISequence_t* sequences) {
     u.tx_pin = 6;
     u.rx_pin = 7;
     u.afr_reg = 0;
-    u.rx_interrupts = 0;
+    u.rx_interrupts = 1;
 
     err = init_uart(&u);
     if(err) {
