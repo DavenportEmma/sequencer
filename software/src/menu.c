@@ -14,6 +14,9 @@
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
+uint32_t SQ_MSEL_MASK[2];  // 64 bit field to identify multi selected sq
+uint32_t ST_MSEL_MASK[2];
+
 static MenuEvent_t decode_step_operation(MenuState_t current, uint16_t key) {
     if(key > 0x0F && key < 0x50) {
         return E_ST_SELECT;
@@ -127,13 +130,13 @@ static void sq_select(uint16_t key, uint16_t hold) {
     uint8_t sq_val = key_to_sq_st(key);
 
     if(hold == E_NO_HOLD) {
-        clear_field(MSEL_MASK, CONFIG_TOTAL_SEQUENCES);
+        clear_field(SQ_MSEL_MASK, CONFIG_TOTAL_SEQUENCES);
 
-        set_bit(MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
+        set_bit(SQ_MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
     } else if(hold == E_SHIFT) {
-        set_bit_range(MSEL_MASK, ACTIVE_SQ, sq_val, CONFIG_TOTAL_SEQUENCES);
+        set_bit_range(SQ_MSEL_MASK, ACTIVE_SQ, sq_val, CONFIG_TOTAL_SEQUENCES);
     } else if(hold == E_CTRL) {
-        set_bit(MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
+        set_bit(SQ_MSEL_MASK, sq_val, CONFIG_TOTAL_SEQUENCES);
     }
 
     ACTIVE_SQ = sq_val;
@@ -156,10 +159,10 @@ static void sq_en(uint16_t key, uint16_t hold) {
         send_uart(USART3, "enable sequence\n\r", 17);
     #endif
 
-    if(one_bit_set(MSEL_MASK)) {
+    if(one_bit_set(SQ_MSEL_MASK)) {
         toggle_sequence(ACTIVE_SQ);
     } else {
-        toggle_sequences(MSEL_MASK, CONFIG_TOTAL_SEQUENCES);
+        toggle_sequences(SQ_MSEL_MASK, CONFIG_TOTAL_SEQUENCES);
     }
 
     menu(E_AUTO, E_NO_HOLD);
@@ -218,13 +221,25 @@ static void st_landing(uint16_t key, uint16_t hold) {
 }
 
 static void st_select(uint16_t key, uint16_t hold) {
-    ACTIVE_ST = key_to_sq_st(key);
-
+    uint8_t st_val = key_to_sq_st(key);
+    
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "step ", 5);
-        send_hex(USART3, ACTIVE_ST);
+        send_hex(USART3, st_val);
         send_uart(USART3, "\n\r", 2);
     #endif
+
+    if(hold == E_NO_HOLD) {
+        clear_field(ST_MSEL_MASK, CONFIG_STEPS_PER_SEQUENCE);
+
+        set_bit(ST_MSEL_MASK, st_val, CONFIG_STEPS_PER_SEQUENCE);
+    } else if(hold == E_SHIFT) {
+        set_bit_range(ST_MSEL_MASK, ACTIVE_ST, st_val, CONFIG_STEPS_PER_SEQUENCE);
+    } else if(hold == E_CTRL) {
+        set_bit(ST_MSEL_MASK, st_val, CONFIG_STEPS_PER_SEQUENCE);
+    }
+
+    ACTIVE_ST = st_val;
 
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -305,7 +320,19 @@ static void st_mute(uint16_t key, uint16_t hold) {
         send_uart(USART3, "\n\r", 2);
     #endif
 
-    mute_step(ACTIVE_SQ, ACTIVE_ST);
+    if(one_bit_set(ST_MSEL_MASK)) {
+        mute_step(ACTIVE_SQ, ACTIVE_ST);
+    } else {
+        for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
+            uint8_t array_index = i / 32;
+            uint8_t bit_position = i % 32;
+
+            if(ST_MSEL_MASK[array_index] & (1 << bit_position)) {
+                mute_step(ACTIVE_SQ, i);
+            }
+        }
+    }
+
     menu(E_AUTO, E_NO_HOLD);
 }
 
@@ -316,7 +343,19 @@ static void st_en(uint16_t key, uint16_t hold) {
         send_uart(USART3, "\n\r", 2);
     #endif
 
-    toggle_step(ACTIVE_SQ, ACTIVE_ST);
+    if(one_bit_set(ST_MSEL_MASK)) {
+        toggle_step(ACTIVE_SQ, ACTIVE_ST);
+    } else {
+        for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
+            uint8_t array_index = i / 32;
+            uint8_t bit_position = i % 32;
+
+            if(ST_MSEL_MASK[array_index] & (1 << bit_position)) {
+                toggle_step(ACTIVE_SQ, i);
+            }
+        }
+    }
+
     menu(E_AUTO, E_NO_HOLD);
 }
 
@@ -398,7 +437,7 @@ static void sq_queue(uint16_t key, uint16_t hold) {
 
     #endif
 
-    memcpy(sequences[sq_val].queue, MSEL_MASK, sizeof(MSEL_MASK));
+    memcpy(sequences[sq_val].queue, SQ_MSEL_MASK, sizeof(SQ_MSEL_MASK));
 
     menu(E_AUTO, E_NO_HOLD);
 }
