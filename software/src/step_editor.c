@@ -5,6 +5,7 @@
 #include "uart.h"
 #include "util.h"
 #include "midi.h"
+#include <string.h>
 
 extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 
@@ -144,22 +145,11 @@ void edit_step_velocity(uint8_t sq, uint8_t step, int8_t velocity_dir) {
 }
 
 void clear_step(uint8_t sq, uint8_t step) {
-    step_t s;
     uint16_t index = ((uint16_t)sq * CONFIG_STEPS_PER_SEQUENCE) + (uint16_t)step;
 
-    for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        /*
-            why these values?
-            0x01 is outside the standard range of midi note commands so nothing
-            should play. load_step_notes() only plays a note if it's within the
-            range of valid midi notes
+    note_t note_on[CONFIG_MAX_POLYPHONY] = {0};
+    MIDINote_t note_off[CONFIG_MAX_POLYPHONY] = {0};
 
-            0x3F is half the standard range of midi velocity commands
-        */
-        s.note_on[i].note = 0x01;
-        s.note_on[i].velocity = 0x3F;
-        s.note_off[i] = 0x01;
-    }
-
-    steps[index] = s;
+    memcpy(steps[index].note_on, note_on, sizeof(note_on));
+    memcpy(steps[index].note_off, note_off, sizeof(note_off));
 }
