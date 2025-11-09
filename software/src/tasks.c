@@ -15,24 +15,65 @@
 
 kbuf_handle_t uart_intr_kbuf;
 
+extern TaskHandle_t uartTxTask[4];
+
+static void uart_tx_task(void *pvParameters) {
+    UARTTaskParams_t* params = (UARTTaskParams_t*)pvParameters;
+    
+    while(1) {
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        play_notes(params->note_off, params->port);
+        play_notes(params->note_on, params->port);
+    }
+}
+
 void sq_play_task(void *pvParameters) {
     float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
-
     TickType_t lastWakeTime;
     
-    MIDIPacket_t note_on_buffer[NOTE_BUFFER_SIZE];
-    mbuf_handle_t note_on_mbuf = mbuf_init(note_on_buffer, NOTE_BUFFER_SIZE);
+    uint8_t num_ports = 4;
+    UARTTaskParams_t uart_tx_params[num_ports];
+    
+    MIDIPacket_t note_on_buffer_A[NOTE_BUFFER_SIZE];
+    MIDIPacket_t note_off_buffer_A[NOTE_BUFFER_SIZE];
+    uart_tx_params->port = 0;
+    uart_tx_params[0].note_on = mbuf_init(note_on_buffer_A, NOTE_BUFFER_SIZE);
+    uart_tx_params[0].note_off = mbuf_init(note_off_buffer_A, NOTE_BUFFER_SIZE);
+    
+    MIDIPacket_t note_on_buffer_B[NOTE_BUFFER_SIZE];
+    MIDIPacket_t note_off_buffer_B[NOTE_BUFFER_SIZE];
+    uart_tx_params->port = 1;
+    uart_tx_params[1].note_on = mbuf_init(note_on_buffer_B, NOTE_BUFFER_SIZE);
+    uart_tx_params[1].note_off = mbuf_init(note_off_buffer_B, NOTE_BUFFER_SIZE);
+    
+    MIDIPacket_t note_on_buffer_C[NOTE_BUFFER_SIZE];
+    MIDIPacket_t note_off_buffer_C[NOTE_BUFFER_SIZE];
+    uart_tx_params->port = 2;
+    uart_tx_params[2].note_on = mbuf_init(note_on_buffer_C, NOTE_BUFFER_SIZE);
+    uart_tx_params[2].note_off = mbuf_init(note_off_buffer_C, NOTE_BUFFER_SIZE);
+    
+    
+    MIDIPacket_t note_on_buffer_D[NOTE_BUFFER_SIZE];
+    MIDIPacket_t note_off_buffer_D[NOTE_BUFFER_SIZE];
+    uart_tx_params->port = 3;
+    uart_tx_params[3].note_on = mbuf_init(note_on_buffer_D, NOTE_BUFFER_SIZE);
+    uart_tx_params[3].note_off = mbuf_init(note_off_buffer_D, NOTE_BUFFER_SIZE);
 
-    MIDIPacket_t note_off_buffer[NOTE_BUFFER_SIZE];
-    mbuf_handle_t note_off_mbuf = mbuf_init(note_off_buffer, NOTE_BUFFER_SIZE);
+    TaskHandle_t uartTxTask[4];
+    xTaskCreate(uart_tx_task, "UARTA_TX", 512, &uart_tx_params[0], 2, &uartTxTask[0]);
+    xTaskCreate(uart_tx_task, "UARTB_TX", 512, &uart_tx_params[1], 2, &uartTxTask[1]);
+    xTaskCreate(uart_tx_task, "UARTC_TX", 512, &uart_tx_params[2], 2, &uartTxTask[2]);
+    xTaskCreate(uart_tx_task, "UARTD_TX", 512, &uart_tx_params[3], 2, &uartTxTask[3]);
 
     while(1) {
         lastWakeTime = xTaskGetTickCount();
 
-        load_sequences(note_on_mbuf, note_off_mbuf);
+        load_sequences(uart_tx_params, num_ports);
 
-        play_notes(note_off_mbuf);
-        play_notes(note_on_mbuf);
+        xTaskNotifyGive(uartTxTask[0]);
+        xTaskNotifyGive(uartTxTask[1]);
+        xTaskNotifyGive(uartTxTask[2]);
+        xTaskNotifyGive(uartTxTask[3]);
         vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(TEMPO_PERIOD_MS));
     }
 }
