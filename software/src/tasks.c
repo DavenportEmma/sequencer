@@ -36,26 +36,26 @@ void sq_play_task(void *pvParameters) {
     
     MIDIPacket_t note_on_buffer_A[NOTE_BUFFER_SIZE];
     MIDIPacket_t note_off_buffer_A[NOTE_BUFFER_SIZE];
-    uart_tx_params->port = 0;
+    uart_tx_params[0].port = 0;
     uart_tx_params[0].note_on = mbuf_init(note_on_buffer_A, NOTE_BUFFER_SIZE);
     uart_tx_params[0].note_off = mbuf_init(note_off_buffer_A, NOTE_BUFFER_SIZE);
     
     MIDIPacket_t note_on_buffer_B[NOTE_BUFFER_SIZE];
     MIDIPacket_t note_off_buffer_B[NOTE_BUFFER_SIZE];
-    uart_tx_params->port = 1;
+    uart_tx_params[1].port = 1;
     uart_tx_params[1].note_on = mbuf_init(note_on_buffer_B, NOTE_BUFFER_SIZE);
     uart_tx_params[1].note_off = mbuf_init(note_off_buffer_B, NOTE_BUFFER_SIZE);
     
     MIDIPacket_t note_on_buffer_C[NOTE_BUFFER_SIZE];
     MIDIPacket_t note_off_buffer_C[NOTE_BUFFER_SIZE];
-    uart_tx_params->port = 2;
+    uart_tx_params[2].port = 2;
     uart_tx_params[2].note_on = mbuf_init(note_on_buffer_C, NOTE_BUFFER_SIZE);
     uart_tx_params[2].note_off = mbuf_init(note_off_buffer_C, NOTE_BUFFER_SIZE);
     
     
     MIDIPacket_t note_on_buffer_D[NOTE_BUFFER_SIZE];
     MIDIPacket_t note_off_buffer_D[NOTE_BUFFER_SIZE];
-    uart_tx_params->port = 3;
+    uart_tx_params[3].port = 3;
     uart_tx_params[3].note_on = mbuf_init(note_on_buffer_D, NOTE_BUFFER_SIZE);
     uart_tx_params[3].note_off = mbuf_init(note_off_buffer_D, NOTE_BUFFER_SIZE);
 
