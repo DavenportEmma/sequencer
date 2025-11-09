@@ -7,6 +7,7 @@
 #include "setup.h"
 #include <string.h>
 #include "sequence.h"
+#include "stm32f722xx.h"
 
 SemaphoreHandle_t flash_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
@@ -24,8 +25,11 @@ int main(void) {
     setup(sequences);
 
     all_channels_off(USART1);
+    all_channels_off(USART2);
+    all_channels_off(UART4);
+    all_channels_off(USART6);
 
-    xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, 2, NULL);
+    xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, 3, NULL);
     xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 1, NULL);
     vTaskStartScheduler();
     while(1){
