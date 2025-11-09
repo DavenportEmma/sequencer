@@ -107,7 +107,13 @@ static uint8_t is_disabled(uint32_t* enabled_steps, uint8_t step) {
     return ret; 
 }
 
-static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
+/*
+    advance onto the next enabled step, skipping any disabled steps. when this
+    step is found, update the counter, and return 0. if we have looped the
+    entire way back to where we began without finding an enabled step, break the
+    loop and return 1
+*/
+static uint8_t goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
     uint8_t prev_counter = (*counter);
 
     for(uint8_t i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
@@ -122,9 +128,11 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
 
         // exit if we've looped back to the starting 
         if((*counter) == prev_counter) {
-            break;
+            return 1;
         }
     }
+
+    return 0;
 }
 
 /*
@@ -134,7 +142,7 @@ static void goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps) {
     @param sq_index     Index of the active sequence in sequences[]
     @param st           Step struct to be filled with step data
 */
-static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
+static uint8_t get_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
     uint8_t* counter = &sq->counter;
 
     if(is_disabled(sq->enabled_steps, (*counter))) {
@@ -167,15 +175,21 @@ static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
             break;
         }
 
-        goto_next_enabled_step(counter, sq->enabled_steps);
+        if(goto_next_enabled_step(counter, sq->enabled_steps)) {
+            return 1;
+        }
     }
 
     uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
     uint16_t index = seq_base_index + (uint16_t)sq->counter;
 
-    goto_next_enabled_step(&sq->counter, sq->enabled_steps);
+    if(goto_next_enabled_step(&sq->counter, sq->enabled_steps)) {
+        return 1;
+    }
 
-    return steps[index];
+    memcpy(st, &steps[index], sizeof(step_t));
+
+    return 0;
 }
 
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
@@ -203,7 +217,8 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
         uint8_t prev_counter = sq->counter;
 
         // queue all sequences that are triggered on this one
-        step_t st = get_step(sq, sq_index);
+        step_t st;
+        uint8_t err = get_step(sq, sq_index, &st);
 
         uint8_t muted = is_muted(sq->muted_steps, sq->counter);
 
