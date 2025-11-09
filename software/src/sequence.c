@@ -8,13 +8,13 @@
 #include "m_buf.h"
 #include "util.h"
 #include <string.h>
+#include "tasks.h"
+#include "autoconf.h"
+#include "stm32f722xx.h"
 
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 
 extern step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
-
-extern uint8_t ACTIVE_SQ;
-extern uint8_t ACTIVE_ST;
 
 static uint32_t enabled_sequences[2];
 static uint32_t break_sequences[2];
@@ -140,12 +140,32 @@ static step_t get_step(MIDISequence_t* sq, uint8_t sq_index) {
     if(is_disabled(sq->enabled_steps, (*counter))) {
         MIDICC_t p = {
             .status = CONTROLLER,
-            .channel = sq->channel,
+            .channel = sq->channel & 0x0F,
             .control = ALL_NOTES_OFF,
             .value = 0,
         };
 
-        send_midi_control(USART1, &p);
+        uint8_t port = (p.channel & 0xF0) >> 4;
+
+        switch(port) {
+        case 0:
+            send_midi_control(USART1, &p);
+            break;
+        case 1:
+            send_midi_control(USART2, &p);
+            break;
+        case 2:
+            send_midi_control(UART4, &p);
+            break;
+        case 3:
+            send_midi_control(USART6, &p);
+            break;
+        default:
+            #ifdef CONFIG_DEBUG_PRINT
+                send_uart(USART3, "incorrect port num\n\r", 20);
+            #endif
+            break;
+        }
 
         goto_next_enabled_step(counter, sq->enabled_steps);
     }
@@ -213,9 +233,10 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
     @param note_on_mbuf     midi packet buffer for note on packets
     @param note_off_mbuf    midi packet buffer for note off packets
 */
-void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
+void load_sequences(UARTTaskParams_t* port_buffers, uint8_t num_ports) {
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        load_sequence(i, note_on_mbuf, note_off_mbuf);
+        uint8_t port = (sequences[i].channel & 0xF0) >> 4;
+        load_sequence(i, port_buffers[port].note_on, port_buffers[port].note_off);
     }
 
     /*
@@ -235,7 +256,8 @@ void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
         if(check_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES)) {
             enable_sequence(i);
-            load_sequence(i, note_on_mbuf, note_off_mbuf);
+            uint8_t port = (sequences[i].channel & 0xF0) >> 16;
+            load_sequence(i, port_buffers[port].note_on, port_buffers[port].note_off);
             clear_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES);
         }
     }
@@ -287,12 +309,33 @@ void disable_sequence(uint8_t sq_index) {
 
     MIDICC_t p = {
         .status = CONTROLLER,
-        .channel = sequences[sq_index].channel,
+        .channel = sequences[sq_index].channel & 0x0F,
         .control = ALL_NOTES_OFF,
         .value = 0,
     };
 
-    send_midi_control(USART1, &p);
+    uint8_t port = (p.channel & 0xF0) >> 4;
+
+    switch(port) {
+        case 0:
+            send_midi_control(USART1, &p);
+            break;
+        case 1:
+            send_midi_control(USART2, &p);
+            break;
+        case 2:
+            send_midi_control(UART4, &p);
+            break;
+        case 3:
+            send_midi_control(USART6, &p);
+            break;
+        default:
+            #ifdef CONFIG_DEBUG_PRINT
+                send_uart(USART3, "incorrect port num\n\r", 20);
+            #endif
+            break;
+    }
+
 }
 
 void break_sequence(uint8_t sq_index) {
@@ -353,11 +396,30 @@ void save_data() {
     save_array(0x100, (uint8_t*)steps, sizeof(steps));
 }
 
-void play_notes(mbuf_handle_t mbuf) {
+void play_notes(mbuf_handle_t mbuf, uint8_t port) {
     while(!mbuf_empty(mbuf)) {
         MIDIPacket_t p;
         mbuf_pop(mbuf, &p);
-        send_midi_note(USART1, &p);
+
+        switch(port) {
+            case 0:
+                send_midi_note(USART1, &p);
+                break;
+            case 1:
+                send_midi_note(USART2, &p);
+                break;
+            case 2:
+                send_midi_note(UART4, &p);
+                break;
+            case 3:
+                send_midi_note(USART6, &p);
+                break;
+            default:
+                #ifdef CONFIG_DEBUG_PRINT
+                    send_uart(USART3, "incorrect port num\n\r", 20);
+                #endif
+                break;
+        }
     }
 }
 

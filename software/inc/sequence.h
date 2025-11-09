@@ -4,6 +4,7 @@
 #include "midi.h"
 #include "m_buf.h"
 #include "autoconf.h"
+#include "tasks.h"
 
 typedef struct {
     MIDINote_t note;
@@ -21,11 +22,11 @@ void toggle_sequence(uint8_t seq);
 void toggle_sequences(uint32_t* select_mask, uint8_t max);
 void enable_sequence(uint8_t sq_index);
 void disable_sequence(uint8_t sq_index);
-void load_sequences(mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf);
+void load_sequences(UARTTaskParams_t* port_buffers, uint8_t num_ports);
 void break_sequence(uint8_t sq_index);
 void clear_sequence(uint8_t sq_index);
 void save_data();
-void play_notes(mbuf_handle_t m);
+void play_notes(mbuf_handle_t m, uint8_t port);
 void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel);
 MIDIChannel_t get_channel(uint8_t sq_index);
 
