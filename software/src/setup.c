@@ -32,6 +32,7 @@ void setup(MIDISequence_t* sequences) {
     u.rx_pin = 9;
     u.afr_reg = 1;
     u.rx_interrupts = 0;
+    u.afr_mode = 7;
 
     err = init_uart(&u);
     if(err == 0) {
@@ -45,12 +46,55 @@ void setup(MIDISequence_t* sequences) {
     u.rx_pin = 7;
     u.afr_reg = 0;
     u.rx_interrupts = 1;
+    u.afr_mode = 7;
 
     err = init_uart(&u);
     if(err) {
-        send_uart(USART3, "Error initialising MIDI UART\n\r", 30);
+        send_uart(USART3, "Error initialising MIDI A UART\n\r", 30);
     }
     
+    u.uart = USART2;
+    u.baud = 31250;
+    u.gpio = GPIOA;
+    u.tx_pin = 2;
+    u.rx_pin = 3;
+    u.afr_reg = 0;
+    u.rx_interrupts = 0;
+    u.afr_mode = 7;
+
+    err = init_uart(&u);
+    if(err) {
+        send_uart(USART3, "Error initialising MIDI B UART\n\r", 30);
+    }
+
+    u.uart = UART4;
+    u.baud = 31250;
+    u.gpio = GPIOA;
+    u.tx_pin = 0;
+    u.rx_pin = 1;
+    u.afr_reg = 0;
+    u.rx_interrupts = 0;
+    u.afr_mode = 8;
+
+    err = init_uart(&u);
+    if(err) {
+        send_uart(USART3, "Error initialising MIDI C UART\n\r", 30);
+    }
+
+    u.uart = USART6;
+    u.baud = 31250;
+    u.gpio = GPIOG;
+    u.tx_pin = 14;
+    u.rx_pin = 9;
+    u.afr_reg = 1;
+    u.rx_interrupts = 0;
+    u.afr_mode = 8;
+
+    err = init_uart(&u);
+    if(err) {
+        send_uart(USART3, "Error initialising MIDI D UART\n\r", 30);
+    }
+
     NVIC_EnableIRQ(USART1_IRQn);
 
     SPI_Handler s;
