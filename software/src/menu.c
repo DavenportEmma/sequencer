@@ -118,6 +118,8 @@ static void retreat_active_st() {
 }
 
 static void main_menu(uint16_t key, uint16_t hold) {
+    // reset active sq
+    ACTIVE_SQ = 0xFF;
     clear_display();
     display_line("select sequence", 0);
 
@@ -180,7 +182,7 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 
             break;
         case E_ENCODER_DOWN:
-            if(channel < 0x0F) {
+            if(channel < PORT_D_CHANNEL_16) {
                 channel++;
             }
 
@@ -189,7 +191,7 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             break;
 
         case E_ENCODER_UP:
-            if(channel > 0x00) {
+            if(channel > PORT_A_CHANNEL_1) {
                 channel--;
             }
 
@@ -202,14 +204,22 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "midi ", 5);
-        send_hex(USART3, channel);
+        send_uart(USART3, "channel ", 8);
+        send_hex(USART3, (channel & 0x0F));
+        send_uart(USART3, " port ", 6);
+        send_hex(USART3, ((channel & 0xF0) >> 4));
         send_uart(USART3, "\n\r", 2);
     #endif
 
-    char s[] = "00";
-    num_to_str((uint8_t)(channel+1), s, 2);
+    char port_str[] = "00";
+    uint8_t port_num = (uint8_t)(((channel & 0xF0) >> 4) + 1);
+    num_to_str(port_num, port_str, 2);
+    display_line(port_str, 1);
 
-    display_line(s, 1);
+    char channel_str[] = "00";
+    uint8_t channel_num = (uint8_t)((channel & 0x0F)+1); 
+    num_to_str(channel_num, channel_str, 2);
+    display_line(channel_str, 2);
 }
 
 static void st_landing(uint16_t key, uint16_t hold) {
