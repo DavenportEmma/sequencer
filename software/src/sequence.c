@@ -271,8 +271,6 @@ void load_sequences(UARTTaskParams_t* port_buffers, uint8_t num_ports) {
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
         if(check_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES)) {
             enable_sequence(i);
-            uint8_t port = (sequences[i].channel & 0xF0) >> 16;
-            load_sequence(i, port_buffers[port].note_on, port_buffers[port].note_off);
             clear_bit(queued_sequences, i, CONFIG_TOTAL_SEQUENCES);
         }
     }
