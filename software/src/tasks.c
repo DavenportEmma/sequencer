@@ -17,6 +17,9 @@ kbuf_handle_t uart_intr_kbuf;
 
 extern TaskHandle_t uartTxTask[4];
 
+// this is updated in menu.c tempo state
+volatile float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
+
 static void uart_tx_task(void *pvParameters) {
     UARTTaskParams_t* params = (UARTTaskParams_t*)pvParameters;
     
@@ -28,7 +31,6 @@ static void uart_tx_task(void *pvParameters) {
 }
 
 void sq_play_task(void *pvParameters) {
-    float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
     TickType_t lastWakeTime;
     
     uint8_t num_ports = 4;
