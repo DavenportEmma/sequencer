@@ -459,7 +459,19 @@ static void sq_break(uint16_t key, uint16_t hold) {
         send_uart(USART3, "\n\r", 2);
     #endif
 
-    break_sequence(ACTIVE_SQ);
+
+    if(one_bit_set(SQ_MSEL_MASK)) {
+        break_sequence(ACTIVE_SQ);
+    } else {
+        for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
+            uint8_t array_index = i / 32;
+            uint8_t bit_position = i % 32;
+
+            if(SQ_MSEL_MASK[array_index] & (1 << bit_position)) {
+                break_sequence(i);
+            }
+        }
+    }
     menu(E_AUTO, E_NO_HOLD);
 }
 
