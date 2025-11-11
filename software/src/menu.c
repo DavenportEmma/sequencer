@@ -97,7 +97,7 @@ static MIDINote_t key_to_note(uint16_t key) {
 
 volatile uint8_t ACTIVE_SQ; 
 volatile uint8_t ACTIVE_ST; 
-
+static MenuState_t current_state = S_MAIN_MENU;
 extern float TEMPO_PERIOD_MS;
 
 static void advance_active_st() {
@@ -264,7 +264,6 @@ static void st_menu(uint16_t key, uint16_t hold) {
     #endif
 
     kbuf_reset(uart_intr_kbuf);
-    uart_enable_rx_intr(USART1);
 }
 
 /*
@@ -541,25 +540,23 @@ StateMachine_t state_machine[] = {
 };
 
 void menu(uint16_t key, uint16_t hold) {
-    uart_disable_rx_intr(USART1);
-
     static MenuState_t current = S_MAIN_MENU;
     static MenuState_t previous = S_MAIN_MENU;
 
-    MenuEvent_t event = decode_key(current, key);
+    MenuEvent_t event = decode_key(current_state, key);
     
     for(uint8_t i = 0; i < STATE_TABLE_SIZE; i++) {
-        if((state_table[i].current == current && state_table[i].event == event) ||
-            (state_table[i].current == current && state_table[i].event == E_AUTO)
+        if((state_table[i].current == current_state && state_table[i].event == event) ||
+            (state_table[i].current == current_state && state_table[i].event == E_AUTO)
         ) {
             if(state_table[i].next == S_PREV) {
-                current = previous;
+                current_state = previous;
             } else {
-                previous = current;
-                current = state_table[i].next;    
+                previous = current_state;
+                current_state = state_table[i].next;    
             }
 
-            (state_machine[current].func)(key, hold);
+            (state_machine[current_state].func)(key, hold);
             break;
         }
     }
@@ -571,10 +568,28 @@ void USART1_IRQHandler(void) {
         while(USART1->ISR & (USART_ISR_RXNE | USART_ISR_ORE)) {
             uint8_t d = USART1->RDR;
             kbuf_push(uart_intr_kbuf, d);
-
+            
             if(kbuf_size(uart_intr_kbuf) >= 3) {
                 USART1->ICR |= USART_ICR_ORECF;
                 uart_intr_kbuf->ready = 1;
+
+                MIDIPacket_t p;
+                p.note = uart_intr_kbuf->buffer[1];
+                p.velocity = uart_intr_kbuf->buffer[2];
+                
+                if(ACTIVE_SQ < CONFIG_TOTAL_SEQUENCES) {
+                    p.status = uart_intr_kbuf->buffer[0] & 0xF0;
+                    p.channel = sequences[ACTIVE_SQ].channel;
+                } else {
+                    p.status = uart_intr_kbuf->buffer[0];
+                    p.channel = uart_intr_kbuf->buffer[0];
+                }
+
+                if(current_state != S_ST_MENU) {
+                    kbuf_reset(uart_intr_kbuf);
+                }
+
+                send_midi_note(USART1, &p);
             }
         }
     }
