@@ -50,10 +50,12 @@ typedef enum {
     S_QUEUE_TRIG_SEL,
     S_QUEUE,
     S_BREAK,
+    S_TEMPO,
 } MenuState_t;
 
 typedef enum {
     E_MAIN_MENU = 0x00,
+    E_TEMPO = 0x01,
     E_SQ_MIDI = 0x03,
     E_SHIFT = 0x05,
     E_CTRL = 0x06,
@@ -74,8 +76,8 @@ typedef enum {
     E_ST_CLR = 0x5F,
     E_ST_NOTE,
     E_NO_HOLD = 0xFFFB,
-    E_ENCODER_UP = 0xFFFE,  // see tasks.c inside key scan task for why I used
-    E_ENCODER_DOWN = 0xFFFC,// these values
+    E_ENCODER_UP = 0xFFFC,  // see tasks.c inside key scan task for why I used
+    E_ENCODER_DOWN = 0xFFFE,// these values
     E_AUTO = 0xFFFF,
 } MenuEvent_t;
 
@@ -89,6 +91,7 @@ static const MenuTransition_t state_table[] = {
     {S_MAIN_MENU, E_MAIN_MENU, S_MAIN_MENU},
     {S_MAIN_MENU, E_SQ_SELECT, S_SQ_SELECT},
     {S_MAIN_MENU, E_SAVE, S_SAVE},
+    {S_MAIN_MENU, E_TEMPO, S_TEMPO},
 
     {S_SQ_SELECT, E_AUTO, S_SQ_MENU},
 
@@ -155,6 +158,10 @@ static const MenuTransition_t state_table[] = {
     {S_QUEUE, E_AUTO, S_MAIN_MENU},
 
     {S_BREAK, E_AUTO, S_PREV},
+
+    {S_TEMPO, E_ENCODER_DOWN, S_TEMPO},
+    {S_TEMPO, E_ENCODER_UP, S_TEMPO},
+    {S_TEMPO, E_MAIN_MENU, S_MAIN_MENU},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))

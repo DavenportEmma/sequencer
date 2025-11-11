@@ -98,7 +98,7 @@ static MIDINote_t key_to_note(uint16_t key) {
 volatile uint8_t ACTIVE_SQ; 
 volatile uint8_t ACTIVE_ST; 
 
-uint32_t MSEL_MASK[2];  // 64 bit field to identify multi selected sq/st
+extern float TEMPO_PERIOD_MS;
 
 static void advance_active_st() {
     ACTIVE_ST++;
@@ -181,7 +181,7 @@ static void sq_midi(uint16_t key, uint16_t hold) {
             channel = get_channel(ACTIVE_SQ);
 
             break;
-        case E_ENCODER_DOWN:
+        case E_ENCODER_UP:
             if(channel < PORT_D_CHANNEL_16) {
                 channel++;
             }
@@ -190,7 +190,7 @@ static void sq_midi(uint16_t key, uint16_t hold) {
 
             break;
 
-        case E_ENCODER_UP:
+        case E_ENCODER_DOWN:
             if(channel > PORT_A_CHANNEL_1) {
                 channel--;
             }
@@ -463,6 +463,41 @@ static void sq_break(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
+static void tempo(uint16_t key, uint16_t hold) {
+    static uint8_t tempo = CONFIG_TEMPO;
+
+    switch(key) {
+        case E_TEMPO:
+            break;
+        case E_ENCODER_UP:
+            tempo++;
+
+            if(tempo > 280) {
+                tempo = 280;
+            }
+
+            break;
+        case E_ENCODER_DOWN:
+            tempo--;
+
+            if(tempo < 60) {
+                tempo = 60;
+            }
+
+            break;
+        default:
+            break;
+    }
+
+    TEMPO_PERIOD_MS = 15000/tempo;
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "tempo ", 6);
+        send_hex(USART3, tempo);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -489,7 +524,8 @@ StateMachine_t state_machine[] = {
     { S_SAVE, save },
     { S_QUEUE_TRIG_SEL, sq_queue_trig_sel },
     { S_QUEUE, sq_queue },
-    { S_BREAK, sq_break }
+    { S_BREAK, sq_break },
+    { S_TEMPO, tempo },
 };
 
 void menu(uint16_t key, uint16_t hold) {
