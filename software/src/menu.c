@@ -475,7 +475,7 @@ static void sq_break(uint16_t key, uint16_t hold) {
 }
 
 static void tempo(uint16_t key, uint16_t hold) {
-    static uint8_t tempo = CONFIG_TEMPO;
+    static uint16_t tempo = CONFIG_TEMPO;
 
     switch(key) {
         case E_TEMPO:
