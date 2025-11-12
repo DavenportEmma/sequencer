@@ -540,7 +540,6 @@ StateMachine_t state_machine[] = {
 };
 
 void menu(uint16_t key, uint16_t hold) {
-    static MenuState_t current = S_MAIN_MENU;
     static MenuState_t previous = S_MAIN_MENU;
 
     MenuEvent_t event = decode_key(current_state, key);
