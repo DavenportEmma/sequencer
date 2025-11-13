@@ -9,7 +9,7 @@
 #include "sequence.h"
 #include "stm32f722xx.h"
 
-SemaphoreHandle_t flash_mutex;
+SemaphoreHandle_t flash_mutex, midi_uart_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 
@@ -19,6 +19,7 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 
 int main(void) {
     flash_mutex = xSemaphoreCreateMutex();
+    midi_uart_mutex = xSemaphoreCreateMutex();
     
     memset(sequences, 0, sizeof(sequences));
     memset(steps, 0, sizeof(steps));
