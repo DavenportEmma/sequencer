@@ -456,3 +456,11 @@ void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel) {
 MIDIChannel_t get_channel(uint8_t sq_index) {
     return sequences[sq_index].channel;
 }
+
+uint8_t is_sq_enabled(uint8_t sq_index) {
+    return check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
+}
+
+step_t get_step_from_index(uint16_t step_index) {
+    return steps[step_index];
+}
