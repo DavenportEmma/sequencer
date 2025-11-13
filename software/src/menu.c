@@ -8,11 +8,15 @@
 #include "util.h"
 #include "display.h"
 #include <string.h>
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "stm32f722xx.h"
 
 #define CONFIG_DEBUG_PRINT
 
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
+extern SemaphoreHandle_t midi_uart_mutex;
 
 uint32_t SQ_MSEL_MASK[2];  // 64 bit field to identify multi selected sq
 uint32_t ST_MSEL_MASK[2];
@@ -256,6 +260,72 @@ static void st_select(uint16_t key, uint16_t hold) {
 
 static void st_menu(uint16_t key, uint16_t hold) {
     display_line("edit step", 0);
+
+    if(!is_sq_enabled(ACTIVE_SQ)) {
+        uint8_t port = (sequences[ACTIVE_SQ].channel & 0xF0) >> 4;
+        
+        USART_TypeDef* uart;
+
+        switch(port) {
+            case 0:
+                uart = USART1;
+                break;
+            case 1:
+                uart = USART2;
+                break;
+            case 2:
+                uart = UART4;
+                break;
+            case 3:
+                uart = USART6;
+                break;
+            default:
+                uart = USART1;
+                #ifdef CONFIG_DEBUG_PRINT
+                    send_uart(USART3, "incorrect port num\n\r", 20);
+                #endif
+                break;
+        }
+
+        MIDICC_t cc = {
+            .status = CONTROLLER,
+            .channel = sequences[ACTIVE_SQ].channel & 0x0F,
+            .control = ALL_NOTES_OFF,
+            .value = 0,
+        };
+        
+        MIDIPacket_t p = {
+            .channel = sequences[ACTIVE_SQ].channel & 0x0F,
+            .status = NOTE_OFF,
+            .velocity = 0,
+        };
+        
+        uint16_t seq_base_index = ((uint16_t)ACTIVE_SQ * CONFIG_STEPS_PER_SEQUENCE);
+        uint16_t step_index = seq_base_index + (uint16_t)ACTIVE_ST;
+
+        step_t step = get_step_from_index(step_index);
+
+        xSemaphoreTake(midi_uart_mutex, portMAX_DELAY);
+        send_midi_control(uart, &cc);
+
+        for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+            if(step.note_off[i] >= A0 && step.note_off[i] <= C8) {
+                p.note = step.note_off[i];
+                send_midi_note(uart, &p);
+            }
+        }
+
+        p.status = NOTE_ON;
+        for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
+            if(step.note_on[i].note >= A0 && step.note_on[i].note <= C8) {
+                p.note = step.note_on[i].note;
+                p.velocity = step.note_on[i].velocity;
+                send_midi_note(uart, &p);
+            }
+        }
+
+        xSemaphoreGive(midi_uart_mutex);
+    }
 
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "edit step ", 10);
