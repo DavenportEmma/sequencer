@@ -51,11 +51,13 @@ typedef enum {
     S_QUEUE,
     S_BREAK,
     S_TEMPO,
+    S_SQ_PRESCALE,
 } MenuState_t;
 
 typedef enum {
     E_MAIN_MENU = 0x00,
     E_TEMPO = 0x01,
+    E_SQ_PRESCALE = 0x02,
     E_SQ_MIDI = 0x03,
     E_SHIFT = 0x05,
     E_CTRL = 0x06,
@@ -104,6 +106,7 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_SAVE, S_SAVE},
     {S_SQ_MENU, E_QUEUE, S_QUEUE_TRIG_SEL},
     {S_SQ_MENU, E_BREAK, S_BREAK},
+    {S_SQ_MENU, E_SQ_PRESCALE, S_SQ_PRESCALE},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
@@ -162,6 +165,10 @@ static const MenuTransition_t state_table[] = {
     {S_TEMPO, E_ENCODER_DOWN, S_TEMPO},
     {S_TEMPO, E_ENCODER_UP, S_TEMPO},
     {S_TEMPO, E_MAIN_MENU, S_MAIN_MENU},
+
+    {S_SQ_PRESCALE, E_ENCODER_DOWN, S_SQ_PRESCALE},
+    {S_SQ_PRESCALE, E_ENCODER_UP, S_SQ_PRESCALE},
+    {S_SQ_PRESCALE, E_MAIN_MENU, S_MAIN_MENU},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))

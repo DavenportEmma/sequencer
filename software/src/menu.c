@@ -509,6 +509,41 @@ static void tempo(uint16_t key, uint16_t hold) {
     #endif
 }
 
+static void sq_prescale(uint16_t key, uint16_t hold) {
+    int8_t prescale = sequences[ACTIVE_SQ].prescale_value;
+
+    switch(key) {
+        case E_SQ_PRESCALE:
+            break;
+        case E_ENCODER_UP:
+            prescale++;
+
+            if(prescale > 127) {
+                prescale = 127;
+            }
+
+            break;
+        case E_ENCODER_DOWN:
+            prescale--;
+
+            if(prescale < 0) {
+                prescale = 0;
+            }
+
+            break;
+        default:
+            break;
+    }
+
+    sequences[ACTIVE_SQ].prescale_value = prescale;
+
+    #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "prescale ", 9);
+        send_hex(USART3, prescale);
+        send_uart(USART3, "\n\r", 2);
+    #endif
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -537,6 +572,7 @@ StateMachine_t state_machine[] = {
     { S_QUEUE, sq_queue },
     { S_BREAK, sq_break },
     { S_TEMPO, tempo },
+    { S_SQ_PRESCALE, sq_prescale},
 };
 
 void menu(uint16_t key, uint16_t hold) {
