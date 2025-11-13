@@ -10,12 +10,14 @@
 #include "m_buf.h"
 #include "k_buf.h"
 #include "rotary_encoder.h"
+#include "semphr.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
 kbuf_handle_t uart_intr_kbuf;
 
 extern TaskHandle_t uartTxTask[4];
+extern SemaphoreHandle_t midi_uart_mutex;
 
 // this is updated in menu.c tempo state
 volatile float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
@@ -72,10 +74,15 @@ void sq_play_task(void *pvParameters) {
 
         load_sequences(uart_tx_params, num_ports);
 
+        xSemaphoreTake(midi_uart_mutex, portMAX_DELAY);
+
         xTaskNotifyGive(uartTxTask[0]);
         xTaskNotifyGive(uartTxTask[1]);
         xTaskNotifyGive(uartTxTask[2]);
         xTaskNotifyGive(uartTxTask[3]);
+
+        xSemaphoreGive(midi_uart_mutex);
+
         vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(TEMPO_PERIOD_MS));
     }
 }
