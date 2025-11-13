@@ -214,6 +214,13 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
     */
 
     if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+        if(sq->prescale_counter <= 0) {
+            sq->prescale_counter = sq->prescale_value;
+        } else {
+            sq->prescale_counter--;
+            return;
+        }
+
         uint8_t prev_counter = sq->counter;
 
         // queue all sequences that are triggered on this one
@@ -313,6 +320,7 @@ void enable_sequence(uint8_t sq_index) {
 void disable_sequence(uint8_t sq_index) {
     #ifdef CONFIG_RESET_SEQ_ON_DISABLE
         sequences[sq_index].counter = 0;
+        sequences[sq_index].prescale_counter = 0;
     #endif
 
     uint8_t array_index = sq_index / 32;
