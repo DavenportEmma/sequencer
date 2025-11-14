@@ -135,69 +135,16 @@ static uint8_t goto_next_enabled_step(uint8_t* counter, uint32_t* enabled_steps)
     return 0;
 }
 
-/*
-    load step data into a step struct then send the note data over midi
-
-    @param sq           Pointer to a copy of the active sequence in sq_index
-    @param sq_index     Index of the active sequence in sequences[]
-    @param st           Step struct to be filled with step data
-*/
-static uint8_t get_step(MIDISequence_t* sq, uint8_t sq_index, step_t* st) {
-    uint8_t* counter = &sq->counter;
-
-    if(is_disabled(sq->enabled_steps, (*counter))) {
-        MIDICC_t p = {
-            .status = CONTROLLER,
-            .channel = sq->channel & 0x0F,
-            .control = ALL_NOTES_OFF,
-            .value = 0,
-        };
-
-        uint8_t port = (p.channel & 0xF0) >> 4;
-
-        switch(port) {
-        case 0:
-            send_midi_control(USART1, &p);
-            break;
-        case 1:
-            send_midi_control(USART2, &p);
-            break;
-        case 2:
-            send_midi_control(UART4, &p);
-            break;
-        case 3:
-            send_midi_control(USART6, &p);
-            break;
-        default:
-            #ifdef CONFIG_DEBUG_PRINT
-                send_uart(USART3, "incorrect port num\n\r", 20);
-            #endif
-            break;
-        }
-
-        if(goto_next_enabled_step(counter, sq->enabled_steps)) {
-            return 1;
-        }
-    }
-
-    uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
-    uint16_t index = seq_base_index + (uint16_t)sq->counter;
-
-    if(goto_next_enabled_step(&sq->counter, sq->enabled_steps)) {
-        return 1;
-    }
-
-    memcpy(st, &steps[index], sizeof(step_t));
-
-    return 0;
-}
-
 static uint8_t is_muted(uint32_t* muted_steps, uint8_t step) {
     uint8_t ret;    
 
     ret = check_bit(muted_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 
     return ret;
+}
+
+step_t get_step_from_index(uint16_t step_index) {
+    return steps[step_index];
 }
 
 static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
@@ -213,38 +160,81 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
             changing muted steps
     */
 
+    // TODO fix queuing logic when the trigger sq is prescaled
+    // prescale is causing the sequence to start late
     if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
-        if(sq->prescale_counter <= 0) {
-            sq->prescale_counter = sq->prescale_value;
-        } else {
-            sq->prescale_counter--;
-            return;
-        }
-
         uint8_t prev_counter = sq->counter;
 
-        // queue all sequences that are triggered on this one
-        step_t st;
-        uint8_t err = get_step(sq, sq_index, &st);
-
-        uint8_t muted = is_muted(sq->muted_steps, sq->counter);
-
-        load_step_notes(
-            note_on_mbuf,
-            note_off_mbuf,
-            sq->channel,
-            muted,
-            &st);
-
-        if(sq->counter <= prev_counter) {
-            queued_sequences[0] |= sq->queue[0];
-            queued_sequences[1] |= sq->queue[1];
-            memset(sq->queue, 0, sizeof(uint32_t) * 2);
-
-            if(check_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
-                disable_sequence(sq_index);
-                clear_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
+        if(sq->prescale_counter == 0) {
+            // go to the next enabled step if the current one is disabled
+            if(is_disabled(sq->enabled_steps, sq->counter)) {
+                MIDICC_t p = {
+                    .status = CONTROLLER,
+                    .channel = sq->channel & 0x0F,
+                    .control = ALL_NOTES_OFF,
+                    .value = 0,
+                };
+    
+                uint8_t port = (p.channel & 0xF0) >> 4;
+    
+                switch(port) {
+                case 0:
+                    send_midi_control(USART1, &p);
+                    break;
+                case 1:
+                    send_midi_control(USART2, &p);
+                    break;
+                case 2:
+                    send_midi_control(UART4, &p);
+                    break;
+                case 3:
+                    send_midi_control(USART6, &p);
+                    break;
+                default:
+                    #ifdef CONFIG_DEBUG_PRINT
+                        send_uart(USART3, "incorrect port num\n\r", 20);
+                    #endif
+                    break;
+                }
+    
+                if(goto_next_enabled_step(&sq->counter, sq->enabled_steps)) {
+                    // TODO handle case where all steps are disabled
+                }
             }
+            
+            uint16_t seq_base_index = ((uint16_t)sq_index * CONFIG_STEPS_PER_SEQUENCE);
+            uint16_t step_index = seq_base_index + (uint16_t)sq->counter;
+            step_t st = get_step_from_index(step_index);
+    
+            // uint8_t err = get_step(sq, sq_index, &st);
+    
+            uint8_t muted = is_muted(sq->muted_steps, sq->counter);
+    
+            load_step_notes(
+                note_on_mbuf,
+                note_off_mbuf,
+                sq->channel,
+                muted,
+                &st);
+        }
+            
+        sq->prescale_counter++;
+
+        if(sq->prescale_counter > sq->prescale_value) {
+            goto_next_enabled_step(&sq->counter, sq->enabled_steps);
+            
+            if(sq->counter <= prev_counter) {
+                queued_sequences[0] |= sq->queue[0];
+                queued_sequences[1] |= sq->queue[1];
+                memset(sq->queue, 0, sizeof(uint32_t) * 2);
+    
+                if(check_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
+                    disable_sequence(sq_index);
+                    clear_bit(break_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
+                }
+            }
+    
+            sq->prescale_counter = 0;
         }
     }
 }
@@ -459,8 +449,4 @@ MIDIChannel_t get_channel(uint8_t sq_index) {
 
 uint8_t is_sq_enabled(uint8_t sq_index) {
     return check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES);
-}
-
-step_t get_step_from_index(uint16_t step_index) {
-    return steps[step_index];
 }
