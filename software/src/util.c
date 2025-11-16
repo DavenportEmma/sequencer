@@ -113,3 +113,37 @@ uint8_t one_bit_set(uint32_t* field) {
         one bit set.
     */
 }
+
+static uint8_t _find_last_bit(uint32_t field) {
+    for(uint8_t i = 31; i > 0; i--) {
+        if(field & (1 << i)) {
+            return i;
+        }
+    }
+}
+
+uint8_t find_last_bit(uint32_t* field) {
+    if(field[1] != 0) {
+        return _find_last_bit(field[1]) + 32; 
+    } else if(field[0] != 0) {
+        return _find_last_bit(field[0]);
+    }
+    return 0xFF;
+}
+
+static uint8_t _find_first_bit(uint32_t field) {
+    for(uint8_t i = 0; i < 32; i++) {
+        if(field & (1 << i)) {
+            return i;
+        }
+    }
+}
+
+uint8_t find_first_bit(uint32_t* field) {
+    if(field[0] != 0) {
+        return _find_first_bit(field[0]);
+    } else if(field[1] != 0) {
+        return _find_first_bit(field[1]) + 32;
+    }
+    return 0xFF;
+}
