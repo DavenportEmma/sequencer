@@ -125,8 +125,7 @@ static void main_menu(uint16_t key, uint16_t hold) {
     // reset active sq
     ACTIVE_SQ = 0xFF;
     clear_display();
-    display_line("select sequence", 0);
-
+    display_line("SELECT SQ", 0);
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "select sequence\n\r", 17);
     #endif
@@ -151,8 +150,12 @@ static void sq_select(uint16_t key, uint16_t hold) {
 }
 
 static void sq_menu(uint16_t key, uint16_t hold) {
-    display_line("edit sequence", 0);
-    
+    clear_line(0);
+
+    char s[] = "SQ XXX";
+    num_to_str(ACTIVE_SQ, &s[3], 3);
+    display_line(s, 0);
+
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "edit sequence ", 14);
         send_hex(USART3, ACTIVE_SQ);
@@ -175,8 +178,6 @@ static void sq_en(uint16_t key, uint16_t hold) {
 }
 
 static void sq_midi(uint16_t key, uint16_t hold) {
-    display_line("midi", 0);
-
     static MIDIChannel_t channel;
     switch(key) {
         case E_SQ_MIDI:
@@ -215,19 +216,22 @@ static void sq_midi(uint16_t key, uint16_t hold) {
         send_uart(USART3, "\n\r", 2);
     #endif
 
-    char port_str[] = "00";
+    
+    char s[] = "MIDI XX XX";
+    
     uint8_t port_num = (uint8_t)(((channel & 0xF0) >> 4) + 1);
-    num_to_str(port_num, port_str, 2);
-    display_line(port_str, 1);
-
-    char channel_str[] = "00";
+    num_to_str(port_num, &s[5], 2);
+    
     uint8_t channel_num = (uint8_t)((channel & 0x0F)+1); 
-    num_to_str(channel_num, channel_str, 2);
-    display_line(channel_str, 2);
+    num_to_str(channel_num, &s[8], 2);
+    
+    clear_line(1);
+    display_line(s, 1);
 }
 
 static void st_landing(uint16_t key, uint16_t hold) {
-    display_line("select step", 0);
+    clear_line(1);
+    display_line("SELECT ST", 1);
 
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "select step\n\r", 13);
@@ -259,7 +263,10 @@ static void st_select(uint16_t key, uint16_t hold) {
 }
 
 static void st_menu(uint16_t key, uint16_t hold) {
-    display_line("edit step", 0);
+    clear_line(1);
+    char s[] = "ST XXX";
+    num_to_str(ACTIVE_ST, &s[3], 3);
+    display_line(s, 1);
 
     if(!is_sq_enabled(ACTIVE_SQ)) {
         uint8_t port = (sequences[ACTIVE_SQ].channel & 0xF0) >> 4;
@@ -577,6 +584,11 @@ static void tempo(uint16_t key, uint16_t hold) {
         send_hex(USART3, tempo);
         send_uart(USART3, "\n\r", 2);
     #endif
+
+    clear_line(0);
+    char s[] = "TEMPO XXX";
+    num_to_str(tempo, &s[6], 3);
+    display_line(s, 0);
 }
 
 static void sq_prescale(uint16_t key, uint16_t hold) {
@@ -612,6 +624,11 @@ static void sq_prescale(uint16_t key, uint16_t hold) {
         send_hex(USART3, prescale);
         send_uart(USART3, "\n\r", 2);
     #endif
+
+    clear_line(1);
+    char s[] = "PSC XXX";
+    num_to_str(prescale, &s[4], 3);
+    display_line(s, 1);
 }
 
 /*
