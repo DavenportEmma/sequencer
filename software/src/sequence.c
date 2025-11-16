@@ -149,25 +149,17 @@ step_t get_step_from_index(uint16_t step_index) {
 
 static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_handle_t note_off_mbuf) {
     MIDISequence_t* sq = &sequences[sq_index];
-    /*
-        TODO look into potential problems that may arise from other tasks
-        modifying sequences[i] in between the first and second mutex takes
-    
-        potential causes
-            midi channel change
-            changing enabled steps
-            changing sequence enable
-            changing muted steps
-    */
 
-    // TODO fix queuing logic when the trigger sq is prescaled
-    // prescale is causing the sequence to start late
     if(check_bit(enabled_sequences, sq_index, CONFIG_TOTAL_SEQUENCES)) {
         uint8_t prev_counter = sq->counter;
 
         if(sq->prescale_counter == 0) {
-            // go to the next enabled step if the current one is disabled
-            if(is_disabled(sq->enabled_steps, sq->counter)) {
+            uint8_t prev_step = sq->counter - 1;
+            if(sq->counter == 0) {
+                prev_step = CONFIG_STEPS_PER_SEQUENCE - 1;
+            }
+            
+            if(is_disabled(sq->enabled_steps, prev_step)) {
                 MIDICC_t p = {
                     .status = CONTROLLER,
                     .channel = sq->channel & 0x0F,
@@ -195,10 +187,6 @@ static void load_sequence(uint8_t sq_index, mbuf_handle_t note_on_mbuf, mbuf_han
                         send_uart(USART3, "incorrect port num\n\r", 20);
                     #endif
                     break;
-                }
-    
-                if(goto_next_enabled_step(&sq->counter, sq->enabled_steps)) {
-                    // TODO handle case where all steps are disabled
                 }
             }
             
