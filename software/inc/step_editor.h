@@ -8,8 +8,7 @@ void edit_step_note(
     uint8_t step,
     MIDIStatus_t status,
     MIDINote_t note,
-    uint8_t velocity,
-    uint8_t auto_fill_next_note_off
+    uint8_t velocity
 );
 void mute_step(uint8_t sequence, uint8_t step);
 void toggle_step(uint8_t sequence, uint8_t step);

@@ -63,15 +63,13 @@ static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
     @param status   NOTE_ON or NOTE_OFF
     @param note     the new note value for the step
     @param velocity the new velocity for the note
-    @param auto_fill_next_note_off
 */
 void edit_step_note(
     uint8_t sq,
     uint8_t step,
     MIDIStatus_t status,
     MIDINote_t note,
-    uint8_t velocity,
-    uint8_t auto_fill_next_note_off
+    uint8_t velocity
 ) {
     step_t s, next_s;
     uint16_t seq_base_index = ((uint16_t)sq * CONFIG_STEPS_PER_SEQUENCE);
@@ -85,16 +83,10 @@ void edit_step_note(
     switch(status) {
         case NOTE_ON:
             fifo_push_note_on(&s, CONFIG_MAX_POLYPHONY, (uint8_t)note, velocity);
-
-            if(auto_fill_next_note_off) {
-                fifo_push_note_off(&next_s, CONFIG_MAX_POLYPHONY, (uint8_t)note);
-            }
-
             break;
 
         case NOTE_OFF:
             fifo_push_note_off(&s, CONFIG_MAX_POLYPHONY, (uint8_t)note);
-
             break;
 
         default:
@@ -102,11 +94,6 @@ void edit_step_note(
     }
 
     steps[index] = s;
-
-    if(auto_fill_next_note_off) {
-        steps[next_s_index] = next_s;
-    }
-
 }
 
 void mute_step(uint8_t sequence, uint8_t step) {

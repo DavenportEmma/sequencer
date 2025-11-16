@@ -110,6 +110,9 @@ static void advance_active_st() {
     if(ACTIVE_ST >= CONFIG_STEPS_PER_SEQUENCE) {
         ACTIVE_ST = 0;
     }
+
+    clear_field(ST_MSEL_MASK, CONFIG_STEPS_PER_SEQUENCE);
+    set_bit(ST_MSEL_MASK, ACTIVE_ST, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 static void retreat_active_st() {
@@ -119,6 +122,8 @@ static void retreat_active_st() {
         ACTIVE_ST--;
     }
 
+    clear_field(ST_MSEL_MASK, CONFIG_STEPS_PER_SEQUENCE);
+    set_bit(ST_MSEL_MASK, ACTIVE_ST, CONFIG_STEPS_PER_SEQUENCE);
 }
 
 static void main_menu(uint16_t key, uint16_t hold) {
@@ -364,7 +369,6 @@ static void st_note(uint16_t key, uint16_t hold) {
     MIDIStatus_t status = NOTE_ON;
     MIDINote_t note;
     uint8_t velocity = 0x3F;
-    uint8_t auto_fill_next_note_off = 0;
 
     if(midi) {
         uint8_t* buf = uart_intr_kbuf->buffer;
@@ -377,13 +381,26 @@ static void st_note(uint16_t key, uint16_t hold) {
 
     } else {
         note = key_to_note(key);
-        auto_fill_next_note_off = 1;
     }
     
     // key to note returns 0 for a keystroke outside of 13 key keyboard
-    if(note > 0) {
-        edit_step_note(ACTIVE_SQ, ACTIVE_ST, status, note, velocity, auto_fill_next_note_off);
-        
+    if(note > 0 && status == NOTE_ON) {
+        uint8_t start_step = find_first_bit(ST_MSEL_MASK);
+        if(start_step != 0xFF) {
+            edit_step_note(ACTIVE_SQ, start_step, status, note, velocity);
+        }
+
+        uint8_t last_step = find_last_bit(ST_MSEL_MASK);
+        if(last_step != 0xFF) {
+            if(last_step < 63) {
+                last_step++;
+            } else {
+                last_step = 0;
+            }
+
+            edit_step_note(ACTIVE_SQ, last_step, NOTE_OFF, note, velocity);
+        }
+
         #ifdef CONFIG_DEBUG_PRINT
             send_hex(USART3, note);
             send_uart(USART3, "\n\r", 2);
