@@ -377,8 +377,11 @@ static void save_array(uint32_t base_addr, uint8_t* ptr, uint32_t size) {
 }
 
 void save_data() {
-    flash_eraseSector(0x000000);
-    flash_eraseSector(0x010000);
+    // TODO figure out what is the least amount of erasing I need to do
+    // erase chip takes ages
+    // flash_eraseSector(0x000000);
+    // flash_eraseSector(0x010000);
+    flash_eraseChip();
 
     uint32_t addr = 0;
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
