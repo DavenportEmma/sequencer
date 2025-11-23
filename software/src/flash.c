@@ -11,6 +11,13 @@ void flash_eraseSector(uint32_t addr) {
     }
 }
 
+void flash_eraseChip() {
+    if(xSemaphoreTake(flash_mutex, portMAX_DELAY) == pdTRUE) {
+        eraseChip();
+        xSemaphoreGive(flash_mutex);
+    }
+}
+
 void flash_programPage(uint32_t addr, uint8_t* tx, uint8_t* rx, uint16_t len) {
     if(xSemaphoreTake(flash_mutex, portMAX_DELAY) == pdTRUE) {
         programPage(addr, tx, rx, len);
