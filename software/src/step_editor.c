@@ -126,29 +126,35 @@ void toggle_step(uint8_t sequence, uint8_t step) {
     toggle_bit(en_steps, step, CONFIG_STEPS_PER_SEQUENCE);
 }
 
-void edit_step_velocity(uint8_t sq, uint8_t step, int8_t velocity_dir) {
+void edit_step_velocity(uint8_t sq, uint8_t step, int8_t amount) {
     step_t s;
     uint16_t index = ((uint16_t)sq * CONFIG_STEPS_PER_SEQUENCE) + (uint16_t)step;
 
     s = steps[index];
 
     uint8_t v = s.note_on[0].velocity;
-
-    if(velocity_dir <= 0) {
-        if(v++ > 127) {
-            v = 127;
-        }
+    
+    if(v + amount > 127) {
+        v = 127;
+    } else if(amount < 0 && v <= (amount*-1)) {
+        v = 0;
     } else {
-        if(v > 0) {
-            v--;
-        }
+        v+=amount;
     }
+
+
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
         s.note_on[i].velocity = v;
     }
 
     steps[index] = s;
+}
+
+uint8_t get_step_velocity(uint8_t sq, uint8_t st) {
+    uint16_t index = ((uint16_t)sq * CONFIG_STEPS_PER_SEQUENCE) + (uint16_t)st;
+
+    return steps[index].note_on[0].velocity;
 }
 
 static uint8_t remove_note(step_t* s) {
