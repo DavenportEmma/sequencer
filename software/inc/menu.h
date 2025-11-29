@@ -116,12 +116,13 @@ static const MenuTransition_t state_table[] = {
 
     {S_SQ_EN, E_AUTO, S_PREV},
 
-    {S_SQ_CLR, E_AUTO, S_SQ_MENU},
+    {S_SQ_CLR, E_AUTO, S_PREV},
 
     {S_ST_LANDING, E_MAIN_MENU, S_MAIN_MENU},
     {S_ST_LANDING, E_ST_SELECT, S_ST_SELECT},
     {S_ST_LANDING, E_SQ_EN, S_SQ_EN},
     {S_ST_LANDING, E_SAVE, S_SAVE},
+    {S_ST_LANDING, E_SQ_CLR, S_SQ_CLR},
     
     {S_ST_SELECT, E_AUTO, S_ST_MENU},
 
@@ -137,6 +138,7 @@ static const MenuTransition_t state_table[] = {
     {S_ST_MENU, E_ENCODER_UP, S_ST_VEL_UP},
     {S_ST_MENU, E_ST_CLR, S_ST_CLR},
     {S_ST_MENU, E_SAVE, S_SAVE},
+    {S_ST_MENU, E_SQ_CLR, S_SQ_CLR},
 
     {S_ST_NOTE, E_AUTO, S_ST_MENU},
 
