@@ -245,7 +245,7 @@ static void st_landing(uint16_t key, uint16_t hold) {
 
 static void st_select(uint16_t key, uint16_t hold) {
     uint8_t st_val = key_to_sq_st(key);
-    
+    clear_line(2);
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "step ", 5);
         send_hex(USART3, st_val);
@@ -487,6 +487,8 @@ static void st_vel_down(uint16_t key, uint16_t hold) {
         send_uart(USART3, "decrease velocity\n\r", 19);
     #endif
 
+    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, -5);
+
     display_velocity();
 
     menu(E_AUTO, E_NO_HOLD);
@@ -497,6 +499,8 @@ static void st_vel_up(uint16_t key, uint16_t hold) {
         send_uart(USART3, "increase velocity\n\r", 19);
     #endif
     
+    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, 5);
+
     display_velocity();
 
     menu(E_AUTO, E_NO_HOLD);
