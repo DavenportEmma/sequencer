@@ -474,12 +474,20 @@ static void st_next(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
+static void display_velocity() {
+    char s[] = "VEL XXX";
+
+    uint8_t velocity = get_step_velocity(ACTIVE_SQ, ACTIVE_ST);
+    num_to_str(velocity, &s[4], 3);
+    display_line(s, 2);
+}
+
 static void st_vel_down(uint16_t key, uint16_t hold) {
     #ifdef CONFIG_DEBUG_PRINT
         send_uart(USART3, "decrease velocity\n\r", 19);
     #endif
 
-    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, -1);
+    display_velocity();
 
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -489,7 +497,7 @@ static void st_vel_up(uint16_t key, uint16_t hold) {
         send_uart(USART3, "increase velocity\n\r", 19);
     #endif
     
-    edit_step_velocity(ACTIVE_SQ, ACTIVE_ST, 1);
+    display_velocity();
 
     menu(E_AUTO, E_NO_HOLD);
 }
