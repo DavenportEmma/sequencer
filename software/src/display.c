@@ -101,11 +101,116 @@ void clear_line(uint8_t line) {
     memset(&display_buffer[line_index+WIDTH], 0, WIDTH);
 }
 
-static void update_display() {
+void update_display() {
     display_ssd1306(display_buffer);
 }
 
 void clear_and_update() {
     clear_display();
     update_display();
+}
+
+void display_piano_roll() {
+    uint8_t white_key_width = 15;
+
+    uint8_t line = 3;
+    uint16_t line_index = line * (WIDTH * 2);
+
+    clear_line(3);
+
+    uint8_t black_key_width = 9;
+    uint8_t black_key[] = {0xFF, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0xFF};
+
+    for(uint8_t i = 0; i < white_key_width*8; i++) {
+        if((i % white_key_width) == 0) {
+            switch(i/white_key_width) {
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                case 6:
+                    memcpy(&display_buffer[line_index+i-4], &black_key[0], black_key_width);
+                    break;
+                default:
+                    display_buffer[line_index+i] = 0xFF;
+                    break;
+            }
+
+            display_buffer[line_index+i+WIDTH] = 0xFF;
+        }
+    }
+}
+
+void show_note(uint8_t note) {
+    MIDINote_t n = note & 0x7F;
+
+    if(n > C8 || n < A0) {
+        return;
+    }
+
+    uint8_t line = 3;
+    uint16_t line_index = line * (WIDTH * 2);
+
+    uint8_t note_class = note%12;
+
+    switch(note_class) {
+        // C, F
+        case 0:
+        case 5:
+            ;
+            uint8_t key = (note_class == 0) ? 0 : 3;
+            memset(&display_buffer[line_index+2+(15*key)], 0xFF, 8);
+            memset(&display_buffer[line_index+2+(15*key)+WIDTH], 0xFF, 8);
+            memset(&display_buffer[line_index+10+(15*key)+WIDTH], 0xFE, 4);
+            break;
+        // black keys
+        case 1:
+            memset(&display_buffer[line_index+13], 0xBF, 5);
+            break;
+        case 3:
+            memset(&display_buffer[line_index+13+15], 0xBF, 5);
+            break;
+        case 6:
+            memset(&display_buffer[line_index+13+45], 0xBF, 5);
+            break;
+        case 8:
+            memset(&display_buffer[line_index+13+60], 0xBF, 5);
+            break;
+        case 10:
+            memset(&display_buffer[line_index+13+75], 0xBF, 5);
+            break;
+        // D, G, A
+        case 2:
+            memset(&display_buffer[line_index+21], 0xFF, 4);
+            memset(&display_buffer[line_index+17+WIDTH], 0xFE, 4);
+            memset(&display_buffer[line_index+21+WIDTH], 0xFF, 4);
+            memset(&display_buffer[line_index+25+WIDTH], 0xFE, 4);
+            break;
+        case 7:
+            memset(&display_buffer[line_index+21+45], 0xFF, 4);
+            memset(&display_buffer[line_index+17+45+WIDTH], 0xFE, 4);
+            memset(&display_buffer[line_index+21+45+WIDTH], 0xFF, 4);
+            memset(&display_buffer[line_index+25+45+WIDTH], 0xFE, 4);
+            break;
+        case 9:
+            memset(&display_buffer[line_index+21+60], 0xFF, 4);
+            memset(&display_buffer[line_index+17+60+WIDTH], 0xFE, 4);
+            memset(&display_buffer[line_index+21+60+WIDTH], 0xFF, 4);
+            memset(&display_buffer[line_index+25+60+WIDTH], 0xFE, 4);
+            break;
+        // E, B
+        case 4:
+            memset(&display_buffer[line_index+36], 0xFF, 8);
+            memset(&display_buffer[line_index+32+WIDTH], 0xFE, 4);
+            memset(&display_buffer[line_index+36+WIDTH], 0xFF, 8);
+            break;
+        case 11:
+            memset(&display_buffer[line_index+36+60], 0xFF, 8);
+            memset(&display_buffer[line_index+32+60+WIDTH], 0xFE, 4);
+            memset(&display_buffer[line_index+36+60+WIDTH], 0xFF, 8);
+            break;
+        
+        default:
+            break;
+    }
 }
