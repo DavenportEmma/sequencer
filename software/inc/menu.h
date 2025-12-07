@@ -52,6 +52,8 @@ typedef enum {
     S_BREAK,
     S_TEMPO,
     S_SQ_PRESCALE,
+    S_ST_COPY,
+    S_ST_PASTE
 } MenuState_t;
 
 typedef enum {
@@ -69,6 +71,8 @@ typedef enum {
     E_SAVE = 0x0E,
     E_SQ_CLR = 0x0F,
     E_ST_SELECT,
+    E_ST_COPY = 0x56,
+    E_ST_PASTE = 0x57,
     E_ST_EDIT = 0x5C,
     E_ST_PITCH = 0x69,
     E_ST_EN = 0x5A,
@@ -139,6 +143,8 @@ static const MenuTransition_t state_table[] = {
     {S_ST_MENU, E_ST_CLR, S_ST_CLR},
     {S_ST_MENU, E_SAVE, S_SAVE},
     {S_ST_MENU, E_SQ_CLR, S_SQ_CLR},
+    {S_ST_MENU, E_ST_COPY, S_ST_COPY},
+    {S_ST_MENU, E_ST_PASTE, S_ST_PASTE},
 
     {S_ST_NOTE, E_AUTO, S_ST_MENU},
 
@@ -156,6 +162,10 @@ static const MenuTransition_t state_table[] = {
 
     {S_ST_CLR, E_AUTO, S_ST_MENU},
 
+    {S_ST_COPY, E_AUTO, S_PREV},
+
+    {S_ST_PASTE, E_AUTO, S_PREV},
+    
     {S_SAVE, E_AUTO, S_PREV},
 
     {S_QUEUE_TRIG_SEL, E_SQ_SELECT, S_QUEUE},

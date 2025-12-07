@@ -156,6 +156,7 @@ static void sq_select(uint16_t key, uint16_t hold) {
 
 static void sq_menu(uint16_t key, uint16_t hold) {
     clear_line(0);
+    clear_line(1);
 
     char s[] = "SQ XXX";
     num_to_str(ACTIVE_SQ, &s[3], 3);
@@ -272,6 +273,8 @@ static void st_menu(uint16_t key, uint16_t hold) {
     char s[] = "ST XXX";
     num_to_str(ACTIVE_ST, &s[3], 3);
     display_line(s, 1);
+    clear_line(3);
+    display_step_notes(ACTIVE_SQ, ACTIVE_ST);
 
     if(!is_sq_enabled(ACTIVE_SQ)) {
         uint8_t port = (sequences[ACTIVE_SQ].channel & 0xF0) >> 4;
@@ -511,7 +514,18 @@ static void st_clear(uint16_t key, uint16_t hold) {
         send_uart(USART3, "clear step\n\r", 12);
     #endif
     
-    clear_step(ACTIVE_SQ, ACTIVE_ST);
+    if(one_bit_set(ST_MSEL_MASK)) {
+        clear_step(ACTIVE_SQ, ACTIVE_ST);
+    } else {
+        for(int i = 0; i < CONFIG_STEPS_PER_SEQUENCE; i++) {
+            uint8_t array_index = i / 32;
+            uint8_t bit_position = i % 32;
+
+            if(ST_MSEL_MASK[array_index] & (1 << bit_position)) {
+                clear_step(ACTIVE_SQ, i);
+            }
+        }
+    }
 
     menu(E_AUTO, E_NO_HOLD);
 }
@@ -660,6 +674,41 @@ static void sq_prescale(uint16_t key, uint16_t hold) {
     display_line(s, 1);
 }
 
+static void st_copy_paste(uint16_t key, uint16_t hold) {
+    static step_t temp_st;
+    memset(&temp_st, 0, sizeof(step_t));
+
+    // keeps track of how long each note_on of temp_st is to last for
+    static uint8_t note_off_offsets[CONFIG_MAX_POLYPHONY] = {0};
+
+    switch(key) {
+        case E_ST_COPY:
+            copy_step(&temp_st, note_off_offsets, ACTIVE_SQ, ACTIVE_ST);
+
+            #ifdef CONFIG_DEBUG_PRINT
+            send_uart(USART3, "copy st ", 8);
+            send_hex(USART3, ACTIVE_ST);
+            send_uart(USART3, "\n\r", 2);
+            #endif
+
+            break;
+        case E_ST_PASTE:
+            paste_step(temp_st, note_off_offsets, ACTIVE_SQ, ACTIVE_ST);
+
+            #ifdef CONFIG_DEBUG_PRINT
+            send_uart(USART3, "paste st ", 9);
+            send_hex(USART3, ACTIVE_ST);
+            send_uart(USART3, "\n\r", 2);
+            #endif
+
+            break;
+        default:
+            break;
+    }
+
+    menu(E_AUTO, E_NO_HOLD);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -689,6 +738,8 @@ StateMachine_t state_machine[] = {
     { S_BREAK, sq_break },
     { S_TEMPO, tempo },
     { S_SQ_PRESCALE, sq_prescale},
+    { S_ST_COPY, st_copy_paste },
+    { S_ST_PASTE, st_copy_paste }
 };
 
 void menu(uint16_t key, uint16_t hold) {
