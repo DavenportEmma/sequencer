@@ -676,7 +676,6 @@ static void sq_prescale(uint16_t key, uint16_t hold) {
 
 static void st_copy_paste(uint16_t key, uint16_t hold) {
     static step_t temp_st;
-    memset(&temp_st, 0, sizeof(step_t));
 
     // keeps track of how long each note_on of temp_st is to last for
     static uint8_t note_off_offsets[CONFIG_MAX_POLYPHONY] = {0};
