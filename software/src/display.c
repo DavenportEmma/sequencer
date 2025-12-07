@@ -151,7 +151,7 @@ void show_note(uint8_t note) {
     uint8_t line = 3;
     uint16_t line_index = line * (WIDTH * 2);
 
-    uint8_t note_class = note%12;
+    uint8_t note_class = n%12;
 
     switch(note_class) {
         // C, F
