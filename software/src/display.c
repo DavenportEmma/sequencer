@@ -3,6 +3,8 @@
 #include "ascii.h"
 #include <string.h>
 #include "common.h"
+#include "midi.h"
+#include "uart.h"
 
 extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 
@@ -84,6 +86,15 @@ void display_number(uint8_t n, uint8_t line) {
 }
 
 void clear_line(uint8_t line) {
+    if(line > 3) {
+        #ifdef CONFIG_DEBUG_PRINT
+        send_uart(USART3, "WARNING: line index exceeds buffer", 34);
+        send_uart(USART3, "\n\r", 2);
+        #endif
+
+        line = 3;
+    }
+    
     uint16_t line_index = line * (WIDTH * 2);
 
     memset(&display_buffer[line_index], 0, WIDTH);
