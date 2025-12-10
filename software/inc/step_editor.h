@@ -19,5 +19,6 @@ void clear_step(uint8_t sq, uint8_t step);
 void copy_step(step_t* temp_st, uint8_t* note_off_offsets, uint8_t sq, uint8_t st);
 void paste_step(step_t temp_st, uint8_t* note_off_offsets, uint8_t sq, uint8_t st);
 void display_step_notes(uint8_t sq, uint8_t st);
+void copy_steps(uint16_t dst_sq, uint16_t src_sq, uint8_t n);
 
 #endif // _STEP_EDITOR_H

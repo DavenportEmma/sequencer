@@ -363,3 +363,7 @@ void display_step_notes(uint8_t sq, uint8_t st) {
 
     update_display();
 }
+
+void copy_steps(uint16_t dst_sq, uint16_t src_sq, uint8_t n) {
+    memcpy(&steps[dst_sq*64], &steps[src_sq*64], n);
+}
