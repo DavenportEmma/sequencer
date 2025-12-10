@@ -53,7 +53,9 @@ typedef enum {
     S_TEMPO,
     S_SQ_PRESCALE,
     S_ST_COPY,
-    S_ST_PASTE
+    S_ST_PASTE,
+    S_SQ_COPY,
+    S_SQ_PASTE,
 } MenuState_t;
 
 typedef enum {
@@ -66,10 +68,12 @@ typedef enum {
     E_QUEUE = 0x07,
     E_SQ_EN = 0x08,
     E_BREAK = 0x09,
-    E_SQ_SELECT,
+    E_SQ_COPY = 0x0A,
+    E_SQ_PASTE = 0x0B,
     E_SQ_EDIT = 0x0C,
     E_SAVE = 0x0E,
     E_SQ_CLR = 0x0F,
+    E_SQ_SELECT,
     E_ST_SELECT,
     E_ST_COPY = 0x56,
     E_ST_PASTE = 0x57,
@@ -111,6 +115,8 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_MENU, E_QUEUE, S_QUEUE_TRIG_SEL},
     {S_SQ_MENU, E_BREAK, S_BREAK},
     {S_SQ_MENU, E_SQ_PRESCALE, S_SQ_PRESCALE},
+    {S_SQ_MENU, E_SQ_COPY, S_SQ_COPY},
+    {S_SQ_MENU, E_SQ_PASTE, S_SQ_PASTE},
     
     {S_SQ_MIDI, E_MAIN_MENU, S_MAIN_MENU},
     {S_SQ_MIDI, E_ENCODER_UP, S_SQ_MIDI},
@@ -181,6 +187,10 @@ static const MenuTransition_t state_table[] = {
     {S_SQ_PRESCALE, E_ENCODER_DOWN, S_SQ_PRESCALE},
     {S_SQ_PRESCALE, E_ENCODER_UP, S_SQ_PRESCALE},
     {S_SQ_PRESCALE, E_MAIN_MENU, S_MAIN_MENU},
+
+    {S_SQ_COPY, E_AUTO, S_SQ_MENU},
+
+    {S_SQ_PASTE, E_AUTO, S_SQ_MENU},
 };
 
 #define STATE_TABLE_SIZE (sizeof(state_table) / sizeof(state_table[0]))

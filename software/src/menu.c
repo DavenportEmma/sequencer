@@ -708,6 +708,25 @@ static void st_copy_paste(uint16_t key, uint16_t hold) {
     menu(E_AUTO, E_NO_HOLD);
 }
 
+static void sq_copy_paste(uint16_t key, uint16_t hold) {
+    static uint8_t src;
+
+    switch(key) {
+        case E_SQ_COPY:
+            src = ACTIVE_SQ;
+            break;
+        case E_SQ_PASTE:
+            ;
+            uint8_t dst = ACTIVE_SQ;
+            copy_steps(dst, src, CONFIG_STEPS_PER_SEQUENCE);
+            break;
+        default:
+            break;
+    }
+
+    menu(E_AUTO, E_NO_HOLD);
+}
+
 /*
 the order of the elements in this array MUST be in the same order as the the 
 elements in MenuState_t enum defined in menu.h. I am dumb
@@ -738,7 +757,9 @@ StateMachine_t state_machine[] = {
     { S_TEMPO, tempo },
     { S_SQ_PRESCALE, sq_prescale},
     { S_ST_COPY, st_copy_paste },
-    { S_ST_PASTE, st_copy_paste }
+    { S_ST_PASTE, st_copy_paste },
+    { S_SQ_COPY, sq_copy_paste },
+    { S_SQ_PASTE, sq_copy_paste },
 };
 
 void menu(uint16_t key, uint16_t hold) {
