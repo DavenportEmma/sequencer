@@ -71,7 +71,8 @@ static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
             //     next = 0;
             // }
 
-            note_off[i] = note | 0x80;
+            note_off[i] = note;
+            // note_off[i] = note | 0x80;
 
             // note_off[next] = note_off[next] & 0x7F; 
             return;
