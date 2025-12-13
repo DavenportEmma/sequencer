@@ -38,24 +38,17 @@ static uint8_t note_matrix[NUM_VALID_NOTES];
     set the msb to 1 for the current note, and 0 for the next note so the
     sequencer knows which note to overwrite next
 */
-// TODO if we decide to do away with the circular buffer we should drop the
-// msb masking thing
+// TODO implement circular buffers
 static void fifo_push_note_on(step_t* s, int size, uint8_t note, uint8_t vel) {
     note_t* note_on = s->note_on;
 
     for(int i = 0; i < size; i++) {
         uint8_t n = note_on[i].note;
 
-        if((n & 0x80) == 0) {
-            // uint8_t next = i+1;
-            // if(i == size) {
-            //     next = 0;
-            // }
-
-            note_on[i].note = note | 0x80;
+        if(n == 0) {
+            note_on[i].note = note;
             note_on[i].velocity = vel;
 
-            // note_on[next].note = note_on[next].note & 0x7F; 
             return;
         }
     }
@@ -69,16 +62,8 @@ static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
     uint8_t* note_off = s->note_off;
 
     for(int i = 0; i < size; i++) {
-        if((note_off[i] & 0x80) == 0) {
-            // uint8_t next = i+1;
-            // if(i == size) {
-            //     next = 0;
-            // }
-
+        if(note_off[i] == 0) {
             note_off[i] = note;
-            // note_off[i] = note | 0x80;
-
-            // note_off[next] = note_off[next] & 0x7F; 
             return;
         }
     }
@@ -177,7 +162,7 @@ static uint8_t remove_note(step_t* s) {
     uint8_t deletions = 0;
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        uint8_t note_off = s->note_off[i] & 0x7F;
+        uint8_t note_off = s->note_off[i];
         uint8_t note_matrix_index = note_off - A0;
         
         // TODO have a look at this. this assumes note_off is always defragged
@@ -198,8 +183,8 @@ static uint8_t init_note_matrix(uint16_t step_index) {
     uint8_t num_notes = 0;
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        if((steps[step_index].note_on[i].note & 0x7F) != 0) {
-            uint8_t note_matrix_index = (steps[step_index].note_on[i].note & 0x7F) - A0;
+        if(steps[step_index].note_on[i].note != 0) {
+            uint8_t note_matrix_index = steps[step_index].note_on[i].note - A0;
             note_matrix[note_matrix_index] = 1;
             num_notes++;
         }
@@ -281,14 +266,14 @@ static void check_step(note_t* note_on_arr, step_t next_st, uint8_t* note_off_of
     uint8_t note_hash_table[C8-A0] = {0};
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        uint8_t note_off = next_st.note_off[i] & 0x7F;
+        uint8_t note_off = next_st.note_off[i];
         if(note_off != 0) {
             note_hash_table[note_off-A0] = 1;
         }
     }
 
     for(uint8_t i = 0; i < CONFIG_MAX_POLYPHONY; i++) {
-        uint8_t note_on = note_on_arr[i].note & 0x7F;
+        uint8_t note_on = note_on_arr[i].note;
 
         if(note_on != 0 && note_hash_table[note_on-A0]) {
             note_off_offsets[i] = step_distance;
