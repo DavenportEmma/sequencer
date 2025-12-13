@@ -142,16 +142,14 @@ void display_piano_roll() {
 }
 
 void show_note(uint8_t note) {
-    MIDINote_t n = note & 0x7F;
-
-    if(n > C8 || n < A0) {
+    if(note > C8 || note < A0) {
         return;
     }
 
     uint8_t line = 3;
     uint16_t line_index = line * (WIDTH * 2);
 
-    uint8_t note_class = n%12;
+    uint8_t note_class = note%12;
 
     switch(note_class) {
         // C, F
