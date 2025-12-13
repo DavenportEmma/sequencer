@@ -59,6 +59,10 @@ static void fifo_push_note_on(step_t* s, int size, uint8_t note, uint8_t vel) {
             return;
         }
     }
+
+    #ifdef CONFIG_DEBUG_PRINT
+    send_uart(USART3, "max polyphony reached\n\r", 23)
+    #endif
 }
 
 static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
@@ -78,6 +82,10 @@ static void fifo_push_note_off(step_t* s, int size, uint8_t note) {
             return;
         }
     }
+    
+    #ifdef CONFIG_DEBUG_PRINT
+    send_uart(USART3, "max polyphony reached\n\r", 23)
+    #endif
 }
 
 /*
