@@ -120,6 +120,8 @@ static uint8_t _find_last_bit(uint32_t field) {
             return i;
         }
     }
+
+    return 0xFF;
 }
 
 uint8_t find_last_bit(uint32_t* field) {
@@ -137,6 +139,8 @@ static uint8_t _find_first_bit(uint32_t field) {
             return i;
         }
     }
+
+    return 0xFF;
 }
 
 uint8_t find_first_bit(uint32_t* field) {
