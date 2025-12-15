@@ -12,6 +12,7 @@
 SemaphoreHandle_t flash_mutex, midi_uart_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
+TaskHandle_t saveTask;
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -31,7 +32,8 @@ int main(void) {
     all_channels_off(USART6);
 
     xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, 3, NULL);
-    xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 1, NULL);
+    xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 2, NULL);
+    xTaskCreate(save_task, "save task", 512, NULL, 1, &saveTask);
     vTaskStartScheduler();
     while(1){
 
