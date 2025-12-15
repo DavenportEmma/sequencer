@@ -336,7 +336,10 @@ static void st_menu(uint16_t key, uint16_t hold) {
             if(step.note_on[i].note >= A0 && step.note_on[i].note <= C8) {
                 p.note = step.note_on[i].note;
                 p.velocity = step.note_on[i].velocity;
-                send_midi_note(uart, &p);
+
+                #ifdef CONFIG_PLAY_ST_MENU_NOTE
+                    send_midi_note(uart, &p);
+                #endif
             }
         }
 
