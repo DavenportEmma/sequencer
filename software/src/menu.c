@@ -17,6 +17,7 @@
 extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 extern SemaphoreHandle_t midi_uart_mutex;
+extern TaskHandle_t saveTask;
 
 uint32_t SQ_MSEL_MASK[2];  // 64 bit field to identify multi selected sq
 uint32_t ST_MSEL_MASK[2];
@@ -545,7 +546,7 @@ static void save(uint16_t key, uint16_t hold) {
         send_uart(USART3, "saving\n\r", 8);
     #endif
 
-    save_data();
+    xTaskNotifyGive(saveTask);
 
     menu(E_AUTO, E_NO_HOLD);
 }
