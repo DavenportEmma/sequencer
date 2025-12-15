@@ -398,30 +398,12 @@ void save_data() {
     save_array(0x100, (uint8_t*)steps, sizeof(steps));
 }
 
-void play_notes(mbuf_handle_t mbuf, uint8_t port) {
+void play_notes(mbuf_handle_t mbuf, USART_TypeDef* port) {
     while(!mbuf_empty(mbuf)) {
         MIDIPacket_t p;
         mbuf_pop(mbuf, &p);
 
-        switch(port) {
-            case 0:
-                send_midi_note(USART1, &p);
-                break;
-            case 1:
-                send_midi_note(USART2, &p);
-                break;
-            case 2:
-                send_midi_note(UART4, &p);
-                break;
-            case 3:
-                send_midi_note(USART6, &p);
-                break;
-            default:
-                #ifdef CONFIG_DEBUG_PRINT
-                    send_uart(USART3, "incorrect port num\n\r", 20);
-                #endif
-                break;
-        }
+        send_midi_note(port, &p);
     }
 }
 

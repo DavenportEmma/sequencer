@@ -26,7 +26,7 @@ void load_sequences(UARTTaskParams_t* port_buffers, uint8_t num_ports);
 void break_sequence(uint8_t sq_index);
 void clear_sequence(uint8_t sq_index);
 void save_data();
-void play_notes(mbuf_handle_t m, uint8_t port);
+void play_notes(mbuf_handle_t m, USART_TypeDef* port);
 void set_midi_channel(uint8_t sq_index, MIDIChannel_t channel);
 MIDIChannel_t get_channel(uint8_t sq_index);
 uint8_t is_sq_enabled(uint8_t sq_index);
