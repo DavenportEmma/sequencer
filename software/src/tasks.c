@@ -11,6 +11,7 @@
 #include "k_buf.h"
 #include "rotary_encoder.h"
 #include "semphr.h"
+#include "uart.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
@@ -128,4 +129,20 @@ void key_scan_task(void *pvParameters) {
     }
 
     vTaskDelete(NULL);
+}
+
+void save_task(void *pvParameters) {
+    while(1) {
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+        #ifdef CONFIG_DEBUG_PRINT
+            send_uart(USART3, "saving data\n\r", 13);
+        #endif
+
+        save_data();
+
+        #ifdef CONFIG_DEBUG_PRINT
+            send_uart(USART3, "finished saving\n\r", 17);
+        #endif    
+    }
 }

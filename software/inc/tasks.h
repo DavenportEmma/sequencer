@@ -13,4 +13,6 @@ void sq_play_task();
 
 void key_scan_task();
 
+void save_task();
+
 #endif // _TASKS_H
