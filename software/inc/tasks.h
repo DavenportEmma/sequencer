@@ -4,7 +4,7 @@
 #include "m_buf.h"
 
 typedef struct {
-    uint8_t port;
+    USART_TypeDef* port;
     mbuf_handle_t note_on;
     mbuf_handle_t note_off;
 } UARTTaskParams_t;
