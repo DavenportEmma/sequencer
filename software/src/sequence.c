@@ -385,7 +385,7 @@ void save_data() {
 
     uint32_t addr = 0;
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        uint8_t tx[4] = {(uint8_t)sequences[i].channel, 0, 0, 0};
+        uint8_t tx[4] = {(uint8_t)sequences[i].channel, (uint8_t)sequences[i].prescale_value, 0, 0};
 
         flash_programPage(addr, tx, tx, 4);
 
