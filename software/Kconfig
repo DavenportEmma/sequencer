@@ -12,4 +12,8 @@ config AUTO_INC_STEP_ON_MIDI_IN
     bool "automatically increment the current step when a midi in packet is received"
     default y
 
+config PLAY_ST_MENU_NOTE
+    bool "when stepping through the steps of a sequence, play the note of the step"
+    default n
+
 endmenu # Sequencer Configuration
