@@ -803,9 +803,32 @@ void USART1_IRQHandler(void) {
                 p.note = uart_intr_kbuf->buffer[1];
                 p.velocity = uart_intr_kbuf->buffer[2];
                 
+                USART_TypeDef* port = USART1;
+
                 if(ACTIVE_SQ < CONFIG_TOTAL_SEQUENCES) {
                     p.status = uart_intr_kbuf->buffer[0] & 0xF0;
-                    p.channel = sequences[ACTIVE_SQ].channel;
+                    p.channel = sequences[ACTIVE_SQ].channel & 0x0F;
+
+                    switch(sequences[ACTIVE_SQ].channel & 0xF0) {
+                        case PORT_A:
+                            port = USART1;
+                            break;
+                        
+                        case PORT_B:
+                            port = USART2;
+                            break;
+                        
+                        case PORT_C:
+                            port = UART4;
+                            break;
+                    
+                        case PORT_D:
+                            port = USART1;
+                            break;
+
+                        default:
+                            break;
+                    }
                 } else {
                     p.status = uart_intr_kbuf->buffer[0];
                     p.channel = uart_intr_kbuf->buffer[0];
@@ -815,7 +838,7 @@ void USART1_IRQHandler(void) {
                     kbuf_reset(uart_intr_kbuf);
                 }
 
-                send_midi_note(USART1, &p);
+                send_midi_note(port, &p);
             }
         }
     }
