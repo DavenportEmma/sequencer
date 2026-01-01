@@ -16,4 +16,20 @@ config PLAY_ST_MENU_NOTE
     bool "when stepping through the steps of a sequence, play the note of the step"
     default n
 
+menu "Flash Storage Options"
+
+config METADATA_BASE_ADDR
+    int "base address for sequence metadata storage (midi channel/port, prescaer, etc)"
+    default 0    
+
+config METADATA_BYTES_PER_SEQ
+    int "number of bytes saved for each sequence in the metadata section of flash"
+    default 16
+
+config STEPS_BASE_ADDR
+    int "base address for sequence step data"
+    default 1024
+
+endmenu # Flash Storage Options
+
 endmenu # Sequencer Configuration
