@@ -32,21 +32,27 @@ static uint32_t queued_sequences[2];
 uint8_t init_sequences() {
     memset(enabled_sequences, 0, sizeof(uint32_t) * 2);
 
-    uint32_t addr = 0x000000;
+    uint32_t addr = CONFIG_METADATA_BASE_ADDR;
     // TODO handle this metadata shite
-    uint8_t metadata[256];
-    flash_SPIRead(addr, metadata, metadata, 256);
-
+    // it would be cool to read the data directly into the sequence array instead
+    // of using an inbetween buffer
+    uint8_t metadata[CONFIG_METADATA_BYTES_PER_SEQ] = {0};
+    
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        sequences[i].channel = metadata[i*4];
+
+        flash_SPIRead(addr, metadata, metadata, CONFIG_METADATA_BYTES_PER_SEQ);
+        sequences[i].channel = metadata[0];
+        sequences[i].prescale_value = metadata[1];
+        memcpy(sequences[i].enabled_steps, &metadata[2], sizeof(sequences[i].enabled_steps));
+
+        addr+=CONFIG_METADATA_BYTES_PER_SEQ;
     }
 
-    addr+=256;
-
-    flash_SPIRead(addr, (uint8_t*)steps, (uint8_t*)steps, sizeof(steps));
+    flash_SPIRead(CONFIG_STEPS_BASE_ADDR, (uint8_t*)steps, (uint8_t*)steps, sizeof(steps));
 
     return 0;
 }
+
 
 /*
     load the notes contained in the step into the note_on and note_off buffers
@@ -379,19 +385,22 @@ static void save_array(uint32_t base_addr, uint8_t* ptr, uint32_t size) {
 void save_data() {
     flash_eraseChip();
 
-    uint32_t addr = 0;
+    uint32_t addr = CONFIG_METADATA_BASE_ADDR;
+
+    uint8_t tx[CONFIG_METADATA_BYTES_PER_SEQ];
+
     for(int i = 0; i < CONFIG_TOTAL_SEQUENCES; i++) {
-        uint8_t tx[4] = {(uint8_t)sequences[i].channel, (uint8_t)sequences[i].prescale_value, 0, 0};
+        memset(tx, 0, sizeof(tx));
+        tx[0] = (uint8_t)sequences[i].channel;
+        tx[1] = (uint8_t)sequences[i].prescale_value;
+        memcpy(&tx[2], sequences[i].enabled_steps, sizeof(sequences[i].enabled_steps));
 
-        flash_programPage(addr, tx, tx, 4);
+        flash_programPage(addr, tx, tx, CONFIG_METADATA_BYTES_PER_SEQ);
 
-        addr+=4;
-        if(addr >= 256) {
-            break;
-        }
+        addr+=CONFIG_METADATA_BYTES_PER_SEQ;
     }
 
-    save_array(0x100, (uint8_t*)steps, sizeof(steps));
+    save_array(CONFIG_STEPS_BASE_ADDR, (uint8_t*)steps, sizeof(steps));
 }
 
 void play_notes(mbuf_handle_t mbuf, USART_TypeDef* port) {
