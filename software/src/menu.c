@@ -788,6 +788,36 @@ void menu(uint16_t key, uint16_t hold) {
     }
 }
 
+USART_TypeDef* getActivePort() {
+    if(ACTIVE_SQ < CONFIG_TOTAL_SEQUENCES) {
+        switch(sequences[ACTIVE_SQ].channel & 0xF0) {
+            case PORT_A:
+                return USART1;
+            
+            case PORT_B:
+                return USART2;
+            
+            case PORT_C:
+                return UART4;
+        
+            case PORT_D:
+                return USART6;
+
+            default:
+                return USART1;
+        }
+    }
+
+    return USART1;
+}
+
+static MIDIChannel_t getActiveChannel() {
+    if(ACTIVE_SQ < CONFIG_TOTAL_SEQUENCES) {
+        return sequences[ACTIVE_SQ].channel & 0x0F;
+    }
+
+    return NO_CHANNEL;
+}
 
 void USART1_IRQHandler(void) {
     if(USART1->ISR & USART_ISR_RXNE) {
