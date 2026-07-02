@@ -12,12 +12,15 @@
 #include "rotary_encoder.h"
 #include "semphr.h"
 #include "uart.h"
+#include "queue.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
+#define EXT_MIDI_BUFF_SIZE 3
 kbuf_handle_t uart_intr_kbuf;
 
 extern SemaphoreHandle_t midi_uart_mutex;
+extern QueueHandle_t midiControllerQueue;
 
 // this is updated in menu.c tempo state
 volatile float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
@@ -98,8 +101,8 @@ void key_scan_task(void *pvParameters) {
         uart_intr_buf is a vector style buffer for recieving midi commands from
         a midi controller
     */
-    uint8_t uart_intr_buf[3];
-    uart_intr_kbuf = kbuf_init(uart_intr_buf, 3);
+    uint8_t uart_intr_buf[EXT_MIDI_BUFF_SIZE];
+    uart_intr_kbuf = kbuf_init(uart_intr_buf, EXT_MIDI_BUFF_SIZE);
     kbuf_reset(uart_intr_kbuf);
 
     while(1) {
@@ -144,5 +147,20 @@ void save_task(void *pvParameters) {
         #ifdef CONFIG_DEBUG_PRINT
             send_uart(USART3, "finished saving\n\r", 17);
         #endif    
+    }
+}
+
+void midi_stream_task(void *pvParameters) {
+    char byte;
+
+    while(1) {
+        if(xQueueReceive(midiControllerQueue, &byte, portMAX_DELAY) == pdTRUE) {
+            USART_TypeDef *port = getActivePort();
+            // TODO need to take the mutex so it doesn't fuck with the sequences
+            // that are being played. Maybe have a timer that starts with each
+            // status byte that is sent. The mutex will be reserved for that
+            // length of time
+            send_uart(port, &byte, 1);
+        }
     }
 }
