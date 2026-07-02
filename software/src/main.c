@@ -8,11 +8,23 @@
 #include <string.h>
 #include "sequence.h"
 #include "stm32f722xx.h"
+#include "queue.h"
+#include "timers.h"
+#include "uart.h"
 
 SemaphoreHandle_t flash_mutex, midi_uart_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 TaskHandle_t saveTask;
+QueueHandle_t midiControllerQueue;
+TimerHandle_t midiStreamMutexTimer;
+
+volatile uint8_t midi_uart_mutex_held = 0;
+
+void vTimerCallback(TimerHandle_t xTimer) {
+    xSemaphoreGive(midi_uart_mutex);
+    midi_uart_mutex_held = 0;
+}
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -21,6 +33,13 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
 int main(void) {
     flash_mutex = xSemaphoreCreateMutex();
     midi_uart_mutex = xSemaphoreCreateMutex();
+    midiControllerQueue = xQueueCreate(32, sizeof(uint8_t));
+    midiStreamMutexTimer = xTimerCreate
+                 ( "midiStreamMutexTimer",
+                   pdMS_TO_TICKS(CONFIG_MIDI_STREAM_MUTEX_TIMER_MS),
+                   pdFALSE,
+                   (void *)0,
+                    vTimerCallback);
     
     memset(sequences, 0, sizeof(sequences));
     memset(steps, 0, sizeof(steps));
@@ -34,6 +53,7 @@ int main(void) {
     xTaskCreate(sq_play_task, "sq_play_task", 2048, NULL, 3, NULL);
     xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 2, NULL);
     xTaskCreate(save_task, "save task", 512, NULL, 1, &saveTask);
+    xTaskCreate(midi_stream_task, "midi_stream_task", 512, NULL, 4, NULL);
     vTaskStartScheduler();
     while(1){
 

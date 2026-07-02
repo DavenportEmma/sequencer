@@ -16,6 +16,15 @@ config PLAY_ST_MENU_NOTE
     bool "when stepping through the steps of a sequence, play the note of the step"
     default n
 
+config MIDI_STREAM
+    bool "allow any external midi controller to play through the Sequencer"
+    default n
+
+config MIDI_STREAM_MUTEX_TIMER_MS
+    int "how long the midi mutex should be held while streaming midi information"
+    depends on MIDI_STREAM
+    default 10
+
 menu "Flash Storage Options"
 
 config METADATA_BASE_ADDR

@@ -202,4 +202,6 @@ typedef struct {
 
 void menu(uint16_t key, uint16_t hold);
 
+USART_TypeDef* getActivePort();
+
 #endif // _MENU_H

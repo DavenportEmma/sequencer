@@ -15,4 +15,6 @@ void key_scan_task();
 
 void save_task();
 
+void midi_stream_task();
+
 #endif // _TASKS_H

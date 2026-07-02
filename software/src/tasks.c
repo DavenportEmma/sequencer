@@ -12,12 +12,17 @@
 #include "rotary_encoder.h"
 #include "semphr.h"
 #include "uart.h"
+#include "queue.h"
 
 #define NOTE_BUFFER_SIZE (CONFIG_MAX_SEQUENCES * CONFIG_MAX_POLYPHONY)
 
+#define EXT_MIDI_BUFF_SIZE 3
 kbuf_handle_t uart_intr_kbuf;
 
 extern SemaphoreHandle_t midi_uart_mutex;
+extern QueueHandle_t midiControllerQueue;
+extern TimerHandle_t midiStreamMutexTimer;
+extern uint8_t midi_uart_mutex_held;
 
 // this is updated in menu.c tempo state
 volatile float TEMPO_PERIOD_MS = 15000/(CONFIG_TEMPO);
@@ -98,8 +103,8 @@ void key_scan_task(void *pvParameters) {
         uart_intr_buf is a vector style buffer for recieving midi commands from
         a midi controller
     */
-    uint8_t uart_intr_buf[3];
-    uart_intr_kbuf = kbuf_init(uart_intr_buf, 3);
+    uint8_t uart_intr_buf[EXT_MIDI_BUFF_SIZE];
+    uart_intr_kbuf = kbuf_init(uart_intr_buf, EXT_MIDI_BUFF_SIZE);
     kbuf_reset(uart_intr_kbuf);
 
     while(1) {
@@ -144,5 +149,49 @@ void save_task(void *pvParameters) {
         #ifdef CONFIG_DEBUG_PRINT
             send_uart(USART3, "finished saving\n\r", 17);
         #endif    
+    }
+}
+
+static void resetTimer() {
+    /*
+        why am I using this instead of xTimerIsTimerActive?
+        xTimerReset doesn't synchronously update the timer's state. It just
+        posts a command onto the timer command queue which the timer service
+        daemon processes whenever it runs next.
+        xTimerIsTimerActive() only reflects the timer's actual internal state
+        which isn't updated until the daemon task dequeues and processes the
+        reset command.
+        So the sequence for a fast-arriving MIDI packet can look like this:
+        Byte 1 arrives → xTimerIsTimerActive() returns pdFALSE → you take the
+        mutex → you call xTimerReset(), which just enqueues a "reset" command
+        for the daemon task.
+        Byte 2 arrives a few hundred microseconds later, before the timer daemon
+        task has actually run and processed that command → xTimerIsTimerActive()
+        still returns pdFALSE (the timer hasn't started yet from FreeRTOS's
+        point of view) → you take the mutex again → deadlock/blocks forever on
+        portMAX_DELAY, or double-take if it's recursive.
+
+        This window depends entirely on the daemon task's priority relative to
+        midi_stream_task and how busy it is — which is why it feels
+        intermittent/timing-dependent rather than deterministic.
+    */
+    if(!midi_uart_mutex_held) {
+        xSemaphoreTake(midi_uart_mutex, portMAX_DELAY);
+        midi_uart_mutex_held = 1;
+    }   
+    
+    xTimerReset(midiStreamMutexTimer, 0);
+}
+
+
+void midi_stream_task(void *pvParameters) {
+    char byte;
+
+    while(1) {
+        if(xQueueReceive(midiControllerQueue, &byte, portMAX_DELAY) == pdTRUE) {
+            USART_TypeDef *port = getActivePort();
+            resetTimer();
+            send_uart(port, &byte, 1);
+        }
     }
 }
