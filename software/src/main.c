@@ -19,8 +19,11 @@ TaskHandle_t saveTask;
 QueueHandle_t midiControllerQueue;
 TimerHandle_t midiStreamMutexTimer;
 
+volatile uint8_t midi_uart_mutex_held = 0;
+
 void vTimerCallback(TimerHandle_t xTimer) {
     xSemaphoreGive(midi_uart_mutex);
+    midi_uart_mutex_held = 0;
 }
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
