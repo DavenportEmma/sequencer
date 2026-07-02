@@ -11,6 +11,7 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "stm32f722xx.h"
+#include "queue.h"
 
 #define CONFIG_DEBUG_PRINT
 
@@ -18,6 +19,7 @@ extern kbuf_handle_t uart_intr_kbuf;
 extern MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 extern SemaphoreHandle_t midi_uart_mutex;
 extern TaskHandle_t saveTask;
+extern QueueHandle_t midiControllerQueue;
 
 uint32_t SQ_MSEL_MASK[2];  // 64 bit field to identify multi selected sq
 uint32_t ST_MSEL_MASK[2];
@@ -390,7 +392,10 @@ static void st_note(uint16_t key, uint16_t hold) {
         note = key_to_note(key);
     }
     
-    // key to note returns 0 for a keystroke outside of 13 key keyboard
+    // because the E_ST_NOTE event doesn't have a single value, a key stroke
+    // from elsewhere on the keyboard may trigger this event. key_to_note
+    // returns 0 for key strokes outide of the onboard 13 note keyboard and this
+    // check prevents incorrect keystrokes from editing the step note
     if(note > 0 && status == NOTE_ON) {
         uint8_t start_step = find_first_bit(ST_MSEL_MASK);
         if(start_step != 0xFF) {
@@ -819,57 +824,58 @@ static MIDIChannel_t getActiveChannel() {
     return NO_CHANNEL;
 }
 
+static uint8_t midiBufferIsValid(kbuf_handle_t kbuf) {
+    MIDIStatus_t status = uart_intr_kbuf->buffer[0];
+    MIDINote_t note = uart_intr_kbuf->buffer[1]; 
+    uint8_t vel = uart_intr_kbuf->buffer[2];
+
+    if( kbuf_size(kbuf) == 3 &&
+        status == NOTE_ON &&
+        note >= A0 &&
+        note <= C8 &&
+        vel <= 127
+    ) {
+        return 1;
+    }
+
+    return 0;
+}
+
 void USART1_IRQHandler(void) {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
     if(USART1->ISR & USART_ISR_RXNE) {
         while(USART1->ISR & (USART_ISR_RXNE | USART_ISR_ORE)) {
-            uint8_t d = USART1->RDR;
-            kbuf_push(uart_intr_kbuf, d);
-            
-            if(kbuf_size(uart_intr_kbuf) >= 3) {
-                USART1->ICR |= USART_ICR_ORECF;
-                uart_intr_kbuf->ready = 1;
+            uint8_t byte = USART1->RDR;
 
-                MIDIPacket_t p;
-                p.note = uart_intr_kbuf->buffer[1];
-                p.velocity = uart_intr_kbuf->buffer[2];
-                
-                USART_TypeDef* port = USART1;
+            if(byte & 0x80) {
+                MIDIChannel_t channel = getActiveChannel();
+                MIDIStatus_t status = byte & 0xF0;
 
-                if(ACTIVE_SQ < CONFIG_TOTAL_SEQUENCES) {
-                    p.status = uart_intr_kbuf->buffer[0] & 0xF0;
-                    p.channel = sequences[ACTIVE_SQ].channel & 0x0F;
-
-                    switch(sequences[ACTIVE_SQ].channel & 0xF0) {
-                        case PORT_A:
-                            port = USART1;
-                            break;
-                        
-                        case PORT_B:
-                            port = USART2;
-                            break;
-                        
-                        case PORT_C:
-                            port = UART4;
-                            break;
-                    
-                        case PORT_D:
-                            port = USART1;
-                            break;
-
-                        default:
-                            break;
-                    }
-                } else {
-                    p.status = uart_intr_kbuf->buffer[0];
-                    p.channel = uart_intr_kbuf->buffer[0];
+                if(channel != NO_CHANNEL) {
+                    byte = status | channel;
                 }
 
-                if(current_state != S_ST_MENU) {
+                if(status == NOTE_ON) {
                     kbuf_reset(uart_intr_kbuf);
+                    kbuf_push(uart_intr_kbuf, status);
                 }
-
-                send_midi_note(port, &p);
+            } else {
+                kbuf_push(uart_intr_kbuf, byte);
             }
+
+            if(midiBufferIsValid(uart_intr_kbuf)) {
+                uart_intr_kbuf->ready = 1;
+            }
+
+            #ifdef CONFIG_MIDI_STREAM
+            xQueueSendFromISR(midiControllerQueue, &byte, &xHigherPriorityTaskWoken);
+            #endif
+
+            USART1->ICR |= USART_ICR_ORECF;
+          
         }
     }
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
