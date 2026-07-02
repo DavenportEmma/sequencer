@@ -864,9 +864,7 @@ void USART1_IRQHandler(void) {
                 kbuf_push(uart_intr_kbuf, byte);
             }
 
-            if(midiBufferIsValid(uart_intr_kbuf)) {
-                uart_intr_kbuf->ready = 1;
-            }
+            uart_intr_kbuf->ready = midiBufferIsValid(uart_intr_kbuf);
 
             #ifdef CONFIG_MIDI_STREAM
             xQueueSendFromISR(midiControllerQueue, &byte, &xHigherPriorityTaskWoken);
