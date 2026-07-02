@@ -9,12 +9,19 @@
 #include "sequence.h"
 #include "stm32f722xx.h"
 #include "queue.h"
+#include "timers.h"
+#include "uart.h"
 
 SemaphoreHandle_t flash_mutex, midi_uart_mutex;
 MIDISequence_t sequences[CONFIG_TOTAL_SEQUENCES];
 step_t steps[CONFIG_TOTAL_SEQUENCES * CONFIG_STEPS_PER_SEQUENCE];
 TaskHandle_t saveTask;
 QueueHandle_t midiControllerQueue;
+TimerHandle_t midiStreamMutexTimer;
+
+void vTimerCallback(TimerHandle_t xTimer) {
+    xSemaphoreGive(midi_uart_mutex);
+}
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
     __disable_irq();
@@ -24,6 +31,12 @@ int main(void) {
     flash_mutex = xSemaphoreCreateMutex();
     midi_uart_mutex = xSemaphoreCreateMutex();
     midiControllerQueue = xQueueCreate(32, sizeof(uint8_t));
+    midiStreamMutexTimer = xTimerCreate
+                 ( "midiStreamMutexTimer",
+                   pdMS_TO_TICKS(CONFIG_MIDI_STREAM_MUTEX_TIMER_MS),
+                   pdFALSE,
+                   (void *)0,
+                    vTimerCallback);
     
     memset(sequences, 0, sizeof(sequences));
     memset(steps, 0, sizeof(steps));
